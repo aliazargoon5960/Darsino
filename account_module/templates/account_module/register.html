@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block page_title %}
+
+    ثبت نام
+
+{% endblock page_title %}
+
+
+{% block content %}
+
+    <section class="breadcrumb py-120 bg-main-25 position-relative z-1 overflow-hidden mb-0">
+    <img src="{% static "images/shapes/shape1.png" %}" alt="" class="shape one animation-rotation d-md-block d-none">
+    <img src="{% static "images/shapes/shape2.png" %}" alt="" class="shape two animation-scalation d-md-block d-none">
+    <img src="{% static "images/shapes/shape3.png" %}" alt="" class="shape eight animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape5.png" %}" alt="" class="shape six animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape four animation-scalation">
+    <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape nine animation-scalation">
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumb__wrapper">
+                    <h1 class="breadcrumb__title display-4 fw-semibold text-center"> ثبت نام</h1>
+                    <ul class="breadcrumb__list d-flex align-items-center justify-content-center gap-4">
+                        <li class="breadcrumb__item">
+                            <a href="{% url "home_module:home" %}" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> 
+                                <i class="text-lg d-inline-flex ph-bold ph-house"></i> خانه</a>
+                         </li>
+                        <li class="breadcrumb__item">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item">
+                            <a href="course.html" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> </a> 
+                        </li>
+                        <li class="breadcrumb__item d-none">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item"> 
+                            <span class="text-main-two-600"> ثبت نام </span> 
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==================== Breadcrumb End Here ==================== -->
+
+    <!-- ============================== Tutor Details Section Start ============================== -->
+    <div class="account py-120 position-relative">
+        <div class="container">
+            <div class="row gy-4 align-items-center">
+                <div class="col-lg-6">
+                    <div class="bg-main-25 border border-neutral-30 rounded-8 p-32">
+                        <div class="mb-40">
+                            <h3 class="mb-16 text-neutral-500">بزن بریم ...</h3>
+                            <p class="text-neutral-500">لطفاً برای شروع برنامه آنلاین ، آدرس ایمیل خود را وارد کنید</p>
+                        </div>
+                        <form method="post" action="{% url 'account_module:user_register' %}">
+                            {% csrf_token %}
+                            <div class="row gy-4">
+                                <div class="col-sm-6">
+                                    <label for="{{ form.first_name.id_for_label }}" class="fw-medium text-lg text-neutral-500 mb-16">{{ form.first_name.label }}</label>
+                                    {{ form.first_name|add_class:"common-input rounded-pill" }}
+                                    {% if form.first_name.errors %}
+                                        <div class="text-danger">{{ form.first_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="{{ form.last_name.id_for_label }}" class="fw-medium text-lg text-neutral-500 mb-16"> {{ form.last_name.label }} </label>
+                                    {{ form.last_name|add_class:"common-input rounded-pill" }}
+                                    {% if form.last_name.errors %}
+                                        <div class="text-danger">{{ form.last_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-12">
+                                    <label for="{{ form.email.id_for_label }}" class="fw-medium text-lg text-neutral-500 mb-16">{{ form.email.label }}</label>
+                                    {{ form.email|add_class:"common-input rounded-pill" }}
+                                    {% if form.email.errors %}
+                                        <div class="text-danger">{{ form.email.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-12">
+                                    <label for="{{ form.password.id_for_label }}" class="fw-medium text-lg text-neutral-500 mb-16">{{ form.password.label }}</label>
+                                    <div class="position-relative">
+                                        {{ form.password|add_class:"common-input rounded-pill pe-44" }}
+                                        <!-- اگه آیکون چشم داری می‌تونی اینجا بذاری -->
+                                    </div>
+                                    {% if form.password.errors %}
+                                        <div class="text-danger">{{ form.password.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-sm-12">
+                                    <p class="text-neutral-500 mt-8">حساب کاربری دارید؟
+                                        <a href="{% url "account_module:user_login" %}" class="fw-semibold text-main-600 hover-text-decoration-underline">ورود</a> 
+                                    </p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="mt-20">
+                                        <button type="submit" class="btn btn-main rounded-pill flex-center gap-8">
+                                            ثبت نام
+                                            <i class="ph-bold ph-arrow-up-right d-flex text-lg"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-lg-block d-none">
+                    <div class="account-img">
+                        <img src="{% static "images/thumbs/account-img.png" %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

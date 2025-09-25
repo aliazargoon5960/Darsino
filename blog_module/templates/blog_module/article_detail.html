@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_title %}
+
+    جزییات مقاله
+
+{% endblock page_title %}
+
+{% block content %}
+
+    <section class="breadcrumb py-120 bg-main-25 position-relative z-1 overflow-hidden mb-0">
+    <img src="{% static "images/shapes/shape1.png" %}" alt="" class="shape one animation-rotation d-md-block d-none">
+    <img src="{% static "images/shapes/shape2.png" %}" alt="" class="shape two animation-scalation d-md-block d-none">
+    <img src="{% static "images/shapes/shape3.png" %}" alt="" class="shape eight animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape5.png" %}" alt="" class="shape six animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape four animation-scalation">
+    <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape nine animation-scalation">
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumb__wrapper">
+                    <h1 class="breadcrumb__title display-4 fw-semibold text-center"> جزئیات وبلاگ</h1>
+                    <ul class="breadcrumb__list d-flex align-items-center justify-content-center gap-4">
+                        <li class="breadcrumb__item">
+                            <a href="{% url "home_module:home" %}" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> 
+                                <i class="text-lg d-inline-flex ph-bold ph-house"></i> خانه</a>
+                         </li>
+                        <li class="breadcrumb__item">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item">
+                            <a href="course.html" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> </a> 
+                        </li>
+                        <li class="breadcrumb__item d-none">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item"> 
+                            <span class="text-main-two-600"> جزئیات وبلاگ </span> 
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==================== Breadcrumb End Here ==================== -->
+
+    <!-- ================================ جزئیات وبلاگ Section Start =================================== -->
+     <div class="blog-page-section py-120">
+        <div class="container">
+            <div class="flex-between gap-16 flex-wrap mb-40">
+                <div class="flex-align gap-16">
+                    <button type="button" class="list-bar-btn text-xl w-40 h-40 bg-main-600 text-white rounded-8 flex-center d-lg-none">
+                        <i class="ph-bold ph-funnel"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row gy-4">
+                <div class="col-lg-8">
+                    <div class="bg-main-25 rounded-16 p-12 border border-neutral-30">
+                        <div class="rounded-12 overflow-hidden position-relative">
+                            <img src="{{ article.image.url }}" alt="Course Image" class="rounded-12 cover-img transition-2">
+                        </div>
+                        <div class="pt-32 pb-24 px-16 position-relative">
+                        <div class="flex-align gap-14 flex-wrap mb-20">
+                            <div class="flex-align gap-8">
+                                <img src="{{ article.author.image.url }}" alt="author Image" class="w-32 h-32 object-fit-cover rounded-circle">
+                                <span class="text-neutral-500 text-lg"> {{ article.author.fullname }} </span>
+                            </div>
+                            <span class="w-8 h-8 bg-neutral-100 rounded-circle"></span>
+                        </div>
+                        <h2 class="mb-24"> {{ article.title }} </h2>
+                        <p class="text-neutral-500 mb-32"> {{ article.description }} </p>
+                     
+                    </div>                                        
+                </div>
+            </div>
+
+    
+    <!-- ================================= Certificate Section Start ================================= -->
+<div class="certificate">
+    <div class="container container--lg">
+        <div class="certificate-box px-16 bg-main-600 rounded-16">
+            <div class="container">
+                <div class="position-relative py-80">
+                    <div class="row align-items-center">
+                        <div class="col-xl-6">
+                            <div class="certificate__content">
+                                <div class="flex-align gap-8 mb-16 wow bounceInDown">
+                                    <span class="w-8 h-8 bg-white rounded-circle"></span>
+                                    <h5 class="text-white mb-0">گواهی مهارت بگیرید</h5>
+                                </div>
+                                <h2 class="text-white mb-40 fw-medium wow bounceIn">گواهینامه مهارت حرفه ای خود را از اجوآل دریافت کنید</h2>
+                                <a href="#" class="btn btn-white rounded-pill flex-align d-inline-flex gap-8 hover-bg-main-800 wow bounceInUp">
+                                    همین الان شروع کن
+                                    <i class="ph-bold ph-arrow-up-right d-flex text-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 d-xl-block d-none">
+                            <div class="certificate__thumb" data-aos="fade-up-left">    
+                                <img src="{% static "images/thumbs/certificate-img.png" %}" alt="" data-tilt data-tilt-max="8" data-tilt-speed="500" data-tilt-perspective="5000" data-tilt-full-page-listening>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+<!-- ================================= Certificate Section End ================================= -->
+
+
+{% endblock content %}
+

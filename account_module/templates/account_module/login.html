@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block page_title %}
+
+    ورود
+
+{% endblock page_title %}
+
+{% block content %}
+
+    <section class="breadcrumb py-120 bg-main-25 position-relative z-1 overflow-hidden mb-0">
+    <img src="{% static "images/shapes/shape1.png" %}" alt="" class="shape one animation-rotation d-md-block d-none">
+    <img src="{% static "images/shapes/shape2.png" %}" alt="" class="shape two animation-scalation d-md-block d-none">
+    <img src="{% static "images/shapes/shape3.png" %}" alt="" class="shape eight animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape5.png" %}" alt="" class="shape six animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape four animation-scalation">
+    <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape nine animation-scalation">
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumb__wrapper">
+                    <h1 class="breadcrumb__title display-4 fw-semibold text-center"> ورود کاربر</h1>
+                    <ul class="breadcrumb__list d-flex align-items-center justify-content-center gap-4">
+                        <li class="breadcrumb__item">
+                            <a href="{% url "home_module:home" %}" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> 
+                                <i class="text-lg d-inline-flex ph-bold ph-house"></i> خانه</a>
+                         </li>
+                        <li class="breadcrumb__item">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item">
+                            <a href="course.html" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> </a> 
+                        </li>
+                        <li class="breadcrumb__item d-none">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item"> 
+                            <span class="text-main-two-600"> ورود کاربر </span> 
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+    <!-- ============================== Tutor Details Section Start ============================== -->
+    <div class="account py-120 position-relative">
+        <div class="container">
+            <div class="row gy-4 align-items-center">
+                <div class="col-lg-6">
+                    <div class="bg-main-25 border border-neutral-30 rounded-8 p-32">
+                        <div class="mb-40">
+                            <h3 class="mb-16 text-neutral-500">خوش برگشتی</h3>
+                            <p class="text-neutral-500">وارد اکانت بشید و از آموزش لذت ببرید</p>
+                        </div>
+
+                        {% if form.non_field_errors %}
+                            <div class="text-danger mb-16">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+                        
+                        <form method="post" action="{% url 'account_module:user_login' %}">
+                            {% csrf_token %}
+                            <div class="mb-24">
+                                <label for="{{ form.email.id_for_label }}" class="fw-medium text-lg text-neutral-500 mb-16"> {{ form.email.label }} </label>
+                                {{ form.email|add_class:"common-input rounded-pill" }}
+                                {% if form.email.errors %}
+                                    <div class="text-danger">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-16">
+                                <label for="{{ form.password.id_for_label }}" class="fpeyda fw-medium text-lg text-neutral-500 mb-16">{{ form.password.label }}</label>
+                                <div class="position-relative">
+                                        <div class="position-relative">
+                                        {{ form.password|add_class:"common-input rounded-pill pe-44" }}
+                                        
+                                    </div>
+                                    {% if form.password.errors %}
+                                        <div class="text-danger">{{ form.password.errors }}</div>
+                                    {% endif %}
+                                    <span class="toggle-password position-absolute top-50 inset-inline-end-0 me-16 translate-middle-y ph-bold ph-eye-closed" id="#password"></span>
+                                </div>
+                            </div>
+                            <div class="mb-16 text-end">
+                                <a href="javascript:void(0)" class="text-warning-600 hover-text-decoration-underline">پسورد</a>
+                            </div>
+                            <div class="mb-16">
+                                <p class="text-neutral-500">هنوز ثبت نام نکرده اید؟
+                                    <a href="{% url "account_module:user_register" %}" class="fw-semibold text-main-600 hover-text-decoration-underline">ثبت نام</a> 
+                                </p>
+                            </div>
+                            <div class="mt-40">
+                                <button type="submit" class="btn btn-main rounded-pill flex-center gap-8 mt-40">
+                                    ورود  
+                                    <i class="ph-bold ph-arrow-up-right d-flex text-lg"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-lg-block d-none">
+                    <div class="account-img">
+                        <img src="{% static "images/thumbs/account-img.png" %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================== Tutor Details Section End ============================== -->
+
+
+{% endblock content %}

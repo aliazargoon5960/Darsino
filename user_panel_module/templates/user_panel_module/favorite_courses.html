@@ -1,0 +1,108 @@
+{% extends "user_panel_base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block page_title %}
+
+    دوره های من
+
+{% endblock page_title %}
+
+
+{% block content %}
+
+    <!-- ==================== Breadcrumb Start Here ==================== -->
+    {% comment %} <section class="breadcrumb py-120 bg-main-25 position-relative z-1 overflow-hidden mb-0">
+        <img src="{% static "images/shapes/shape1.png" %}" alt="" class="shape one animation-rotation d-md-block d-none">
+        <img src="{% static "images/shapes/shape2.png" %}" alt="" class="shape two animation-scalation d-md-block d-none">
+        <img src="{% static "images/shapes/shape3.png" %}" alt="" class="shape eight animation-walking d-md-block d-none">
+        <img src="{% static "images/shapes/shape5.png" %}" alt="" class="shape six animation-walking d-md-block d-none">
+        <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape four animation-scalation">
+        <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape nine animation-scalation">
+        
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="breadcrumb__wrapper">
+                        <h1 class="breadcrumb__title display-4 fw-semibold text-center">  دوره های مورد علاقه من </h1>
+                        <ul class="breadcrumb__list d-flex align-items-center justify-content-center gap-4">
+                            <li class="breadcrumb__item">
+                                <a href="{% url "home_module:home" %}" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> 
+                                    <i class="text-lg d-inline-flex ph-bold ph-house"></i> خانه</a>
+                            </li>
+                            <li class="breadcrumb__item">
+                                <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                            </li>
+                            <li class="breadcrumb__item">
+                                <a href="{% url "course:course_list" %}" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> دوره ها</a> 
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+    <!-- ==================== Breadcrumb End Here ==================== -->
+
+
+
+        <!-- ============================== Course نمای شبکه ای Section Start ============================== -->
+    <section class="course-grid-view py-120">
+        <div class="container">
+            <div class="row gy-4">
+                {% for cours in course %}
+                <div class="col-lg-4 col-sm-6">
+                    <div class="course-item bg-main-25 rounded-16 p-12 h-100 border border-neutral-30">
+                        <div class="course-item__thumb rounded-12 overflow-hidden position-relative">
+                            <a href="{{ cours.get_absolute_url }}" class="w-100 h-100">
+                                <img src="{{ cours.image.url }}" alt="Course Image" class="course-item__img rounded-12 cover-img transition-2">
+                            </a>
+                        </div>
+                        <div class="course-item__content">
+                            <div class="">
+                                <h4 class="mb-28">
+                                    <a href="{{ cours.get_absolute_url }}" class="link text-line-2"> {{ cours.title }} </a>
+                                </h4>
+                                <div class="flex-between gap-8 flex-wrap mb-16">
+                                    <div class="flex-align gap-8">
+                                        <span class="text-neutral-700 text-2xl d-flex"><i class="ph-bold ph-video-camera"></i></span>
+                                        <span class="text-neutral-700 text-lg fw-medium"> {{ cours.duration }} ساعت</span>
+                                    </div>
+                                    <div class="flex-align gap-8">
+                                        <span class="text-neutral-700 text-2xl d-flex"><i class="ph-bold ph-chart-bar"></i></span>
+                                       {% if cours.level == 'beginner' %}مبتدی{% elif cours.level == 'intermediate' %}متوسط{% else %}حرفه‌ای{% endif %}
+                                    </div>
+                                </div>
+                                <div class="flex-between gap-8 flex-wrap">
+                                    <div class="flex-align gap-8">
+                                        <span class="text-neutral-700 text-2xl d-flex">
+                                            <img src="{{ cours.teacher.image.url }}" alt="User Image" class="w-32 h-32 object-fit-cover rounded-circle">
+                                        </span>
+                                        <a href="{{ cours.teacher.get_absolute_url }}" class="text-neutral-700 text-lg fw-medium">{{ cours.teacher.fullname }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-between gap-8 pt-24 border-top border-neutral-50 mt-28 border-dashed border-0">
+                                <h4 class="mb-0 text-main-two-600"> {{ cours.price|smart_price }} </h4>
+                                {% if cours in request.user.fav_courses.all %}
+                                    <form action="{% url 'user_panel_module:del_course' cours.slug %}" method="post" class="delete-course-form"  style="margin: 0;">
+                                        {% csrf_token %}
+                                        <button type="submit" 
+                                            class="btn btn-danger rounded-pill fw-semibold px-24 py-10 transition-1"
+                                            style="font-size: 1rem; cursor: pointer; min-width: 140px;">
+                                            حذف از دوره‌های من
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+    </section>
+    <!-- ============================== Course نمای شبکه ای Section End ============================== -->
+
+
+
+{% endblock content %}

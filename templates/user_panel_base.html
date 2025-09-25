@@ -1,0 +1,275 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<!-- RTL by sitroweb.com/sites/eduall/demo-rtl/my-profile.html by Sitroweb team, Wed, 04 Jun 2025 13:27:14 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title -->
+    <title>  {% block page_title %}     {% endblock page_title %}  </title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static "images/logo/favicon.png" %}">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+    <!-- select2 -->
+    <link rel="stylesheet" href="{% static "css/select2.min.css" %}">
+    <!-- Slick -->
+    <link rel="stylesheet" href="{% static "css/slick.css" %}">
+    <!-- Slick -->
+    <link rel="stylesheet" href="{% static "css/magnific-popup.css" %}">
+    <!-- jquery-ui -->
+    <link rel="stylesheet" href="{% static "css/jquery-ui.css" %}">
+    <!-- plyr Css -->
+    <link rel="stylesheet" href="{% static "css/plyr.css" %}">
+    <!-- Editor js Toolbar Start -->
+    <link rel="stylesheet" href="{% static "css/editor-quill.css" %}">
+    <!-- animate -->
+    <link rel="stylesheet" href="{% static "css/animate.css" %}">
+    <!-- dataTables.dataTables -->
+    <link rel="stylesheet" href="{% static "css/dataTables.dataTables.min.css" %}">
+    
+    <link rel="stylesheet" href="{% static "css/aos.css" %}">
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+</head> 
+
+
+
+
+
+<body>
+    
+<!--==================== Preloader Start ====================-->
+  <div class="preloader">
+    <img src="{% static "images/icons/preloader.gif" %}" alt="">
+  </div>
+<!--==================== Preloader End ====================-->
+
+<!--==================== Overlay Start ====================-->
+<div class="overlay"></div>
+<!--==================== Overlay End ====================-->
+
+<!--==================== Sidebar Overlay End ====================-->
+<div class="side-overlay"></div>
+<!--==================== Sidebar Overlay End ====================-->
+
+<!-- ==================== Scroll to Top End Here ==================== -->
+<div class="progress-wrap">
+  <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+  </svg>
+</div>
+<!-- ==================== Scroll to Top End Here ==================== -->
+
+<!-- ==========my dashbord start=========== -->
+<div class="dashbord bg-main-25">
+    <div class="d-flex">
+        
+<!-- ========Dashdord Sidebar start======== -->
+<div class="dashboard-sidebar px-20 py-24 max-w-288-px bg-white w-100 border-end border-neutral-40 position-relative">
+    <a href="#">
+      <img src="{% static "images/logo/logo.png" %}" alt="" class="">
+    </a>
+    <span class="w-100 bg-neutral-40 mb-24 mt-24 h-1"></span>
+     <div class="overflow-x-auto">
+        <div class="scrollbar min-w-max"> 
+            <span class="text-neutral-500 fw-normal text-14 mb-8">خوش آمدید </span>
+               <ul>
+                   <li class="mb-8">
+                       <a href="{% url "user_panel_module:user_profile" %}" class="fw-medium d-flex align-items-center text-14 gap-8 text-neutral-500 hover-bg-main-600 px-24 py-10 hover-text-white rounded-12 item-hover flex-wrap {% if request.resolver_match.url_name == 'user_profile' %} text-main-80 bg-main-500 {% endif %}">
+                       <span class="text-16 text-main-600 item-hover__text transition-03"><i class="ph ph-user-circle"></i></span>
+                       حساب کاربری من</a>
+                   </li>
+                   <li class="mb-8">
+                       <a href="{% url "user_panel_module:edit_profile" %}" class="fw-medium d-flex align-items-center text-14 gap-8 text-neutral-500 hover-bg-main-600 px-24 py-10 hover-text-white rounded-12 item-hover flex-wrap {% if request.resolver_match.url_name == 'edit_profile' %} text-main-80 bg-main-500 {% endif %}">
+                       <span class="text-16 text-main-600 item-hover__text transition-03"><i class="ph ph-gear"></i></span>
+                        تنظیمات پروفایل</a>
+                   </li>
+                   <li class="mb-8">
+                       <a href="{% url "user_panel_module:user_course" %}" class="fw-medium d-flex align-items-center text-14 gap-8 text-neutral-500 hover-bg-main-600 px-24 py-10 hover-text-white rounded-12 item-hover flex-wrap {% if request.resolver_match.url_name == 'user_course' %} text-main-80 bg-main-500 {% endif %}">
+                       <span class="text-16 text-main-600 item-hover__text transition-03"><i class="ph ph-bookmark-simple"></i></span>
+                       دوره های مورد علاقه </a>
+                   </li>
+                    <li class="mb-8">
+                       <a href="{% url "cart_module:cart_detail" %}" class="fw-medium d-flex align-items-center text-14 gap-8 text-neutral-500 hover-bg-main-600 px-24 py-10 hover-text-white rounded-12 item-hover flex-wrap {% if request.resolver_match.url_name == 'cart_detail' %} text-main-80 bg-main-500 {% endif %}">
+                       <span class="text-16 text-main-600 item-hover__text transition-03"><i class="ph-bold ph-shopping-cart-simple"></i></span>
+                        سبد خرید </a>
+                   </li>
+                   <li class="mb-8">
+                       <a href="{% url "tickets_module:ticket_list" %}" class="fw-medium d-flex align-items-center text-14 gap-8 text-neutral-500 hover-bg-main-600 px-24 py-10 hover-text-white rounded-12 item-hover flex-wrap {% if request.resolver_match.url_name in 'ticket_list ticket_create ticket_detail' %}  text-main-80 bg-main-500 {% endif %}">
+                       <span class="text-16 text-main-600 item-hover__text transition-03"><i class="ph ph-sparkle"></i></span>
+                       تیکت</a>
+                   </li>
+               </ul>
+           </div>
+     </div>
+
+     <div class="position-absolute inset-block-end-0 inset-inline-start-0 pb-16 px-16 w-100">
+         <a href="{% url 'account_module:user_logout' %}" class=" text-14 fw-medium text-neutral-500 d-flex align-items-center gap-8  hover-bg-main-600 px-24 py-10 hover-text-white rounded-12 item-hover flex-wrap bg-white">
+             <span class="text-16 text-main-600 item-hover__text transition-03">
+                 <i class="ph ph-sign-out"></i>
+             </span>
+             خروج 
+         </a>
+     </div>
+</div>
+<!-- ========Dashdord Sidebar end======== -->
+
+
+<div class="dashbord-body my-profile flex-grow-1">
+<!-- =====messsage dashbord nab start======== -->
+<div class="px-24 py-16 bg-neutral-10 border-bottom border-neutral-40 w-100">
+    <div class="d-flex align-items-center justify-content-between gap-24 w-100">
+        <div class="d-flex align-items-center gap-24">
+            <button type="button" class="toggle-dashbord-button text-neutral-500 text-28 line-height-1 d-lg-none d-block">
+                <i class="ph-bold ph-list"></i>
+            </button>
+            <div class="max-w-357-px position-relative d-sm-block d-none">
+                <form action="#">
+                    <input type="text" placeholder="جستجو" class="ps-16 pe-36 py-9 border border-neutral-40 rounded-pill focus-visible-outline focus-border-main-600 text-14 line-height-1">
+                    <button type="button" class="w-28 h-28 bg-main-600 text-white text-16 rounded-circle justify-content-center align-items-center d-flex position-absolute top-50-percent translate-middle-y inset-inline-end-0-px me-4">
+                        <i class="ph-bold ph-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+            
+            <div class="header-right flex-align">        
+                <div class="user-menu-wrapper">
+                    <a href="javascript:void(0);" 
+                            class="info-action w-52 h-52 bg-main-25 hover-bg-main-600 border border-neutral-30 rounded-circle flex-center text-2xl text-neutral-500 hover-text-white hover-border-main-600" 
+                            id="userMenuToggle">
+
+                            {% if user.is_authenticated and user.image and user.image.url %}
+                            <img src="{{ user.image.url }}" 
+                                alt="پروفایل" 
+                                class="w-100 h-100 rounded-circle object-fit-cover">
+                        {% else %}
+                            <i class="ph ph-user-circle"></i>
+                        {% endif %}
+                    </a>
+                   
+                    <div class="user-dropdown-menu bg-white border rounded shadow position-absolute end-0 mt-2 py-2" style="display: none; min-width: 150px; z-index: 999;">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'account_module:user_logout' %}" class="dropdown-item px-4 py-2 text-neutral-700 hover-bg-main-600 hover-text-white d-block">خروج از حساب</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                
+
+                <button type="button" class="toggle-mobileMenu d-lg-none text-neutral-200 flex-center">
+                    <i class="ph ph-list"></i> 
+                </button>
+            </div>
+    </div>
+</div>
+<!-- =====message nab end======== -->
+
+         {% block content %}
+         
+         
+         
+         
+         {% endblock content %}
+
+
+
+          <!-- =========message profile footer start============== -->
+<div class="bg-neutral-20 border-neutral-40 border-top px-24 py-16 mt-auto">
+    <div class="d-flex align-items-center gap-24 justify-content-between flex-wrap">
+        <p class="fw-medium text-14 text-neutral-500">
+            فارسی سازی شده 
+            <a href="sitroweb.com" class="text-main-600 fw-medium">توسط سیترووب</a>.
+            ارائه در راست چین
+        </p>
+        <div class="d-flex align-items-center gap-24">
+            <a href="#" class="fw-medium text-14 text-neutral-500 hover-text-main-600">قوانین و مقررات</a>
+            <a href="#" class="fw-medium text-14 text-neutral-500 hover-text-main-600">قوانین و مقررات</a>
+        </div>
+    </div>
+</div>
+<!-- =========message profile footer end============== -->
+        </div>
+        <!-- ==========my dashbord end============ -->
+    </div>
+</div>
+
+
+
+
+{% comment %}  footer linls start  {% endcomment %}
+
+
+    <!-- Jquery js -->
+    <!-- <script src="assets/js/jquery-3.7.1.min.js"></script> -->
+    <script src="{% static "js/jquery-3.7.1.min.js" %}"></script>
+    <!-- Bootstrap Bundle Js -->
+    <script src="{% static "js/boostrap.bundle.min.js" %}"></script>
+    <!-- select2 Js -->
+    <script src="{% static "js/select2.min.js" %}"></script>
+    <!-- Phosphor Icon Js -->
+    <script src="{% static "js/phosphor-icon.js" %}"></script>
+    <!-- Slick js -->
+    <script src="{% static "js/slick.min.js" %}"></script>
+    <!-- Slick js -->
+    <script src="{% static "js/counter.min.js" %}"></script>
+    <!-- magnific popup -->
+    <script src="{% static "js/magnific-popup.min.js" %}"></script>
+    <!-- Jquery Ui js -->
+    <script src="{% static "js/jquery-ui.js" %}"></script>
+    <!-- marquee js -->
+    <script src="{% static "js/marquee.min.js" %}"></script>
+    <!-- react charts-->
+     <script src="{% static "js/apexcharts.js" %}"></script>
+    <!-- plyr Js -->
+    <script src="{% static "js/plyr.js" %}"></script>
+    <!-- vanilla Tilt -->
+    <!-- Editor js Toolbar Start -->
+    <script src="{% static "js/editor-quill.js" %}"></script>
+    <!-- dataTables -->
+    <script src="{% static "js/dataTables.min.js" %}"></script>
+    <!-- Tilt -->
+    <script src="{% static "js/vanilla-tilt.min.js" %}"></script>
+    <!-- wow -->
+    <script src="{% static "js/wow.min.js" %}"></script>
+
+    <script src="{% static "js/aos.js" %}"></script>
+    
+    <!-- main js -->
+    <script src="{% static "js/main.js" %}"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.getElementById("userMenuToggle");
+        const menu = document.querySelector(".user-dropdown-menu");
+
+        toggleBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        });
+
+        // بستن منو وقتی بیرون کلیک می‌کنی
+        document.addEventListener("click", function (e) {
+            if (!toggleBtn.contains(e.target) && !menu.contains(e.target)) {
+                menu.style.display = "none";
+            }
+        });
+    });
+</script>
+
+
+    
+
+
+
+</body>
+
+<!-- RTL by sitroweb.com/sites/eduall/demo-rtl/my-profile.html by Sitroweb team, Wed, 04 Jun 2025 13:27:14 GMT -->
+</html>

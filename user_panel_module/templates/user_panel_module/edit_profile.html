@@ -1,0 +1,209 @@
+{% extends "user_panel_base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block page_title %}
+
+    ویرایش پروفایل
+
+{% endblock page_title %}
+
+
+
+{% block content %}
+<div class="px-24 py-24">
+
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    
+    <div class="px-40 py-40 bg-white rounded-10 mb-24">
+        <h4 class="text-16 fw-medium text-neutral-700 mb-0 border-bottom-dashed pb-24">تنظیمات حساب کاربری</h4>
+        <div class="mt-24">
+            <form method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                
+                <h4 class="text-18 fw-normal text-neutral-700 mb-16">عکس پروفایل</h4>
+                <div class="avatar-upload border-bottom-dashed pb-24">
+                    <div class="d-flex align-items-center gap-40 flex-wrap">
+                        <div class="avatar-preview flex-shrink-0">
+                            <div id="imagePreview"
+                                 {% if form.instance.image %}
+                                     style="background-image: url({{ form.instance.image.url }});"
+                                 {% else %}
+                                     style="background-image: url({% static 'images/icons/Profile.png' %});"
+                                 {% endif %}>
+                            </div>
+                        </div>
+
+                        <div class="avatar-edit">
+                            {{ form.image|add_class:"visually-hidden"|attr:"accept:image/*"|attr:"id:id_image" }}
+                        </div>
+
+                        <div class="d-flex align-items-center gap-16 flex-wrap">
+                            <label for="id_image"
+                                   class="bg-main-600 px-24 py-12 rounded-12 fw-semibold text-16 text-white transition-04 hover-bg-main-700 cursor-pointer">
+                                ارسال تصویر
+                            </label>
+                            <button type="reset"
+                                    class="border-main-600 border px-24 py-12 rounded-12 fw-semibold text-16 text-main-600 hover-bg-main-50 transition-04">
+                                لغو
+                            </button>
+                        </div>
+
+                        {% if form.image.errors %}
+                            <div class="w-100 mt-12 text-danger text-14">
+                                {% for e in form.image.errors %}<div>{{ e }}</div>{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                
+                <div class="mt-24 row align-items-center gy-4 mb-24">
+                    <div class="col-lg-6">
+                        <h4 class="text-18 fw-medium text-neutral-700 mb-16">نام</h4>
+                        {{ form.first_name|add_class:"px-32 py-16 fw-normal text-14 text-neutral-700 w-100 bg-neutral-20 border-neutral-30 border rounded-14 focus-visible-outline focus-border-main-600" }}
+                        {% for e in form.first_name.errors %}<div class="mt-8 text-danger text-14">{{ e }}</div>{% endfor %}
+                    </div>
+                    <div class="col-lg-6">
+                        <h4 class="text-18 fw-medium text-neutral-700 mb-16">نام خانوادگی</h4>
+                        {{ form.last_name|add_class:"px-32 py-16 fw-normal text-14 text-neutral-700 w-100 bg-neutral-20 border-neutral-30 border rounded-14 focus-visible-outline focus-border-main-600" }}
+                        {% for e in form.last_name.errors %}<div class="mt-8 text-danger text-14">{{ e }}</div>{% endfor %}
+                    </div>
+                </div>
+
+                
+                <div class="w-100 mb-24">
+                    <h4 class="text-18 fw-medium text-neutral-700 mb-16">ایمیل و نام کاربری</h4>
+                    {{ form.email|add_class:"px-32 py-16 fw-normal text-14 text-neutral-700 w-100 bg-neutral-20 border-neutral-30 border rounded-14 focus-visible-outline focus-border-main-600" }}
+                    {% for e in form.email.errors %}<div class="mt-8 text-danger text-14">{{ e }}</div>{% endfor %}
+                </div>
+
+               
+                <div class="w-100 mb-24">
+                    <h4 class="text-18 fw-medium text-neutral-700 mb-16">شماره تماس</h4>
+                    {{ form.phone_number|add_class:"px-32 py-16 fw-normal text-14 text-neutral-700 w-100 bg-neutral-20 border-neutral-30 border rounded-14 focus-visible-outline focus-border-main-600" }}
+                    {% for e in form.phone_number.errors %}<div class="mt-8 text-danger text-14">{{ e }}</div>{% endfor %}
+                </div>
+
+                <div class="d-flex align-items-center gap-16">
+                    <button type="submit" name="profile_submit" class="bg-main-600 px-24 py-12 rounded-12 fw-semibold text-white hover-bg-main-700 transition-03">
+                        ذخیره تغییرات
+                    </button>
+                    <a href="{% url 'user_panel_module:user_profile' %}" class="border-main-600 border px-24 py-12 fw-semibold rounded-12 hover-bg-main-50 transition-03">
+                        لغو
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="ps-40 pe-60 py-40 bg-white rounded-10 mb-24">
+        <h4 class="text-16 fw-medium text-neutral-700 mb-0 border-bottom-dashed pb-24">تغییر پسورد</h4>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mt-24 mb-40">
+                <div class="row gy-4 align-items-center mb-24 flex-wrap">
+
+                    
+                    <div class="col-sm-6 col-xs-6">
+                        <label class="fw-medium text-base text-neutral-800 mb-16" for="{{ password_form.old_password.id_for_label }}">
+                            پسورد قبلی
+                        </label>
+                        <div class="position-relative">
+                            {{ password_form.old_password|add_class:"form-control ps-32 pe-60 py-16 ..." }}
+                            <span class="toggle-password text-16 position-absolute ..." id="#oldPassword"></span>
+                        </div>
+                        {% if password_form.old_password.errors %}
+                            <div class="mt-8 text-danger text-14">
+                                {% for e in password_form.old_password.errors %}
+                                    <div>{{ e }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    
+                    <div class="col-sm-6 col-xs-6">
+                        <label class="fw-medium text-base text-neutral-800 mb-16" for="{{ password_form.new_password1.id_for_label }}">
+                            پسورد جدید
+                        </label>
+                        <div class="position-relative">
+                            {{ password_form.new_password1|add_class:"form-control ps-32 pe-60 py-16 ..." }}
+                            <span class="toggle-password text-16 position-absolute ..." id="#newPassword"></span>
+                        </div>
+                        {% if password_form.new_password1.errors %}
+                            <div class="mt-8 text-danger text-14">
+                                {% for e in password_form.new_password1.errors %}
+                                    <div>{{ e }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            
+            <div class="col-lg-12">
+                <label class="fw-medium text-base text-neutral-800 mb-16" for="{{ password_form.new_password2.id_for_label }}">
+                    تایید پسورد
+                </label>
+                <div class="position-relative">
+                    {{ password_form.new_password2|add_class:"form-control ps-32 pe-60 py-16 ..." }}
+                    <span class="toggle-password text-16 position-absolute ..." id="#confirmPassword"></span>
+                </div>
+                {% if password_form.new_password2.errors %}
+                    <div class="mt-8 text-danger text-14">
+                        {% for e in password_form.new_password2.errors %}
+                            <div>{{ e }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+            <div class="mb-40">
+                <h4 class="fw-medium text-18 text-neutral-700 mb-16">پسورد جدید باید شامل :</h4>
+                <ul>
+                    <li class="d-flex align-items-center gap-12 mb-12"><span class="w-6 h-6 bg-main-600 rounded-circle"></span><span class="fw-normal text-14 text-neutral-700">حداقل ۸ کاراکتر</span></li>
+                    <li class="d-flex align-items-center gap-12 mb-12"><span class="w-6 h-6 bg-main-600 rounded-circle"></span><span class="fw-normal text-14 text-neutral-700"> حداقل یک حروف (a-z) </span></li>
+                    <li class="d-flex align-items-center gap-12 mb-12"><span class="w-6 h-6 bg-main-600 rounded-circle"></span><span class="fw-normal text-14 text-neutral-700"> شبیه به نام کاربری نباشد </span></li>
+                    <li class="d-flex align-items-center gap-12 mb-12"><span class="w-6 h-6 bg-main-600 rounded-circle"></span><span class="fw-normal text-14 text-neutral-700">حداقل یک عدد (0-9)</span></li>
+                </ul>
+            </div>
+
+            
+            <div class="d-flex align-items-center gap-16 flex-wrap">
+                <button type="submit" name="password_submit" class="bg-main-600 px-24 py-12 rounded-12 fw-semibold text-white hover-bg-main-700 transition-03">ذخیره تغییرات</button>
+                <a href="{% url 'user_panel_module:user_profile' %}" class="border-main-600 border px-24 py-12 fw-semibold rounded-12 hover-bg-main-50 transition-03">لغو</a>
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var fileInput = document.getElementById('id_image');
+    var preview = document.getElementById('imagePreview');
+    if (fileInput && preview) {
+        fileInput.addEventListener('change', function () {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.style.backgroundImage = 'url(' + e.target.result + ')';
+                };
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+    }
+});
+</script>
+{% endblock content %}

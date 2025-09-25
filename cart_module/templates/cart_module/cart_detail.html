@@ -1,0 +1,149 @@
+{% extends "user_panel_base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+
+{% block page_title %}
+
+    سبد خرید
+
+{% endblock page_title %}
+
+
+{% block content %}
+
+
+    <!-- ==================== Breadcrumb Start Here ==================== -->
+{% comment %} <section class="breadcrumb py-120 bg-main-25 position-relative z-1 overflow-hidden mb-0">
+    <img src="{% static "images/shapes/shape1.png" %}" alt="" class="shape one animation-rotation d-md-block d-none">
+    <img src="{% static "images/shapes/shape2.png" %}" alt="" class="shape two animation-scalation d-md-block d-none">
+    <img src="{% static "images/shapes/shape3.png" %}" alt="" class="shape eight animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape5.png" %}" alt="" class="shape six animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape four animation-scalation">
+    <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape nine animation-scalation">
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumb__wrapper">
+                    <h1 class="breadcrumb__title display-4 fw-semibold text-center"> سبد خرید </h1>
+                    <ul class="breadcrumb__list d-flex align-items-center justify-content-center gap-4">
+                        <li class="breadcrumb__item">
+                            <a href="{% url "home_module:home" %}" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> 
+                                <i class="text-lg d-inline-flex ph-bold ph-house"></i> خانه</a>
+                         </li>
+                        <li class="breadcrumb__item">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item">
+                            <a href="course.html" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> </a> 
+                        </li>
+                        <li class="breadcrumb__item d-none">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item"> 
+                            <span class="text-main-two-600"> سبد خرید  </span> 
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section> {% endcomment %}
+<!-- ==================== Breadcrumb End Here ==================== -->
+
+    <!-- =============================== Cart Section Start ================================== -->
+    <div class="py-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="border border-neutral-30 rounded-12 bg-main-25 p-32 bg-main-25">
+                        <h4 class="mb-0">سبد خرید </h4>
+                        <span class="d-block border border-neutral-30 my-24 border-dashed"></span>
+
+                        <div class="table-responsive overflow-x-auto">
+                            <table class="table min-w-max vertical-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-neutral-500 fw-semibold px-24 py-20 border-0">دوره</th>
+                                        <th class="text-neutral-500 fw-semibold px-24 py-20 border-0">قیمت</th>
+                                        <th class="text-neutral-500 fw-semibold px-24 py-20 border-0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in cart %}
+                                        <tr>
+                                            <td class="border-bottom border-dashed border-neutral-40 text-neutral-500 bg-transparent px-24 py-20">
+                                                <div class="d-flex align-items-center gap-24">
+                                                    <div class="w-60 h-60 border border-neutral-40 rounded-8 d-flex justify-content-center align-items-center bg-white">
+                                                        <img src="{{ item.course.image.url }}" alt="">
+                                                    </div>
+                                                    <div class="">
+                                                    <h6 class="text-md mb-12 text-line-1"> {{ item.course.title }}  </h6>
+                                                    <div class="d-flex align-items-center gap-16">
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </td>
+                                            <td class="border-bottom border-dashed border-neutral-40 text-neutral-500 bg-transparent px-24 py-20">
+                                               {{ item.price|smart_price }}
+                                            </td>
+                                            <td class="border-bottom border-dashed border-neutral-40 text-neutral-500 bg-transparent px-24 py-20">
+                                                <a href="{% url "cart_module:cart_delete" item.unique_id %}">
+                                                    <button class="delete-btn text-lg hover-text-main-600 transition-2">
+                                                        <i class="ph ph-trash"></i>
+                                                    </button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>   
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% comment %} <a href="apply-admission.html" class="flex-align gap-8 text-main-600 hover-text-decoration-underline transition-1 fw-semibold mt-24" tabindex="0">
+                                <i class="ph ph-arrow-left"></i>
+                                ادامه دادن به خرید
+                            </a> {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-lg-4">
+                    <div class="border border-neutral-30 rounded-12 bg-main-25 p-24 bg-main-25">
+                        <span class="text-neutral-700 text-lg mb-12">قیمت</span>
+                        <div class="flex-align align-items-start flex-wrap gap-8">
+                            <div class="flex-align gap-12 text-neutral-700">
+                                <span class="text-2xl d-flex"><i class="ph-bold ph-tag"></i></span>
+                                <h2 class="mb-0"> {{ cart.total_price|smart_price }} </h2>
+                            </div>
+                            <button type="button" class="text-neutral-500 text-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Initial Price">
+                                <i class="ph-bold ph-info"></i>
+                            </button>
+                        </div>
+
+                        <span class="d-block border border-neutral-30 my-24 border-dashed"></span>
+
+                        <div class="d-flex align-items-center justify-content-between gap-4">
+                            <span class="text-neutral-500">مجموع</span>
+                            <span class="text-main-600 fw-medium"> {{ cart.total_price|smart_price }} </span>
+                        </div>
+                        <span class="d-block border border-neutral-30 mt-24 border-dashed"></span>
+                        <form method="post" action="{% url 'cart_module:order_create' %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-main rounded-pill w-100 mt-40">
+                                تسویه حساب
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- =============================== Cart Section End ================================== -->
+
+    
+
+
+{% endblock content %}

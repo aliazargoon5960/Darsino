@@ -1,0 +1,302 @@
+{% extends "base.html" %}
+{% load static %}
+
+ 
+{% block page_title %}
+
+    درباره ما
+
+{% endblock page_title %}
+
+{% block content %}
+
+    <section class="breadcrumb py-120 bg-main-25 position-relative z-1 overflow-hidden mb-0">
+    <img src="{% static "images/shapes/shape1.png" %}" alt="" class="shape one animation-rotation d-md-block d-none">
+    <img src="{% static "images/shapes/shape2.png" %}" alt="" class="shape two animation-scalation d-md-block d-none">
+    <img src="{% static "assets/images/shapes/shape3.png" %}" alt="" class="shape eight animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape5.png" %}" alt="" class="shape six animation-walking d-md-block d-none">
+    <img src="{% static "assets/images/shapes/shape4.png" %}" alt="" class="shape four animation-scalation">
+    <img src="{% static "assets/images/shapes/shape4.png" %}" alt="" class="shape nine animation-scalation">
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumb__wrapper">
+                    <h1 class="breadcrumb__title display-4 fw-semibold text-center"> درباره ما</h1>
+                    <ul class="breadcrumb__list d-flex align-items-center justify-content-center gap-4">
+                        <li class="breadcrumb__item">
+                            <a href="{% url "home_module:home" %}" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> 
+                                <i class="text-lg d-inline-flex ph-bold ph-house"></i> خانه</a>
+                         </li>
+                        <li class="breadcrumb__item">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item">
+                            <a href="course.html" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> </a> 
+                        </li>
+                        <li class="breadcrumb__item d-none">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item"> 
+                            <span class="text-main-two-600"> درباره ما </span> 
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==================== Breadcrumb End Here ==================== -->
+
+    <!-- ================================ About Section Start ==================================== -->
+ <section class="about py-120 position-relative z-1 mash-bg-main mash-bg-main-two">
+    <img src="{% static "images/shapes/shape2.png" %}" alt="" class="shape one animation-scalation">
+    <img src="{% static "images/shapes/shape6.png" %}" alt="" class="shape four animation-scalation">
+
+    <div class="position-relative">
+        <div class="container">
+            <div class="row gy-xl-0 gy-5 flex-wrap-reverse align-items-center">
+                <div class="col-xl-6">
+                    <div class="about-thumbs position-relative pe-lg-5">
+                        <img src="{% static "images/shapes/shape7.png" %}" alt="" class="shape seven animation-scalation">
+    
+                        <div class="offer-message px-24 py-12 rounded-12 bg-main-two-50 fw-medium flex-align d-inline-flex gap-16 border border-neutral-30 animation-upDown">
+                            <span class="flex-shrink-0 w-48 h-48 bg-main-two-600 text-white text-2xl flex-center rounded-circle"><i class="ph ph-watch"></i></span>
+                            <div>
+                                <h6 class="mb-4">۲۰٪ تخفیف</h6>
+                                <span class="text-neutral-500">برای همه دوره ها</span>
+                            </div>
+                        </div>
+                        <div class="row gy-4">
+                            <div class="col-sm-6">
+                                <img src="{% static "images/thumbs/about-img1.png" %}" alt="" class="rounded-12 w-100" data-tilt data-tilt-max="15" data-tilt-speed="500" data-tilt-perspective="5000" data-tilt-full-page-listening>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="flex-align gap-24 mb-24">
+                                    <div class="bg-main-600 rounded-12 text-center py-24 px-2 w-50-percent" data-aos="fade-right">    
+                                        <h1 class="mb-0 text-white counter">16+</h1>
+                                        <span class="text-white">سال تجربه</span>
+                                    </div>
+                                    <div class="bg-neutral-700 rounded-12 text-center py-24 px-2 w-50-percent" data-aos="fade-left">    
+                                        <h1 class="mb-0 text-white counter">3200</h1>
+                                        <span class="text-white">سال تجربه</span>
+                                    </div>
+                                </div>
+                                <img src="{% static "images/thumbs/about-img2.png" %}" alt="" class="rounded-12 w-100" data-tilt data-tilt-max="20" data-tilt-speed="500" data-tilt-perspective="5000" data-tilt-full-page-listening>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="about-content">
+                        <div class="mb-40">
+                            <div class="flex-align gap-8 mb-16 wow bounceInDown">
+                                <span class="w-8 h-8 bg-main-600 rounded-circle"></span>
+                                <h5 class="text-main-600 mb-0 ">درباره {{ setting.site_name }}</h5>
+                            </div>
+                            <h2 class="mb-24 wow bounceIn">جایی که می‌تونی به موفقیت برسی</h2>
+                            <p class="text-neutral-500 text-line-2 wow bounceInUp"> {{ setting.about_us_text }} </p>
+                        </div>
+    
+                        <div class="flex-align align-items-start gap-28 mb-32" data-aos="fade-left" data-aos-duration="200">
+                            <span class="w-80 h-80 bg-main-25 border border-neutral-30 flex-center rounded-circle flex-shrink-0">
+                                <img src="{% static "images/icons/about-img1.png" %}" alt="">
+                            </span>
+                            <div class="flex-grow-1">
+                                <h4 class="text-neutral-500 mb-12">ماموریت ما</h4>
+                                <p class="text-neutral-500">با همراهی تیمی از مربیان متعهد، متخصصان فناوری و آینده‌نگرها، ما تلاش می‌کنیم محیطی حمایتی و الهام‌بخش بسازیم.</p>
+                            </div>
+                        </div>
+                        <div class="flex-align align-items-start gap-28 mb-0" data-aos="fade-left" data-aos-duration="400">
+                            <span class="w-80 h-80 bg-main-25 border border-neutral-30 flex-center rounded-circle flex-shrink-0">
+                                <img src="{% static "images/icons/about-img2.png" %}" alt="">
+                            </span>
+                            <div class="flex-grow-1">
+                                <h4 class="text-neutral-500 mb-12">دیدگاه ما</h4>
+                                <p class="text-neutral-500">چه یک حرفه‌ای باشی که می‌خوای مهارت‌هات رو ارتقا بدی، یا یه یادگیرنده همیشگی که دنبال افق‌های جدیده، ما در هر قدم همراهت هستیم.</p>
+                            </div>
+                        </div>
+    
+                        <div class="flex-align flex-wrap gap-32 pt-40 border-top border-neutral-50 mt-40 border-dashed border-0" data-aos="fade-left" data-aos-duration="600">
+                            <div class="flex-align gap-20">
+                                <img src="{% static "images/thumbs/ceo-img.png" %}" alt="" class="w-52 h-52 rounded-circle object-fit-cover flex-shrink-0">
+                                <div class="flex-grow-1">
+                                    <span class="mb-4">
+                                        <img src="{% static "images/thumbs/signature.png" %}" alt="">
+                                    </span>
+                                    <span class="text-sm d-block">مدیر و موسس </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </section>
+<!-- ================================ About Section End ==================================== -->
+
+    
+
+    <!-- =========================== CHoose Us Section Start ================================ -->
+<section class="choose-us pt-120 position-relative z-1 mash-bg-main mash-bg-main-two">
+<img src="{% static "images/shapes/shape2.png" %}" alt="" class="shape one animation-scalation">
+<img src="{% static "images/shapes/shape2.png" %}" alt="" class="shape six animation-scalation">
+
+<div class="container">
+    <div class="row gy-4">
+        <div class="col-xl-6">
+            <div class="choose-us__content">
+                <div class="mb-40">
+                    <div class="flex-align gap-8 mb-16 wow bounceInDown">
+                        <span class="w-8 h-8 bg-main-600 rounded-circle"></span>
+                        <h5 class="text-main-600 mb-0">چرا ما را انتخاب کنید</h5>
+                    </div>
+                    <h2 class="mb-24  wow bounceIn">تعهد ما به کیفیت: یاد بگیر، رشد کن و موفق شو.</h2>
+                    <p class="text-neutral-500 text-line-2  wow bounceInUp">ما عاشق اینیم که زندگی‌ها رو با آموزش تغییر بدیم. اینجا رو ساختیم تا یادگیری رو برای همه راحت و در دسترس کنیم، چون باور داریم دانش می‌تونه فرصت‌ها رو باز کنه و آینده رو بسازه.</p>
+                </div>
+
+                <ul>
+                    <li class="flex-align gap-12 mb-16" data-aos="fade-up-left"  data-aos-duration="200">
+                        <span class="flex-shrink-0 text-xl text-main-600 d-flex"><i class="ph-bold ph-checks"></i></span>
+                        <span class="flex-grow-1 text-neutral-500">میانگین ۹/۱۰ میزان رضایت کاربران</span>
+                    </li>
+                    <li class="flex-align gap-12 mb-16" data-aos="fade-up-left"  data-aos-duration="400">
+                        <span class="flex-shrink-0 text-xl text-main-600 d-flex"><i class="ph-bold ph-checks"></i></span>
+                        <span class="flex-grow-1 text-neutral-500">۹۶٪ نرخ تکمیل دوره‌ها</span>
+                    </li>
+                    <li class="flex-align gap-12 mb-16" data-aos="fade-up-left"  data-aos-duration="500">
+                        <span class="flex-shrink-0 text-xl text-main-600 d-flex"><i class="ph-bold ph-checks"></i></span>
+                        <span class="flex-grow-1 text-neutral-500">محیطی دوستانه و اساتید باتجربه</span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="choose-us__thumbs position-relative">
+
+                <div class="offer-message style-two px-24 py-12 rounded-12 bg-white fw-medium flex-align d-inline-flex gap-16 box-shadow-lg animation-upDown">
+                    <span class="flex-shrink-0 w-48 h-48 bg-dark-yellow text-white text-2xl flex-center rounded-circle">
+                        <img src="{% static "images/icons/stars.png" %}" alt="">
+                    </span>
+                    <div>
+                        <span class="text-lg text-neutral-700 d-block">
+                            ۴.۶
+                            <span class="text-neutral-100">(۲۴۰۰)</span>
+                        </span>
+                        <span class="text-neutral-500">میانگین امتیازات</span>
+                    </div>
+                </div>
+
+                <div class="banner-box one style-two px-24 py-12 rounded-12 bg-white fw-medium box-shadow-lg d-inline-block" data-aos="fade-left">
+                    <span class="text-main-600"> ۳۶+ هزار</span> دانشجوی ثبت نام شده
+                    <div class="enrolled-students mt-12">
+                        <img src="{% static "assets/images/thumbs/enroll-student-img1.png" %}" alt="" class="w-48 h-48 rounded-circle object-fit-cover">
+                        <img src="{% static "images/thumbs/enroll-student-img2.png" %}" alt="" class="w-48 h-48 rounded-circle object-fit-cover">
+                        <img src="{% static "images/thumbs/enroll-student-img3.png" %}" alt="" class="w-48 h-48 rounded-circle object-fit-cover">
+                        <img src="{% static "images/thumbs/enroll-student-img4.png" %}" alt="" class="w-48 h-48 rounded-circle object-fit-cover">
+                        <img src="{% static "images/thumbs/enroll-student-img5.png" %}" alt="" class="w-48 h-48 rounded-circle object-fit-cover">
+                        <img src="{% static "images/thumbs/enroll-student-img6.png" %}" alt="" class="w-48 h-48 rounded-circle object-fit-cover">
+                    </div>
+                </div>
+
+                <div class="text-end" data-aos="zoom-out">
+                    <div class="d-sm-inline-block d-block position-relative">
+                        <img src="{% static "images/thumbs/choose-us-img1.png" %}" alt="" class="choose-us__img rounded-12" data-tilt data-tilt-max="16" data-tilt-speed="500" data-tilt-perspective="5000" data-tilt-full-page-listening>
+                        <span class="shadow-main-two w-80 h-80 flex-center bg-main-two-600 rounded-circle position-absolute inset-block-start-0 inset-inline-start-0 mt-40 ms--40 animation-upDown">
+                            <img src="{% static "images/icons/book.png" %}" alt="">
+                        </span>
+                    </div>
+                </div>
+                <div class="animation-video"  data-aos="zoom-in">
+                    <img src="{% static "images/thumbs/choose-us-img2.png" %}" alt="" class="border border-white rounded-circle border-3" data-tilt>
+                    <a href="https://www.youtube.com/watch?v=MFLVmAE4cqg" class="play-button w-48 h-48 flex-center bg-main-600 text-white rounded-circle text-xl position-absolute top-50 start-50 translate-middle">
+                        <i class="ph-fill ph-play"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<!-- =========================== CHoose Us Section End ================================ -->
+
+    <!-- ========================== Counter Section start ============================== -->
+<!-- ========================== Counter Section End ============================== -->
+
+    <!-- ================================= testimonials Section Start ========================================= -->
+
+    
+    <!-- ========================== Brand Section Start =========================== -->
+ <div class="brand wow fadeInUpBig" data-wow-duration="1s" data-wow-delay=".5s">
+    <div class="container container--lg">
+        <div class="brand-box py-80 px-16 ">
+            <h5 class="mb-40 text-center text-neutral-500">مورد اعتماد بیش از ۱۷.۳۰۰ تیم حرفه ای</h5>
+            <div class="container">
+                <div class="brand-slider">
+                    <div class="brand-slider__item px-24">
+                        <img src="{% static "images/thumbs/brand-img1.png" %}" alt="">
+                    </div>
+                    <div class="brand-slider__item px-24">
+                        <img src="{% static "images/thumbs/brand-img2.png" %}" alt="">
+                    </div>
+                    <div class="brand-slider__item px-24">
+                        <img src="{% static "images/thumbs/brand-img3.png" %}" alt="">
+                    </div>
+                    <div class="brand-slider__item px-24">
+                        <img src="{% static "images/thumbs/brand-img4.png" %}" alt="">
+                    </div>
+                    <div class="brand-slider__item px-24">
+                        <img src="{% static "images/thumbs/brand-img5.png" %}" alt="">
+                    </div>
+                    <div class="brand-slider__item px-24">
+                        <img src="{% static "images/thumbs/brand-img6.png" %}" alt="">
+                    </div>
+                    <div class="brand-slider__item px-24">
+                        <img src="{% static "images/thumbs/brand-img7.png" %}" alt="">
+                    </div>
+                    <div class="brand-slider__item px-24">
+                        <img src="{% static "images/thumbs/brand-img3.png" %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+<!-- ========================== Brand Section End =========================== -->
+
+    <!-- ================================= Certificate Section Start ================================= -->
+<div class="certificate">
+    <div class="container container--lg">
+        <div class="certificate-box px-16 bg-main-600 rounded-16">
+            <div class="container">
+                <div class="position-relative py-80">
+                    <div class="row align-items-center">
+                        <div class="col-xl-6">
+                            <div class="certificate__content">
+                                <div class="flex-align gap-8 mb-16 wow bounceInDown">
+                                    <span class="w-8 h-8 bg-white rounded-circle"></span>
+                                    <h5 class="text-white mb-0">گواهی مهارت بگیرید</h5>
+                                </div>
+                                <h2 class="text-white mb-40 fw-medium wow bounceIn">گواهینامه مهارت حرفه ای خود را از اجوآل دریافت کنید</h2>
+                                <a href="#" class="btn btn-white rounded-pill flex-align d-inline-flex gap-8 hover-bg-main-800 wow bounceInUp">
+                                    همین الان شروع کن
+                                    <i class="ph-bold ph-arrow-up-right d-flex text-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 d-xl-block d-none">
+                            <div class="certificate__thumb" data-aos="fade-up-left">    
+                                <img src="{% static "images/thumbs/certificate-img.png" %}" alt="" data-tilt data-tilt-max="8" data-tilt-speed="500" data-tilt-perspective="5000" data-tilt-full-page-listening>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+<!-- ================================= Certificate Section End ================================= -->
+
+{% endblock content %}

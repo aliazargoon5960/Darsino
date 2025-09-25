@@ -1,0 +1,145 @@
+{% load static %}
+
+<!--==================== Preloader Start ====================-->
+  <div class="preloader">
+    <img src="{% static "images/icons/preloader.gif" %}" alt="">
+  </div> 
+<!--==================== Preloader End ====================-->
+
+<!--==================== Overlay Start ====================-->
+<div class="overlay"></div>
+<!--==================== Overlay End ====================-->
+
+<!--==================== Sidebar Overlay End ====================-->
+<div class="side-overlay"></div>
+<!--==================== Sidebar Overlay End ====================-->
+
+<!-- ==================== Scroll to Top End Here ==================== -->
+<div class="progress-wrap">
+  <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+  </svg>
+</div>
+<!-- ==================== Scroll to Top End Here ==================== -->
+
+    <!-- ==================== Header Start Here ==================== -->
+<header class="header">
+    <div class="container container--xl">
+        <nav class="header-inner flex-between gap-8">
+            <div class="header-content-wrapper flex-align flex-grow-1">
+                <!-- Logo Start -->
+                <div class="logo">
+                    <a href="index.html" class="link">
+                        {% comment %} <img src="{% static "images/logo/logo.png" %}" alt="Logo"> {% endcomment %}
+                    </a>
+                </div>
+
+                <div class="header-menu d-lg-block d-none">            
+                    <ul class="nav-menu flex-align ">
+                        <li class="nav-menu__item {% if request.resolver_match.url_name == 'home' %}activePage{% endif %}">
+                            <a href="{% url "home_module:home" %}" class="nav-menu__link">خانه</a> 
+                        </li>
+
+                        <li class="nav-menu__item has-submenu {% if request.resolver_match.url_name == 'course_list' %}activePage{% endif %}">
+                            <a href="javascript:void(0)" class="nav-menu__link">دوره‌ها</a>
+                            <ul class="nav-submenu scroll-sm">
+                                <li class="nav-submenu__item">
+                                    <a href="{% url "course_module:course_list" %}" class="nav-submenu__link hover-bg-neutral-30 {% if request.resolver_match.url_name == 'course_list' %}activePage{% endif %}"> کل دوره ها</a>
+                                </li>
+                                <li class="nav-submenu__item">
+                                    <a href="{% url "user_panel_module:user_course" %}" target="_blank"  class="nav-submenu__link hover-bg-neutral-30 {% if request.resolver_match.url_name == 'user_course' %}activePage{% endif %}"> دوره های مورد علاقه </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-menu__item has-submenu {% if request.resolver_match.url_name == 'about_us' %}activePage{% endif %}">
+                            <a href="javascript:void(0)" class="nav-menu__link">صفحات</a>
+                            <ul class="nav-submenu scroll-sm">
+                                <li class="nav-submenu__item {% if request.resolver_match.url_name == 'about_us' %}activePage{% endif %}">
+                                    <a href="{% url "home_module:about_us" %}" class="nav-submenu__link hover-bg-neutral-30"> درباره ما</a>
+                                </li>
+                                <li class="nav-submenu__item  {% if request.resolver_match.url_name == 'teacher_list' %}activePage{% endif %}">
+                                    <a href="{% url "course_module:teacher_list" %}" class="nav-submenu__link hover-bg-neutral-30">  مدرسین  </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-menu__item {% if request.resolver_match.url_name == 'article_list' %}activePage{% endif %}">
+                            <a href="{% url "blog_module:article_list" %}" class="nav-menu__link">وبلاگ ها</a> 
+                        </li>
+                        <li class="nav-menu__item {% if request.resolver_match.url_name == 'contact_us' %}activePage{% endif %}">
+                            <a href="{% url "contact_module:contact_us" %}" class="nav-menu__link">تماس با ما</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Menu End  -->
+            </div>
+
+            <!-- Header Right start -->
+            <div class="header-right flex-align">
+                <form action="{% url "course_module:search_courses" %}"  method="GET" class="search-form position-relative d-xl-block d-none">
+                    <input type="text" name="search" class="common-input rounded-pill bg-main-25 pe-48 border-neutral-30" placeholder="جستجو بین دوره ها ..." value={{ request.GET.search }}>
+                    <button type="submit" class="w-36 h-36 bg-main-600 hover-bg-main-700 rounded-circle flex-center text-md text-white position-absolute top-50 translate-middle-y inset-inline-end-0 me-8">
+                        <i class="ph-bold ph-magnifying-glass"></i>
+                    </button>
+                </form>
+                <a  href="{% url "cart_module:cart_detail" %}"  target="_blank" type="button" class="w-44 h-44 flex-center bg-white rounded-circle text-main-600 text-lg hover-text-white hover-bg-main-600 transition-1">
+                    <i class="ph-bold ph-shopping-cart-simple"></i>
+                </a> 
+                <div class="user-menu-wrapper">
+                    <a href="javascript:void(0);" 
+                    class="info-action w-52 h-52 bg-main-25 hover-bg-main-600 border border-neutral-30 rounded-circle flex-center text-2xl text-neutral-500 hover-text-white hover-border-main-600" 
+                    id="userMenuToggle">
+
+                      {% if user.is_authenticated and user.image and user.image.url %}
+                    <img src="{{ user.image.url }}" 
+                        alt="پروفایل" 
+                        class="w-100 h-100 rounded-circle object-fit-cover">
+                {% else %}
+                    <i class="ph ph-user-circle"></i>
+                {% endif %}
+
+                    </a>
+
+                    <div class="user-dropdown-menu bg-white border rounded shadow position-absolute end-0 mt-2 py-2" style="display: none; min-width: 150px; z-index: 999;">
+                        {% if user.is_authenticated %}
+                            <a href="{% url "user_panel_module:user_profile" %}" target="_blank" class="dropdown-item px-4 py-2 text-neutral-700 hover-bg-main-600 hover-text-white d-block">پروفایل من</a>
+                            <a href="{% url "user_panel_module:edit_profile" %}" target="_blank" class="dropdown-item px-4 py-2 text-neutral-700 hover-bg-main-600 hover-text-white d-block"> ویرایش پروفایل </a>
+                            <a href="{% url 'account_module:user_logout' %}" class="dropdown-item px-4 py-2 text-neutral-700 hover-bg-main-600 hover-text-white d-block">خروج از حساب</a>
+                        {% else %}
+                            <a href="{% url 'account_module:user_login' %}" class="dropdown-item px-4 py-2 text-neutral-700 hover-bg-main-600 hover-text-white d-block">ورود</a>
+                            <a href="{% url 'account_module:user_register' %}" class="dropdown-item px-4 py-2 text-neutral-700 hover-bg-main-600 hover-text-white d-block">ثبت نام</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+                <button type="button" class="toggle-mobileMenu d-lg-none text-neutral-200 flex-center">
+                    <i class="ph ph-list"></i> 
+                </button>
+            </div>
+
+                <script>
+                    document.getElementById('userMenuToggle').addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const menu = document.querySelector('.user-dropdown-menu');
+                        if (menu.style.display === 'block') {
+                            menu.style.display = 'none';
+                        } else {
+                            menu.style.display = 'block';
+                        }
+                    });
+
+                    // بستن منو اگر کاربر بیرون منو کلیک کرد
+                    document.addEventListener('click', function(e) {
+                        const menu = document.querySelector('.user-dropdown-menu');
+                        const toggle = document.getElementById('userMenuToggle');
+                        if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                            menu.style.display = 'none';
+                        }
+                    });
+                </script>
+            </div>
+            <!-- Header Right End  -->
+        </nav>
+    </div>
+</header>

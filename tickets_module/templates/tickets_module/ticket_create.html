@@ -1,0 +1,168 @@
+{% extends "user_panel_base.html" %}
+{% load widget_tweaks %}
+{% load static %}
+
+
+{% block page_title %}
+
+    ساخت تیکت جدید
+
+{% endblock page_title %}
+
+{% block content %}
+
+
+<div class="container" style="margin-top: 60px; padding-top: 40px;">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <h4 class="fw-bold text-primary">
+                    <i class="bi bi-plus-circle me-2"></i>ایجاد تیکت جدید
+                </h4>
+                <a href="{% url 'tickets_module:ticket_list' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-right me-1"></i>بازگشت
+                </a>
+            </div>
+
+
+            <div class="card shadow border-0" style="border-radius: 18px; overflow: hidden;">
+                <div class="card-header py-4" style="background: linear-gradient(135deg, #1e88e5, #1565c0); color: white;">
+                    <h5 class="mb-0 fw-bold">
+                        <i class="bi bi-ticket-detailed me-2"></i>
+                        فرم ایجاد تیکت پشتیبانی
+                    </h5>
+                </div>
+                
+                <div class="card-body p-5">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark mb-3">
+                                <i class="bi bi-chat-text me-2 text-primary"></i>
+                                عنوان تیکت
+                            </label>
+                            {% render_field form.subject class="form-control form-control-lg" placeholder="عنوان مشکل خود را وارد کنید" style="border-radius: 12px; padding: 16px 20px; height: 55px; font-size: 16px;" %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark mb-3">
+                                <i class="bi bi-card-text me-2 text-primary"></i>
+                                متن تیکت
+                            </label>
+                            {% render_field form.message class="form-control" rows="7" placeholder="توضیحات کامل مشکل خود را بنویسید..." style="border-radius: 12px; padding: 16px 20px; resize: vertical; min-height: 180px; font-size: 16px;" %}
+                            <small class="text-muted mt-2 d-block">توضیحات کامل باعث پاسخگویی سریع‌تر می‌شود</small>
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark mb-3">
+                                <i class="bi bi-flag me-2 text-primary"></i>
+                                سطح اولویت
+                            </label>
+                            {% render_field form.priority class="form-select" style="border-radius: 12px; padding: 16px 20px; height: 55px; font-size: 16px;" %}
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark mb-3">
+                                <i class="bi bi-paperclip me-2 text-primary"></i>
+                                تصویر (اختیاری)
+                            </label>
+                            <input type="file" name="files" class="form-control" multiple 
+                                   style="border-radius: 12px; padding: 16px 20px; font-size: 16px;">
+                            <small class="text-muted mt-2 d-block">
+                                می‌توانید چند فایل مانند تصویر، PDF یا فایل متنی انتخاب کنید
+                            </small>
+                        </div>
+
+                        
+                        <div class="text-end mt-3 pt-2 border-top">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 py-3" 
+                                    style="border-radius: 14px; font-weight: 600; font-size: 17px;">
+                                <i class="bi bi-send-fill me-2"></i>ارسال تیکت
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f8fafc;
+        padding-top: 8px;
+        line-height: 1.6;
+    }
+    
+    .container {
+        margin-top: 60px !important;
+    }
+    
+    .card {
+        border: none;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        margin-bottom: 50px;
+    }
+    
+    .form-control, .form-select {
+        border: 2px solid #eef2f7;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    
+    .form-control:focus, .form-select:focus {
+        border-color: #1e88e5;
+        box-shadow: 0 0 0 0.3rem rgba(30, 136, 229, 0.2);
+    }
+    
+    .form-label {
+        font-size: 17px;
+        margin-bottom: 15px;
+        display: block;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #1e88e5, #1565c0);
+        border: none;
+        transition: all 0.3s ease;
+        padding: 14px 28px;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(30, 136, 229, 0.35);
+    }
+    
+    .btn-outline-secondary {
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+    
+    input, select, textarea {
+        height: auto !important;
+        min-height: 55px;
+    }
+    
+    .card-body {
+        padding: 40px !important;
+    }
+    
+    .mb-5 {
+        margin-bottom: 2.5rem !important;
+    }
+    
+    .mt-5 {
+        margin-top: 2.5rem !important;
+    }
+    
+    .py-4 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+</style>
+{% endblock content %}

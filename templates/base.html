@@ -1,0 +1,145 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+
+<!-- RTL by sitroweb.com/sites/eduall/demo-rtl/index.html by Sitroweb team, Wed, 04 Jun 2025 13:24:43 GMT -->
+<head>
+    <title>{% block page_title %}     {% endblock page_title %}</title>
+    {% block head_links %}
+        {% include "includes/head_links.html" %}
+         <style>
+            .replied {
+                        display: block !important;
+                        padding-right: 80px !important; /* تورفتگی از سمت راست */
+                        border-right: 4px solid #696666ff !important; /* خط عمودی در سمت راست */
+                        background-color: #d2f1f7ff !important;
+                        border-radius: 6px !important;
+                        margin-bottom: 24px !important;
+                        text-align: right; /* متن هم راست‌چین */
+                    }
+
+        </style>
+    {% endblock head_links %}
+</head>
+
+<body>
+    
+<!-- ==================== Header Start Here ==================== -->
+    {% include "includes/header.html" %}
+<!-- ==================== Header End Here ==================== -->
+
+
+    {% block content %}
+    
+    
+    
+    
+    
+    {% endblock content %}
+    
+    
+<!-- ==================== Footer Start Here ==================== -->
+    {% include "includes/footer.html" %}
+<!-- ==================== Footer End Here ==================== -->
+  
+
+    {% include "includes/footer_links.html" %}
+
+    
+   <script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    // تب‌های بوت‌استرپ و AOS
+    document.querySelectorAll('button[data-bs-toggle="pill"]').forEach(function (tabButton) {
+        tabButton.addEventListener('shown.bs.tab', function () {
+            if (typeof AOS !== 'undefined') {
+                AOS.refresh();
+            }
+        });
+    });
+
+    // گرفتن CSRF Token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+
+    // حذف دوره با Ajax
+    document.querySelectorAll('.delete-course-form').forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: new FormData(this)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    this.closest('.course-item').remove();
+                } else {
+                    alert('مشکلی پیش آمد.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+    // ثبت‌نام دوره با Ajax
+    document.querySelectorAll('.register-course-form').forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            fetch(this.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: new FormData(this)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === 'success') {
+                    const btn = this.querySelector('button');
+                    btn.disabled = true;
+                    btn.textContent = 'با موفقیت اضافه شد ✅';
+
+
+                    btn.style.backgroundColor = 'green';
+                    btn.style.cursor = 'default';
+                } else {
+                    alert('خطایی پیش آمد. لطفاً دوباره تلاش کنید.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+
+});
+
+</script>
+
+
+
+   
+    </body>
+
+<!-- RTL by sitroweb.com/sites/eduall/demo-rtl/index.html by Sitroweb team, Wed, 04 Jun 2025 13:25:24 GMT -->
+</html>

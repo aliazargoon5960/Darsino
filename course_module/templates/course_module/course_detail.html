@@ -1,0 +1,571 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block page_title %}
+
+    جزییات دوره
+
+{% endblock page_title %}
+
+
+{% block content %}
+
+
+        <!-- ==================== Breadcrumb Start Here ==================== -->
+<section class="breadcrumb py-120 bg-main-25 position-relative z-1 overflow-hidden mb-0">
+    <img src="{% static "images/shapes/shape1.png" %}" alt="" class="shape one animation-rotation d-md-block d-none">
+    <img src="{% static "images/shapes/shape2.png" %}" alt="" class="shape two animation-scalation d-md-block d-none">
+    <img src="{% static "images/shapes/shape3.png" %}" alt="" class="shape eight animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape5.png" %}" alt="" class="shape six animation-walking d-md-block d-none">
+    <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape four animation-scalation">
+    <img src="{% static "images/shapes/shape4.png" %}" alt="" class="shape nine animation-scalation">
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="breadcrumb__wrapper">
+                    <h1 class="breadcrumb__title display-4 fw-semibold text-center"> جزئیات دوره</h1>
+                    <ul class="breadcrumb__list d-flex align-items-center justify-content-center gap-4">
+                        <li class="breadcrumb__item">
+                            <a href="{% url "home_module:home" %}" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> 
+                                <i class="text-lg d-inline-flex ph-bold ph-house"></i> خانه</a>
+                         </li>
+                        <li class="breadcrumb__item">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item">
+                            <a href="{% url "course_module:course_list" %}" class="breadcrumb__link text-neutral-500 hover-text-main-600 fw-medium"> دوره ها</a> 
+                        </li>
+                        <li class="breadcrumb__item ">
+                            <i class="text-neutral-500 d-flex ph-bold ph-caret-right"></i>
+                        </li>
+                        <li class="breadcrumb__item"> 
+                            <span class="text-main-two-600"> جزئیات دوره </span> 
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ==================== Breadcrumb End Here ==================== -->
+
+    <!-- ============================== Course Details Section Start ============================== -->
+    <section class="course-details py-120">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-xl-8">
+                    <!-- Details Content Start -->
+                    <div class="course-details__content border border-neutral-30 rounded-12 bg-main-25 p-12">
+                        <div style="width: 100%; height: 550px; overflow: hidden; border-radius: 8px;">
+                            <img src="{{ course.image.url }}" alt="{{ course.title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                            <div class="p-20">
+                                <h2 class="mt-24 mb-24">یادگیری {{ course.title }} </h2>
+                                <p class="text-neutral-700">  {{ course.description }}  </p>
+                                <span class="d-block border-bottom border-main-100 my-32"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Details Content End -->
+
+                    <!-- Curriculum Start -->
+                    <div class="border border-neutral-30 rounded-12 bg-main-25 p-32 mt-24">
+    <h5 class="mb-0">برنامه درسی</h5>
+    <span class="d-block border border-neutral-30 my-24 border-dashed"></span>
+    <div class="accordion common-accordion style-three" id="accordionExampleTwo">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneTwo" aria-expanded="true" aria-controls="collapseOneTwo">
+                    مقدمه‌ای بر {{ course.title }}
+                </button>
+            </h2>
+            <div id="collapseOneTwo" class="accordion-collapse collapse show" data-bs-parent="#accordionExampleTwo">
+                <div class="accordion-body p-0">
+                    <a href="javascript:void(0)" class="curriculam-item flex-between gap-16 text-neutral-500 fw-medium hover-text-main-600">   
+                        <span class="flex-align gap-12">
+                            <i class="text-xl d-flex ph-bold ph-video-camera"></i>
+                            <span class="text-line-1">{{ course.title }} چیست؟</span>
+                        </span>
+                        <span class="flex-align gap-12 flex-shrink-0">
+                            ۳۰:۲۵
+                            <i class="text-xl d-flex ph-bold ph-video-camera"></i>
+                        </span>
+                    </a>
+                    <a href="javascript:void(0)" class="curriculam-item flex-between gap-16 text-neutral-500 fw-medium hover-text-main-600">   
+                        <span class="flex-align gap-12">
+                            <i class="text-xl d-flex ph-bold ph-video-camera"></i>
+                            <span class="text-line-1">راه‌اندازی محیط {{ course.title }}</span>
+                        </span>
+                        <span class="flex-align gap-12 flex-shrink-0">
+                            ۳۰:۲۵
+                            <i class="text-xl d-flex ph-bold ph-video-camera"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+       
+
+                            
+                        </div>
+                        <!-- Review Item -->
+
+                        <!-- Review Item -->
+                    </div>
+                    <!-- Review End -->
+
+                    <!-- Review Form Start -->
+                     <span class="d-block border border-neutral-30 my-32 border-dashed"></span>
+                        <div class="flex-between gap-16 flex-wrap mb-24">
+                            <h6 class="mb-0">همه نظرات</h6>
+                            <div class="flex-align gap-16">
+                            </div>
+                        </div>
+
+
+                        <!-- Review Section -->
+                    <div class="comments-wrapper">
+                        {% for comment in course.comments.all %}
+                            {% if comment.parent == None %}
+                            <!-- Comment Card -->
+                            <div class="comment-card">
+                                <img src="{{ comment.user.image.url }}" alt="{{ comment.user.get_full_name }}" class="avatar">
+
+                                <div class="comment-main">
+                                <div class="comment-header">
+                                    <h6 class="author-name">{{ comment.user.get_full_name }}</h6>
+                                </div>
+
+                                <p class="comment-body">{{ comment.body }}</p>
+
+                                <div class="comment-actions">
+                                    <button onclick="set_value({{ comment.id }})" class="btn-reply">پاسخ</button>
+                                </div>
+
+                                <!-- Replies -->
+                                {% for reply in comment.replies.all %}
+                                    <div class="reply-card">
+                                    <img src="{{ reply.user.image.url }}" alt="{{ reply.user.get_full_name }}" class="avatar small">
+                                    <div class="reply-main">
+                                        <h6 class="author-name">{{ reply.user.get_full_name }}</h6>
+                                        <p class="comment-body">{{ reply.body }}</p>
+                                    </div>
+                                    </div>
+                                {% endfor %}
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+
+                        <!-- Divider -->
+                        <hr class="comments-divider">
+
+                        <!-- Comment Form -->
+                        {% if request.user.is_authenticated %}
+                        <div class="comment-form">
+                            <form action="" id="commentForm" method="post">
+                            {% csrf_token %}
+                            <h5 class="form-title">نظرتون رو بنویسید</h5>
+
+                            <input type="hidden" name="parent_id" id="parent_id" value="">
+
+                            <div class="form-group">
+                                <label for="body" class="form-label">نظر شما</label>
+                                <textarea id="body" name="body" class="form-textarea" placeholder="نظر خود را بنویسید ..."></textarea>
+                            </div>
+
+                            <button type="submit" class="btn-submit">
+                                ارسال نظر
+                                <i class="ph-bold ph-arrow-up-right"></i>
+                            </button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <a class="btn-login" href="{% url 'account:user_login' %}">
+                            برای ارسال کامنت وارد حساب کاربری خود شوید
+                        </a>
+                        {% endif %}
+
+
+
+                </div>
+                <div class="col-xl-4">
+                    <div class="course-details__sidebar border border-neutral-30 rounded-12 bg-white p-8">
+                        <div class="border border-neutral-30 rounded-12 bg-main-25 p-24 bg-main-25">
+                            <span class="text-neutral-700 text-lg mb-12">قیمت دوره</span>
+                            <div class="flex-align align-items-start flex-wrap gap-8 border-bottom border-neutral-40 pb-24 mb-24">
+                                <div class="flex-align gap-12 text-neutral-700">
+                                    <span class="text-2xl d-flex"><i class="ph-bold ph-tag"></i></span>
+                                    <h2 class="mb-0"> {{ course.price|smart_price }} </h2>
+                                </div>
+                                <button type="button" class="text-neutral-500 text-sm" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Initial Price">
+                                    <i class="ph-bold ph-info"></i>
+                                </button>
+                            </div>
+                            <div class="border-bottom border-neutral-40 pb-24 mb-24 flex-between flex-wrap gap-16">
+                                <div class="flex-align gap-12">
+                                    <span class="text-neutral-700 text-2xl d-flex"><i class="ph ph-watch"></i></span>
+                                    <span class="text-neutral-700 text-lg fw-normal">عنوان دوره</span>
+                                </div>
+                                <span class="text-lg fw-medium text-neutral-700"> {{ course.title }} </span>
+                            </div>
+                            <div class="border-bottom border-neutral-40 pb-24 mb-24 flex-between flex-wrap gap-16">
+                                <div class="flex-align gap-12">
+                                    <span class="text-neutral-700 text-2xl d-flex"><i class="ph ph-globe"></i> </span>
+                                    <span class="text-neutral-700 text-lg fw-normal">زبان</span>
+                                </div>
+                                <span class="text-lg fw-medium text-neutral-700">فارسی</span>
+                            </div>
+                            <div class="border-bottom border-neutral-40 pb-24 mb-24 flex-between flex-wrap gap-16">
+                                <div class="flex-align gap-12">
+                                    <span class="text-neutral-700 text-2xl d-flex"> <i class="ph ph-chart-pie"></i></span>
+                                    <span class="text-neutral-700 text-lg fw-normal">سطح دوره</span>
+                                </div>
+                                <span class="text-lg fw-medium text-neutral-700">  {% if course.level == 'beginner' %}مبتدی{% elif course.level == 'intermediate' %}متوسط{% else %}حرفه‌ای{% endif %} </span>
+                            </div>
+                            <div class="border-bottom border-neutral-40 pb-24 mb-24 flex-between flex-wrap gap-16">
+                                <div class="flex-align gap-12">
+                                    <span class="text-neutral-700 text-2xl d-flex"> <i class="ph ph-clock"></i> </span>
+                                    <span class="text-neutral-700 text-lg fw-normal">طول دوره</span>
+                                </div>
+                                <span class="text-lg fw-medium text-neutral-700"> {{ course.duration }} ساعت</span>
+                            </div>
+                            <div class="border-bottom border-neutral-40 pb-24 mb-24 flex-between flex-wrap gap-16">
+                                <div class="flex-align gap-12">
+                                    <span class="text-neutral-700 text-2xl d-flex"> <i class="ph ph-user-circle"></i> </span>
+                                    <span class="text-neutral-700 text-lg fw-normal">مدرس </span>
+                                </div>
+                                <a href="{{ course.teacher.get_absolute_url }}" class="text-lg fw-medium text-neutral-700"> {{ course.teacher.fullname }} </a>
+                            </div>
+                            {% if messages %}
+                                <div class="messages" style="max-width:600px; margin:20px auto;" >
+                                    {% for message in messages %}
+                                        <div class="alert alert-success" role="alert" style="font-size:1rem; text-align:center;">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if is_fav %}
+                                <div class="enrolled-message" style="text-align:center; margin-top:40px; font-weight:bold; font-size:1.2rem; color:green;">
+                                    به دوره های مورد علاقه اضافه شده
+                                </div>
+                            {% else %}
+                                <form action="{% url 'course_module:reg_course' course.slug %}" method="post" class="register-course-form" style="display: flex; justify-content: center; margin-top: 40px;">
+                                    {% csrf_token %}
+                                    <button type="submit" 
+                                        class="btn btn-main rounded-pill flex-center gap-8" 
+                                        style="
+                                            border: none; 
+                                            background-color: #007bff;
+                                            padding: 16px 40px; 
+                                            font-size: 1.25rem; 
+                                            cursor: pointer;
+                                            display: flex;
+                                            align-items: center;
+                                            gap: 8px;
+                                            color: white;
+                                            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                                            transition: background-color 0.3s ease;
+                                            border-radius: 50px;
+                                            "                                        
+
+                                        onmouseover="this.style.backgroundColor='#0056b3'"
+                                        onmouseout="this.style.backgroundColor='#007bff'"
+                                    >
+                                        اضافه به دوره های مورد علاقه
+                                        <i class="ph-bold ph-arrow-up-right d-flex text-lg"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+
+                            <div class="mt-24 flex-center gap-24">
+                                <form method="post" action="{% url 'cart_module:cart_add' course.id %}">
+                                    {% csrf_token %}
+                                    {% comment %} <button type="submit" class="btn-add-to-cart w-44 h-44 flex-center bg-white rounded-circle text-main-600 text-lg hover-text-white hover-bg-main-600 transition-1">
+                                        <i class="ph-bold ph-shopping-cart-simple"></i>
+                                    </button> {% endcomment %}
+                                    <button type="submit" class="btn-add-to-cart flex-grow-1 btn btn-main rounded-pill flex-align gap-8">
+                                        <i class="ph ph-shopping-cart d-sm-flex d-none text-lg"></i>
+                                        افزودن به سبد خرید
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ============================== Course Details Section End ============================== -->
+    
+    <!-- ================================= Certificate Section Start ================================= -->
+<div class="certificate">
+    <div class="container container--lg">
+        <div class="certificate-box px-16 bg-main-600 rounded-16">
+            <div class="container">
+                <div class="position-relative py-80">
+                    <div class="row align-items-center">
+                        <div class="col-xl-6">
+                            <div class="certificate__content">
+                                <div class="flex-align gap-8 mb-16 wow bounceInDown">
+                                    <span class="w-8 h-8 bg-white rounded-circle"></span>
+                                    <h5 class="text-white mb-0">گواهی مهارت بگیرید</h5>
+                                </div>
+                                <h2 class="text-white mb-40 fw-medium wow bounceIn">گواهینامه مهارت حرفه ای خود را از اجوآل دریافت کنید</h2>
+                                <a href="#" class="btn btn-white rounded-pill flex-align d-inline-flex gap-8 hover-bg-main-800 wow bounceInUp">
+                                    همین الان شروع کن
+                                    <i class="ph-bold ph-arrow-up-right d-flex text-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 d-xl-block d-none">
+                            <div class="certificate__thumb" data-aos="fade-up-left">    
+                                <img src="{% static "images/thumbs/certificate-img.png" %}" alt="" data-tilt data-tilt-max="8" data-tilt-speed="500" data-tilt-perspective="5000" data-tilt-full-page-listening>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
+<!-- ================================= Certificate Section End ================================= -->
+
+    <!-- Toast پیام موفقیت -->
+    <div id="toast" class="toast-success">
+        دوره با موفقیت به سبد خرید اضافه شد 🎉
+    </div>
+
+    <style>
+        /* استایل Toast */
+        .toast-success {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #28a745;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            z-index: 9999;
+            font-size: 16px;
+            text-align: center;
+        }
+        .toast-success.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .comments-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        /* Comment Card */
+        .comment-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .avatar.small {
+            width: 40px;
+            height: 40px;
+        }
+
+        .comment-main {
+            flex: 1;
+        }
+
+        .author-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1f2937;
+            margin-bottom: .3rem;
+        }
+
+        .comment-body {
+            font-size: .95rem;
+            line-height: 1.6;
+            color: #374151;
+            background: #f9fafb;
+            padding: .7rem .9rem;
+            border-radius: 10px;
+        }
+
+        .comment-actions {
+            margin-top: .6rem;
+        }
+
+        .btn-reply {
+            background: #0b79ff;
+            color: #fff;
+            padding: .3rem .8rem;
+            font-size: .85rem;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            transition: background .2s ease;
+        }
+
+        .btn-reply:hover {
+            background: #066ad9;
+        }
+
+        /* Reply Card */
+            .reply-card {
+            display: flex;
+            align-items: flex-start;
+            gap: .8rem;
+            margin-top: .8rem;
+            padding-left: 1rem;
+            border-left: 2px solid #0b79ff20;
+        }
+
+        /* Divider */
+            .comments-divider {
+            margin: 2rem 0;
+            border: none;
+            border-top: 1px dashed #ddd;
+        }
+
+        /* Comment Form */
+            .comment-form {
+            background: #f5f9ff;
+            padding: 1.5rem;
+            border: 1px solid #e0e7ff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+
+        .form-title {
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #1f2937;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: .5rem;
+            font-size: .9rem;
+            color: #374151;
+        }
+
+        .form-textarea {
+            width: 100%;
+            min-height: 100px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: .8rem;
+            font-size: .95rem;
+            resize: vertical;
+            outline-color: #40C4FF;
+        }
+
+        .btn-submit {
+            background: #0b79ff;
+            color: #fff;
+            padding: .5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            transition: background .2s ease;
+        }
+
+        .btn-submit:hover {
+            background: #066ad9;
+        }
+
+        .btn-login {
+            display: inline-block;
+            padding: .6rem 1rem;
+            background: #ff4d4d;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.btn-add-to-cart');
+            const toast = document.getElementById('toast');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const form = this.closest('form');
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value,
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            // نمایش Toast
+                            toast.classList.add('show');
+
+                            // بعد 2 ثانیه محو شود
+                            setTimeout(() => {
+                                toast.classList.remove('show');
+                            }, 2000);
+                        } else {
+                            alert('مشکلی پیش آمد، لطفاً دوباره امتحان کنید.');
+                        }
+                    })
+                    .catch(error => {
+                        alert('خطا: ' + error);
+                    });
+                });
+            });
+        });
+         function set_value(commentId) {
+            document.getElementById('parent_id').value = commentId;
+            window.scrollTo({
+            top: document.getElementById('commentForm').offsetTop - 100,
+            behavior: 'smooth'
+            });
+            document.getElementById('body').focus();
+        }
+    </script>
+
+{% endblock content %}
