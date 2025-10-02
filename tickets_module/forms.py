@@ -19,7 +19,10 @@ class TicketCreateForm(forms.ModelForm):
 
 
 class TicketReplyForm(forms.ModelForm):
-    files = forms.FileField(widget=MultiFileInput(attrs={'multiple': True}), required=False)
+    files = forms.FileField(
+        widget=MultiFileInput(attrs={'multiple': True}),
+        required=False
+    )
 
     class Meta:
         model = TicketReply
@@ -27,14 +30,6 @@ class TicketReplyForm(forms.ModelForm):
         widgets = {
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'پاسخ خود را وارد کنید'}),
         }
-
-    def save(self, commit=True):
-        reply = super().save(commit=commit)
-        files = self.files.getlist('files') if hasattr(self, 'files') else []
-        for f in files:
-            TicketAttachment.objects.create(reply=reply, file=f)
-        return reply
-
 
 
 
