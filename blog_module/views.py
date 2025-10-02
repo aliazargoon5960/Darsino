@@ -26,3 +26,4 @@ class ArticleDetailView(DetailView):
     context_object_name = "article"
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
+

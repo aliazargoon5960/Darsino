@@ -1,0 +1,30 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block content %}
+    <h2>مدیریت دوره‌ها</h2>
+    <a href="{% url 'admin_panel:course_create' %}" class="btn btn-success mb-3">افزودن دوره جدید</a>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            <th>عنوان</th>
+            <th>مدرس</th>
+            <th>قیمت</th>
+            <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses %}
+            <tr>
+            <td>{{ course.title }}</td>
+            <td>{{ course.instructor }}</td>
+            <td>{{ course.price }}</td>
+            <td>
+                <a href="{% url 'admin_panel:course_update' course.id %}" class="btn btn-sm btn-primary">ویرایش</a>
+                <a href="{% url 'admin_panel:course_delete' course.id %}" class="btn btn-sm btn-danger">حذف</a>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
