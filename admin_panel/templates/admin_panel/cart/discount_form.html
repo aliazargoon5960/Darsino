@@ -1,0 +1,14 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>{% if code %}ویرایش{% else %}افزودن{% endif %} کد تخفیف</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-success">ذخیره</button>
+        <a href="{% url 'admin_panel:discount_list' %}" class="btn btn-secondary">بازگشت</a>
+    </form>
+</div>
+{% endblock %}

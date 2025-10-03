@@ -1,0 +1,38 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block content %}
+<h2>مدیریت نویسنده‌ها</h2>
+<a href="{% url 'admin_panel:author_create' %}" class="btn btn-success mb-3">افزودن نویسنده جدید</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>عکس</th>
+            <th>نام کامل</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for author in authors %}
+        <tr>
+            <td>
+                {% if author.image %}
+                    <img src="{{ author.image.url }}" alt="عکس نویسنده" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+            <td>{{ author.fullname }}</td>
+            <td>
+                <a href="{% url 'admin_panel:author_update' author.id %}" class="btn btn-sm btn-primary">ویرایش</a>
+                <a href="{% url 'admin_panel:author_delete' author.id %}" class="btn btn-sm btn-danger">حذف</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3" class="text-center">هیچ نویسنده‌ای ثبت نشده است.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

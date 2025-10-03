@@ -1,0 +1,24 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+<h2>{% if author %}ویرایش نویسنده{% else %}افزودن نویسنده جدید{% endif %}</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">نام کامل</label>
+        {{ form.fullname|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">عکس</label>
+        {{ form.image|add_class:"form-control" }}
+        {% if author and author.image %}
+            <img src="{{ author.image.url }}" alt="عکس نویسنده" style="width:100px; height:100px; object-fit:cover; margin-top:10px;">
+        {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">{% if author %}بروزرسانی{% else %}ثبت{% endif %}</button>
+    <a href="{% url 'admin_panel:author_list' %}" class="btn btn-secondary">بازگشت</a>
+</form>
+{% endblock %}

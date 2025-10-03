@@ -16,11 +16,42 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:index' %}">داشبورد</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:course_list' %}">دوره‌ها</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:article_list' %}">مقالات</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">تنظیمات سایت</a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{% url 'admin_panel:site_setting_list' %}">تنظیمات اصلی سایت</a></li>
+                    <li><a class="dropdown-item" href="{% url 'admin_panel:banner_list' %}">بنرها</a></li>
+                    <li><a class="dropdown-item" href="{% url 'admin_panel:footer_box_list' %}">دسته‌بندی لینک فوتر</a></li>
+                    <li><a class="dropdown-item" href="{% url 'admin_panel:footer_link_list' %}">لینک‌های فوتر</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"> دوره ها </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{% url 'admin_panel:course_list' %}">دوره ها</a></li>
+                    <li><a class="dropdown-item" href="{% url 'admin_panel:category_list' %}">دسته بندی</a></li>
+                </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:teacher_list' %}">مدرس‌ها</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"> مقاله و نوسینده </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{% url 'admin_panel:article_list' %}">مقاله ها</a></li>
+                    <li><a class="dropdown-item" href="{% url 'admin_panel:author_list' %}"> نویسنده ها </a></li>
+                </ul>
+            </li>
             <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:contact_list' %}">پیام‌ها</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:ticket_list' %}">تیکت‌ها</a></li>
-            {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:site_settings' %}">تنظیمات</a></li> {% endcomment %} 
+            
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"> سبد خرید و کد تخفیف </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" href="{% url 'admin_panel:order_list' %}"> سبد خرید کاربران </a></li>
+                    <li><a class="dropdown-item" href="{% url 'admin_panel:discount_list' %}"> کد های تخفیف  </a></li>
+                </ul>
+            </li>
+            
+
             {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">خروج</a></li> {% endcomment %} 
           </ul>
         </div>

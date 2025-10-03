@@ -1,0 +1,42 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-4">
+    <h3>لیست کدهای تخفیف</h3>
+    <a href="{% url 'admin_panel:discount_create' %}" class="btn btn-success mb-3">+ افزودن کد تخفیف</a>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>کد</th>
+                <th>مقدار (تومان)</th>
+                <th>تعداد</th>
+                <th>وضعیت</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for code in codes %}
+            <tr>
+                <td>{{ code.code }}</td>
+                <td>{{ code.amount|intcomma }}</td>
+                <td>{{ code.quantity }}</td>
+                <td>
+                    {% if code.active %}
+                        <span class="badge bg-success">فعال</span>
+                    {% else %}
+                        <span class="badge bg-danger">غیرفعال</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'admin_panel:discount_update' code.pk %}" class="btn btn-sm btn-primary">ویرایش</a>
+                    <a href="{% url 'admin_panel:discount_delete' code.pk %}" class="btn btn-sm btn-danger">حذف</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="text-center">کدی ثبت نشده است.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

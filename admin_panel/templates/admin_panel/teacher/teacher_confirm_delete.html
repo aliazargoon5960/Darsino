@@ -1,0 +1,12 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block content %}
+<h2>حذف مدرس</h2>
+<p>آیا از حذف مدرس <strong>{{ teacher.fullname }}</strong> مطمئن هستید؟</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">حذف</button>
+    <a href="{% url 'admin_panel:teacher_list' %}" class="btn btn-secondary">انصراف</a>
+</form>
+{% endblock %}

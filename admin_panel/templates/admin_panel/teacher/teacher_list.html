@@ -1,0 +1,42 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block content %}
+<h2>مدیریت مدرس‌ها</h2>
+<a href="{% url 'admin_panel:teacher_create' %}" class="btn btn-success mb-3">افزودن مدرس جدید</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>عکس</th>
+            <th>اسم کامل</th>
+            <th>تخصص</th>
+            <th>ایمیل</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for teacher in teachers %}
+        <tr>
+            <td>
+                {% if teacher.image %}
+                    <img src="{{ teacher.image.url }}" alt="عکس استاد" style="width: 60px; height: 60px; object-fit: cover; border-radius: 6px;">
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+            <td>{{ teacher.fullname }}</td>
+            <td>{{ teacher.job }}</td>
+            <td>{{ teacher.email }}</td>
+            <td>
+                <a href="{% url 'admin_panel:teacher_update' teacher.id %}" class="btn btn-sm btn-primary">ویرایش</a>
+                <a href="{% url 'admin_panel:teacher_delete' teacher.id %}" class="btn btn-sm btn-danger">حذف</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" class="text-center">هیچ مدرسی ثبت نشده است.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
