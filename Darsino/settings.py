@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'cart_module',
     'user_panel_module',
     'tickets_module',
+    'admin_panel',
 
     'widget_tweaks',
     'django_cleanup.apps.CleanupConfig',

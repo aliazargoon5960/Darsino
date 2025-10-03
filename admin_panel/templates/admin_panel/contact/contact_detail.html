@@ -1,0 +1,14 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block content %}
+<h2>جزئیات پیام</h2>
+
+<ul class="list-group mb-3">
+  <li class="list-group-item"><strong>فرستنده:</strong> {{ message.name }}</li>
+  <li class="list-group-item"><strong>ایمیل:</strong> {{ message.email }}</li>
+  <li class="list-group-item"><strong>متن پیام:</strong> {{ message.msg }}</li>
+  <li class="list-group-item"><strong>تاریخ ارسال:</strong> {{ message.created_at }}</li>
+</ul>
+
+<a href="{% url 'admin_panel:contact_list' %}" class="btn btn-secondary">بازگشت</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block content %}
+    <h2>حذف مقاله</h2>
+    <p>آیا مطمئن هستید می‌خواهید مقاله "{{ article.title }}" را حذف کنید؟</p>
+
+    <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">حذف</button>
+    <a href="{% url 'admin_panel:article_list' %}" class="btn btn-secondary">انصراف</a>
+    </form>
+{% endblock %}

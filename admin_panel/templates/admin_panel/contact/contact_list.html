@@ -1,0 +1,28 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block content %}
+    <h2>پیام‌های تماس با ما</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+            <th>فرستنده</th>
+            <th>ایمیل</th>
+            <th>خوانده شده</th>
+            <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for msg in messages %}
+                <tr>
+                    <td>{{ msg.name }}</td>
+                    <td>{{ msg.email }}</td>
+                    <td>{{ msg.is_read|yesno:"بله,خیر" }}</td>
+                    <td>
+                        <a href="{% url 'admin_panel:contact_detail' msg.id %}" class="btn btn-sm btn-primary">مشاهده</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
