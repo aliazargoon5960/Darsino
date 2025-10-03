@@ -1,0 +1,12 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block content %}
+<h2>حذف دسته بندی</h2>
+<p>آیا از حذف دسته بندی "{{ category.title }}" مطمئن هستید؟</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">حذف</button>
+    <a href="{% url 'admin_panel:category_list' %}" class="btn btn-secondary">لغو</a>
+</form>
+{% endblock %}

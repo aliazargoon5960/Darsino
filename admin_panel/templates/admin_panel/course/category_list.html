@@ -1,0 +1,28 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block content %}
+<h2>مدیریت دسته‌بندی‌ها</h2>
+<a href="{% url 'admin_panel:category_create' %}" class="btn btn-success mb-3">افزودن دسته بندی جدید</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>عنوان</th>
+            <th>تاریخ ایجاد</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in categories %}
+        <tr>
+            <td>{{ category.title }}</td>
+            <td>{{ category.created_at|date:"Y/m/d - H:i" }}</td>
+            <td>
+                <a href="{% url 'admin_panel:category_update' category.id %}" class="btn btn-sm btn-primary">ویرایش</a>
+                <a href="{% url 'admin_panel:category_delete' category.id %}" class="btn btn-sm btn-danger">حذف</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

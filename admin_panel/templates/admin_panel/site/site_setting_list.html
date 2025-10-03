@@ -1,0 +1,28 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block content %}
+<h2>تنظیمات سایت</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>نام سایت</th>
+            <th>دامنه</th>
+            <th>ایمیل</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for setting in settings %}
+        <tr>
+            <td>{{ setting.site_name }}</td>
+            <td>{{ setting.site_url }}</td>
+            <td>{{ setting.email }}</td>
+            <td>
+                <a href="{% url 'admin_panel:site_setting_update' setting.id %}" class="btn btn-sm btn-primary">ویرایش</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

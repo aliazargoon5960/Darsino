@@ -1,0 +1,20 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<h2>{% if category %}ویرایش دسته بندی{% else %}افزودن دسته بندی{% endif %}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="mb-3">
+        <label class="form-label">عنوان دسته بندی</label>
+        {{ form.title|add_class:"form-control" }}
+        {{ form.title.errors }}
+    </div>
+    <button type="submit" class="btn btn-primary">
+        {% if category %}بروزرسانی{% else %}افزودن{% endif %}
+    </button>
+    <a href="{% url 'admin_panel:category_list' %}" class="btn btn-secondary">بازگشت</a>
+</form>
+{% endblock %}

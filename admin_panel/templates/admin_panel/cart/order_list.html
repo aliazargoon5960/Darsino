@@ -1,0 +1,41 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+{% load humanize %}
+
+
+{% block content %}
+<div class="container mt-4">
+    <h3>لیست سفارش‌ها</h3>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>کاربر</th>
+                <th>مبلغ کل</th>
+                <th>پرداخت شده؟</th>
+                <th>تاریخ پرداخت</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.user }}</td>
+                <td>{{ order.total_price|intcomma }} تومان</td>
+                <td>
+                    {% if order.is_paid %}
+                        <span class="badge bg-success">بله</span>
+                    {% else %}
+                        <span class="badge bg-warning">خیر</span>
+                    {% endif %}
+                </td>
+                <td>{{ order.payment_date|default:"-" }}</td>
+                <td>
+                    <a href="{% url 'admin_panel:order_detail' order.pk %}" class="btn btn-sm btn-info">جزئیات</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="5" class="text-center">سفارشی وجود ندارد.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

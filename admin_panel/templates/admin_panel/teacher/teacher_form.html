@@ -1,0 +1,40 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<h2>{% if teacher %}ویرایش مدرس{% else %}افزودن مدرس جدید{% endif %}</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">اسم کامل</label>
+        {{ form.fullname|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">عکس استاد</label>
+        {% if teacher and teacher.image %}
+            <div class="mb-2">
+                <img src="{{ teacher.image.url }}" alt="Teacher Image" style="width:120px; border-radius:8px;">
+            </div>
+        {% endif %}
+        {{ form.image|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">تخصص استاد</label>
+        {{ form.job|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">بیوگرافی</label>
+        {{ form.bio|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">شماره تلفن</label>
+        {{ form.phone|add_class:"form-control" }}
+    </div>
+    <div class="mb-3">
+        <label class="form-label">ایمیل</label>
+        {{ form.email|add_class:"form-control" }}
+    </div>
+    <button type="submit" class="btn btn-primary">{% if teacher %}بروزرسانی{% else %}افزودن{% endif %}</button>
+</form>
+{% endblock %}

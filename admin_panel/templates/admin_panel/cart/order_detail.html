@@ -1,0 +1,39 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+{% load humanize %}
+
+
+{% block content %}
+<div class="container mt-4">
+    <h3>جزئیات سفارش</h3>
+    <p><b>کاربر:</b> {{ order.user }}</p>
+    <p><b>کد تخفیف:</b> {{ order.discount|default:"-" }}</p>
+    <p><b>مبلغ کل:</b> {{ order.total_price|intcomma }} تومان</p>
+    <p><b>وضعیت:</b>
+        {% if order.is_paid %}
+            <span class="badge bg-success">پرداخت شده</span>
+        {% else %}
+            <span class="badge bg-warning">در انتظار پرداخت</span>
+        {% endif %}
+    </p>
+
+    <h5>دوره‌های این سفارش:</h5>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>عنوان دوره</th>
+                <th>قیمت</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items.all %}
+            <tr>
+                <td>{{ item.course.title }}</td>
+                <td>{{ item.price|intcomma }} تومان</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'admin_panel:order_list' %}" class="btn btn-secondary">بازگشت</a>
+</div>
+{% endblock %}
