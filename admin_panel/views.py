@@ -3,7 +3,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from course_module.models import Course
 from blog_module.models import Article
 from contact_module.models import Message
-from tickets_module.models import Ticket, TicketAttachment
+from tickets_module.models import Ticket, TicketAttachment, TicketReply
 from django.contrib import messages
 from course_module.forms import CourseForm 
 from blog_module.forms import ArticleForm
@@ -123,3 +123,29 @@ def contact_detail(request, pk):
     
     return render(request, 'admin_panel/contact/contact_detail.html', {'message': message})
 
+
+#ticket
+@staff_member_required
+def ticket_list(request):
+    tickets = Ticket.objects.all().order_by('-created_at')
+    return render(request, 'admin_panel/tickets/ticket_list.html', {'tickets': tickets})
+
+
+@staff_member_required
+def ticket_detail(request, pk):
+    ticket = get_object_or_404(Ticket, pk=pk)
+
+    if request.method == "POST":
+        form = TicketReplyForm(request.POST)
+        files = request.FILES.getlist('files')
+        if form.is_valid():
+            form.save(reply_user=request.user, ticket=ticket, files=files)
+            messages.success(request, "پاسخ با موفقیت ارسال شد.")
+            return redirect('admin_panel:ticket_detail', pk=ticket.pk)
+    else:
+        form = TicketReplyForm()
+
+    return render(request, 'admin_panel/tickets/ticket_detail.html', {
+        'ticket': ticket,
+        'form': form,
+    })

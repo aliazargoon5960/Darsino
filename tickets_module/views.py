@@ -27,10 +27,9 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         response = super().form_valid(form)
 
-       
         files = self.request.FILES.getlist('files')
-        for item in files:
-            TicketAttachment.objects.create(ticket=self.object, file=item)
+        for f in files:
+            TicketAttachment.objects.create(ticket=self.object, file=f)
 
         return response
 
@@ -53,8 +52,8 @@ class TicketDetailView(LoginRequiredMixin, DetailView):
 
 class TicketReplyView(LoginRequiredMixin, View):
     def post(self, request, pk):
-        ticket = get_object_or_404(Ticket, pk=pk, user=request.user)
-        form = TicketReplyForm(request.POST, request.FILES)  
+        ticket = get_object_or_404(Ticket, pk=pk)
+        form = TicketReplyForm(request.POST) 
         if form.is_valid():
             reply = form.save(commit=False)
             reply.ticket = ticket
@@ -62,10 +61,11 @@ class TicketReplyView(LoginRequiredMixin, View):
             reply.save()
 
             files = request.FILES.getlist('files')
-            for item in files:
-                TicketAttachment.objects.create(reply=reply, file=item)
+            for f in files:
+                TicketAttachment.objects.create(reply=reply, file=f)
 
-            ticket.status = Ticket.STATUS_PENDING 
+            ticket.status = Ticket.STATUS_PENDING
             ticket.save()
+
         return redirect('tickets_module:ticket_detail', pk=pk)
         

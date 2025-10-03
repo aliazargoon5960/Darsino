@@ -28,11 +28,18 @@ class TicketReplyForm(forms.ModelForm):
             'message': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'پاسخ خود را وارد کنید'}),
         }
 
-    def save(self, commit=True):
-        reply = super().save(commit=commit)
-        files = self.files.getlist('files') if hasattr(self, 'files') else []
-        for f in files:
-            TicketAttachment.objects.create(reply=reply, file=f)
+    def save(self, commit=True, reply_user=None, ticket=None, files=None):
+        reply = super().save(commit=False)
+        if reply_user:
+            reply.user = reply_user
+        if ticket:
+            reply.ticket = ticket
+        if commit:
+            reply.save()
+            # ذخیره فایل‌ها
+            if files:
+                for f in files:
+                    TicketAttachment.objects.create(reply=reply, file=f)
         return reply
 
 
