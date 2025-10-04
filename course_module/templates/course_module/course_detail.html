@@ -60,11 +60,12 @@
                     <div class="course-details__content border border-neutral-30 rounded-12 bg-main-25 p-12">
                         <div style="width: 100%; height: 550px; overflow: hidden; border-radius: 8px;">
                             <img src="{{ course.image.url }}" alt="{{ course.title }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                            <div class="p-20">
-                                <h2 class="mt-24 mb-24">یادگیری {{ course.title }} </h2>
-                                <p class="text-neutral-700">  {{ course.description }}  </p>
-                                <span class="d-block border-bottom border-main-100 my-32"></span>
-                            </div>
+                        </div>
+
+                        <div class="p-20 bg-main-25 border border-neutral-30 rounded-12 mt-24">
+                            <h2 class="mt-24 mb-24">یادگیری {{ course.title }}</h2>
+                            <p class="text-neutral-700">{{ course.description|safe }}</p>
+                            <span class="d-block border-bottom border-main-100 my-32"></span>
                         </div>
                     </div>
                     <!-- Details Content End -->

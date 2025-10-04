@@ -1,41 +1,35 @@
 {% extends "admin_panel/admin_panel_base.html" %}
 
-
 {% block content %}
-    <h1 class="mb-4">داشبورد مدیریت</h1>
+<h1 class="dashboard-title mb-4">داشبورد مدیریت</h1>
 
-    <div class="row">
-        <div class="col-md-3 mb-3">
-            <div class="card text-white bg-primary">
-            <div class="card-body">
-                <h5 class="card-title">کل دوره‌ها</h5>
-                <p class="card-text fs-3">{{ total_courses }}</p>
-            </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="card text-white bg-success">
-            <div class="card-body">
-                <h5 class="card-title">کل مقالات</h5>
-                <p class="card-text fs-3">{{ total_articles }}</p>
-            </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="card text-white bg-warning">
-            <div class="card-body">
-                <h5 class="card-title">پیام‌های خوانده نشده</h5>
-                <p class="card-text fs-3">{{ unread_messages }}</p>
-            </div>
-            </div>
-        </div>
-        <div class="col-md-3 mb-3">
-            <div class="card text-white bg-danger">
-            <div class="card-body">
-                <h5 class="card-title">تیکت‌های باز</h5>
-                <p class="card-text fs-3">{{ open_tickets }}</p>
-            </div>
-            </div>
+<div class="dashboard-cards">
+    <div class="card dashboard-card bg-primary">
+        <div class="card-body">
+            <h5 class="card-title">کل دوره‌ها</h5>
+            <p class="card-text">{{ total_courses }}</p>
         </div>
     </div>
+
+    <div class="card dashboard-card bg-success">
+        <div class="card-body">
+            <h5 class="card-title">کل مقالات</h5>
+            <p class="card-text">{{ total_articles }}</p>
+        </div>
+    </div>
+
+    <div class="card dashboard-card bg-warning">
+        <div class="card-body">
+            <h5 class="card-title">پیام‌های خوانده نشده</h5>
+            <p class="card-text">{{ unread_messages }}</p>
+        </div>
+    </div>
+
+    <div class="card dashboard-card bg-danger">
+        <div class="card-body">
+            <h5 class="card-title">تیکت‌های باز</h5>
+            <p class="card-text">{{ open_tickets }}</p>
+        </div>
+    </div>
+</div>
 {% endblock content %}

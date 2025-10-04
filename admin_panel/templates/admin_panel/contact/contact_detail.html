@@ -1,14 +1,16 @@
 {% extends "admin_panel/admin_panel_base.html" %}
 
 {% block content %}
-<h2>جزئیات پیام</h2>
+<div class="detail-wrapper">
+    <h2 class="page-title">جزئیات پیام</h2>
 
-<ul class="list-group mb-3">
-  <li class="list-group-item"><strong>فرستنده:</strong> {{ message.name }}</li>
-  <li class="list-group-item"><strong>ایمیل:</strong> {{ message.email }}</li>
-  <li class="list-group-item"><strong>متن پیام:</strong> {{ message.msg }}</li>
-  <li class="list-group-item"><strong>تاریخ ارسال:</strong> {{ message.created_at }}</li>
-</ul>
+    <ul class="detail-list">
+        <li><strong>فرستنده:</strong> {{ message.name }}</li>
+        <li><strong>ایمیل:</strong> {{ message.email }}</li>
+        <li><strong>متن پیام:</strong> {{ message.msg }}</li>
+        <li><strong>تاریخ ارسال:</strong> {{ message.created_at|date:"Y/m/d - H:i" }}</li>
+    </ul>
 
-<a href="{% url 'admin_panel:contact_list' %}" class="btn btn-secondary">بازگشت</a>
+    <a href="{% url 'admin_panel:contact_list' %}" class="btn-back">بازگشت</a>
+</div>
 {% endblock %}

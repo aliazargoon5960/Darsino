@@ -1,0 +1,2510 @@
+body {
+    font-family: 'Vazir', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f7fc;
+    color: #333;
+}
+
+/* سایدبار سمت راست */
+.sidebar {
+    background-color: #1E90FF;
+    color: #fff;
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0; /* سمت راست */
+    padding-top: 60px;
+    overflow-y: auto;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background-color: #1c86ee;
+}
+
+/* Dropdown */
+.sidebar-dropdown > a {
+    cursor: pointer;
+}
+
+.sidebar-dropdown-menu {
+    display: none; /* پنهان در ابتدا */
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.sidebar-dropdown-menu a {
+    padding: 10px 30px;
+    font-size: 0.95rem;
+}
+
+/* هدر */
+header {
+    background-color: #ffffff;
+    padding: 15px 20px;
+    margin-right: 250px; /* جا برای سایدبار */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* محتوای اصلی */
+.container {
+    margin-right: 270px; /* جا برای سایدبار */
+    padding: 20px;
+}
+
+/* دکمه‌ها */
+button {
+    background-color: #1E90FF;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1c86ee;
+}
+
+/* داشبورد */
+.dashboard-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.dashboard-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.dashboard-card {
+    flex: 1 1 calc(25% - 20px);
+    min-width: 200px;
+    border-radius: 10px;
+    padding: 20px;
+    color: #fff; /* متن سفید */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.dashboard-card .card-body {
+    text-align: center;
+}
+
+.dashboard-card .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.dashboard-card .card-text {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* رنگ‌های کارت‌ها */
+.dashboard-card.bg-primary {
+    background-color: #a015dc; /* آبی */
+}
+
+.dashboard-card.bg-success {
+    background-color: #28a745; /* سبز */
+}
+
+.dashboard-card.bg-warning {
+    background-color: #ffc107; /* زرد */
+    color: #333; /* متن تیره برای وضوح */
+}
+
+.dashboard-card.bg-danger {
+    background-color: #dc3545; /* قرمز */
+}
+
+/* عنوان صفحه */
+.page-title {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+/* جدول */
+.table-container {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f4f7fc;
+}
+
+.custom-table tr:hover {
+    background-color: #e0f0ff;
+}
+
+/* دکمه ویرایش */
+.btn-edit {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #1E90FF;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.btn-edit:hover {
+    background-color: #1c86ee;
+}
+
+/* فرم Wrapper */
+.form-wrapper {
+    max-width: 600px;  /* کمی کوچکتر از قبل */
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* عنوان فرم */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1E90FF;
+}
+
+/* فرم‌ها */
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* گروه فرم */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* لیبل‌ها */
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* فیلدهای ورودی */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 10px;  /* کاهش padding */
+    border: 1px solid #ccc;
+    border-radius: 6px;  /* کمی کوچکتر */
+    font-family: 'Vazir', sans-serif;
+    font-size: 0.95rem;  /* کمی کوچکتر */
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1E90FF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(30,144,255,0.3);  /* کمی جمع‌تر */
+}
+
+/* نمایش خطای فرم */
+.form-error {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+/* دکمه ذخیره */
+.btn-submit {
+    align-self: center;
+    padding: 8px 20px;  /* جمع و جورتر */
+    background-color: #1E90FF;
+    color: #fff;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #1c86ee;
+}
+
+/* دکمه افزودن */
+.btn-add {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #28a745; /* سبز */
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+/* دکمه ویرایش */
+.btn-edit {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #1E90FF; /* آبی */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-right: 5px;
+}
+
+.btn-edit:hover {
+    background-color: #1c86ee;
+}
+
+/* دکمه حذف */
+.btn-delete {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #dc3545; /* قرمز */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* جدول */
+.table-container {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f4f7fc;
+}
+
+.custom-table tr:hover {
+    background-color: #e0f0ff;
+}
+
+/* تصویر داخل جدول */
+.table-img {
+    height: 50px;
+    border-radius: 4px;
+}
+/* Wrapper فرم */
+.form-wrapper {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* عنوان فرم */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1E90FF;
+}
+
+/* فرم‌ها */
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* گروه فرم */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* لیبل‌ها */
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* فیلدهای ورودی */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Vazir', sans-serif;
+    font-size: 0.95rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1E90FF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(30,144,255,0.3);
+}
+
+/* نمایش خطای فرم */
+.form-error {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+/* دکمه ذخیره */
+.btn-submit {
+    align-self: center;
+    padding: 8px 20px;
+    background-color: #1E90FF;
+    color: #fff;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #1c86ee;
+}
+
+/* دکمه افزودن */
+.btn-add {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #28a745; /* سبز */
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+/* دکمه ویرایش */
+.btn-edit {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #1E90FF; /* آبی */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-right: 5px;
+}
+
+.btn-edit:hover {
+    background-color: #1c86ee;
+}
+
+/* دکمه حذف */
+.btn-delete {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #dc3545; /* قرمز */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* جدول */
+.table-container {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f4f7fc;
+}
+
+.custom-table tr:hover {
+    background-color: #e0f0ff;
+}
+
+/* Wrapper فرم */
+.form-wrapper {
+    max-width: 500px; /* کمی کوچکتر برای فرم‌های کوتاه */
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* عنوان فرم */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1E90FF;
+}
+
+/* فرم‌ها */
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* گروه فرم */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* لیبل‌ها */
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* فیلدهای ورودی */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Vazir', sans-serif;
+    font-size: 0.95rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1E90FF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(30,144,255,0.3);
+}
+
+/* نمایش خطای فرم */
+.form-error {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+/* دکمه ذخیره */
+.btn-submit {
+    align-self: center;
+    padding: 8px 20px;
+    background-color: #1E90FF;
+    color: #fff;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #1c86ee;
+}
+
+/* دکمه افزودن */
+.btn-add {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #28a745; /* سبز */
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+/* دکمه ویرایش */
+.btn-edit {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #1E90FF; /* آبی */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    margin-right: 5px;
+}
+
+.btn-edit:hover {
+    background-color: #1c86ee;
+}
+
+/* دکمه حذف */
+.btn-delete {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #dc3545; /* قرمز */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* جدول */
+.table-container {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f4f7fc;
+}
+
+.custom-table tr:hover {
+    background-color: #e0f0ff;
+}
+
+/* Wrapper فرم */
+.form-wrapper {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* عنوان فرم */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1E90FF;
+}
+
+/* فرم‌ها */
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* گروه فرم */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* لیبل‌ها */
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* فیلدهای ورودی */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Vazir', sans-serif;
+    font-size: 0.95rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1E90FF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(30,144,255,0.3);
+}
+
+/* نمایش خطای فرم */
+.form-error {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+/* دکمه ذخیره */
+.btn-submit {
+    align-self: center;
+    padding: 8px 20px;
+    background-color: #1E90FF;
+    color: #fff;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #1c86ee;
+}
+
+/* Wrapper جدول */
+.table-wrapper {
+    margin: 30px auto;
+    max-width: 1000px;
+}
+
+/* هدر جدول */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* عنوان صفحه */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #1E90FF;
+}
+
+/* دکمه افزودن */
+.btn-add {
+    padding: 8px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+/* دکمه ویرایش */
+.btn-edit {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #1E90FF;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 5px;
+    font-size: 0.85rem;
+}
+
+.btn-edit:hover {
+    background-color: #1c86ee;
+}
+
+/* دکمه حذف */
+.btn-delete {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* جدول */
+.table-container {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f4f7fc;
+}
+
+.custom-table tr:hover {
+    background-color: #e0f0ff;
+}
+
+/* متن خالی جدول */
+.text-muted {
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+/* Wrapper فرم */
+.form-wrapper {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* عنوان فرم */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1E90FF;
+}
+
+/* فرم‌ها */
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* گروه فرم */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* لیبل‌ها */
+.form-group label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+}
+
+/* فیلدهای ورودی */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Vazir', sans-serif;
+    font-size: 0.95rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1E90FF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(30,144,255,0.3);
+}
+
+/* نمایش خطای فرم */
+.form-error {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+/* دکمه‌ها */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-submit {
+    padding: 8px 22px;
+    background-color: #1E90FF;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #1c86ee;
+}
+
+.btn-cancel {
+    padding: 8px 22px;
+    background-color: #6c757d;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+/* Wrapper جدول */
+.table-wrapper {
+    margin: 30px auto;
+    max-width: 900px;
+}
+
+/* هدر جدول */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* عنوان صفحه */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #1E90FF;
+}
+
+/* دکمه افزودن */
+.btn-add {
+    padding: 8px 20px;
+    background-color: #28a745; /* سبز */
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+/* دکمه ویرایش */
+.btn-edit {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #1E90FF; /* آبی */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 5px;
+    font-size: 0.85rem;
+}
+
+.btn-edit:hover {
+    background-color: #1c86ee;
+}
+
+/* دکمه حذف */
+.btn-delete {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #dc3545; /* قرمز */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* جدول */
+.table-container {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f4f7fc;
+}
+
+.custom-table tr:hover {
+    background-color: #e0f0ff;
+}
+
+/* متن خالی جدول */
+.text-muted {
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+/* Wrapper فرم */
+.form-wrapper {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* عنوان فرم */
+.page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1E90FF;
+}
+
+/* فرم‌ها */
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* گروه فرم */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* فیلدهای ورودی */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: 'Vazir', sans-serif;
+    font-size: 0.95rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1E90FF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(30,144,255,0.3);
+}
+
+/* نمایش خطا */
+.form-error {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+/* دکمه‌ها */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-submit {
+    padding: 8px 22px;
+    background-color: #1E90FF;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #1c86ee;
+}
+
+.btn-cancel {
+    padding: 8px 22px;
+    background-color: #6c757d;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+/* تصویر در جدول */
+.table-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Wrapper جدول */
+.table-wrapper {
+    margin: 30px auto;
+    max-width: 1000px;
+}
+
+/* هدر جدول */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* عنوان صفحه */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #1E90FF;
+}
+
+/* دکمه افزودن */
+.btn-add {
+    padding: 8px 20px;
+    background-color: #28a745; /* سبز */
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+/* دکمه ویرایش */
+.btn-edit {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #1E90FF; /* آبی */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 5px;
+    font-size: 0.85rem;
+}
+
+.btn-edit:hover {
+    background-color: #1c86ee;
+}
+
+/* دکمه حذف */
+.btn-delete {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #dc3545; /* قرمز */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* جدول */
+.table-container {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f4f7fc;
+}
+
+.custom-table tr:hover {
+    background-color: #e0f0ff;
+}
+
+/* متن خالی جدول */
+.text-muted {
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+/* Wrapper فرم */
+.form-wrapper {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* عنوان فرم */
+.page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1E90FF;
+}
+
+/* فرم‌ها */
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* گروه فرم */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* فیلدهای ورودی */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: 'Vazir', sans-serif;
+    font-size: 0.95rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1E90FF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(30,144,255,0.3);
+}
+
+/* پیش‌نمایش عکس */
+.img-preview {
+    width: 120px;
+    border-radius: 8px;
+}
+
+/* دکمه‌ها */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-submit {
+    padding: 8px 22px;
+    background-color: #1E90FF;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #1c86ee;
+}
+
+.btn-cancel {
+    padding: 8px 22px;
+    background-color: #6c757d;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+/* تصویر در جدول */
+.table-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Wrapper جدول */
+.table-wrapper {
+    margin: 30px auto;
+    max-width: 900px;
+}
+
+/* هدر جدول */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* عنوان صفحه */
+.page-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #1E90FF;
+}
+
+/* دکمه افزودن */
+.btn-add {
+    padding: 8px 20px;
+    background-color: #28a745; /* سبز */
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.btn-add:hover {
+    background-color: #218838;
+}
+
+/* دکمه ویرایش */
+.btn-edit {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #1E90FF; /* آبی */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 5px;
+    font-size: 0.85rem;
+}
+
+.btn-edit:hover {
+    background-color: #1c86ee;
+}
+
+/* دکمه حذف */
+.btn-delete {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #dc3545; /* قرمز */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+/* جدول */
+.table-container {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: #f4f7fc;
+}
+
+.custom-table tr:hover {
+    background-color: #e0f0ff;
+}
+
+/* متن خالی جدول */
+.text-muted {
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+
+/* Wrapper فرم */
+.form-wrapper {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* عنوان فرم */
+.page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1E90FF;
+}
+
+/* فرم‌ها */
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* گروه فرم */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* فیلدهای ورودی */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: 'Vazir', sans-serif;
+    font-size: 0.95rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1E90FF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(30,144,255,0.3);
+}
+
+/* پیش‌نمایش عکس */
+.img-preview {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* دکمه‌ها */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-submit {
+    padding: 8px 22px;
+    background-color: #1E90FF;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #1c86ee;
+}
+
+.btn-cancel {
+    padding: 8px 22px;
+    background-color: #6c757d;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+/* جدول و دکمه‌ها مشابه لیست نویسنده‌ها */
+.table-wrapper {
+    margin: 30px auto;
+    max-width: 900px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.page-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #1E90FF;
+}
+
+.btn-add {
+    padding: 8px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.btn-add:hover { background-color: #218838; }
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) { background-color: #f4f7fc; }
+.custom-table tr:hover { background-color: #e0f0ff; }
+
+.btn-edit {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #1E90FF;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 5px;
+    font-size: 0.85rem;
+}
+
+.btn-edit:hover { background-color: #1c86ee; }
+
+.btn-delete {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-delete:hover { background-color: #c82333; }
+
+.text-muted {
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+/* Wrapper فرم */
+.form-wrapper {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* عنوان فرم */
+.page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1E90FF;
+}
+
+/* فرم‌ها */
+.custom-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* گروه فرم */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* فیلدهای ورودی */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: 'Vazir', sans-serif;
+    font-size: 0.95rem;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #1E90FF;
+    outline: none;
+    box-shadow: 0 0 4px rgba(30,144,255,0.3);
+}
+
+/* دکمه‌ها */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.btn-submit {
+    padding: 8px 22px;
+    background-color: #1E90FF;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #1c86ee;
+}
+
+.btn-cancel {
+    padding: 8px 22px;
+    background-color: #6c757d;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
+}
+
+/* نمایش ارور فرم */
+.form-error {
+    color: #dc3545;
+    font-size: 0.85rem;
+}
+
+/* جدول پیام‌ها مشابه مقالات و نویسنده‌ها */
+.table-wrapper {
+    margin: 30px auto;
+    max-width: 900px;
+}
+
+.table-header {
+    margin-bottom: 15px;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1E90FF;
+    text-align: center;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) { background-color: #f4f7fc; }
+.custom-table tr:hover { background-color: #e0f0ff; }
+
+.btn-view {
+    padding: 6px 12px;
+    background-color: #1E90FF;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-view:hover { background-color: #1c86ee; }
+
+.text-muted {
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+/* Wrapper جزئیات پیام */
+.detail-wrapper {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* عنوان صفحه */
+.detail-wrapper .page-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #1E90FF;
+    margin-bottom: 20px;
+}
+
+/* لیست جزئیات */
+.detail-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.detail-list li {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    font-family: 'Vazir', sans-serif;
+    font-size: 1rem;
+}
+
+.detail-list li strong {
+    color: #1E90FF;
+}
+
+/* دکمه بازگشت */
+.btn-back {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #6c757d;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    background-color: #5a6268;
+}
+
+/* Wrapper جدول */
+.table-wrapper {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+
+.page-title {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #1E90FF;
+    margin-bottom: 20px;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.custom-table th {
+    background-color: #1E90FF;
+    color: #fff;
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) { background-color: #f4f7fc; }
+.custom-table tr:hover { background-color: #e0f0ff; }
+
+/* Badge های وضعیت و اولویت */
+.badge-warning { background-color: #f0ad4e; color: #212529; padding: 5px 10px; border-radius: 5px; }
+.badge-info { background-color: #5bc0de; color: #fff; padding: 5px 10px; border-radius: 5px; }
+.badge-success { background-color: #28a745; color: #fff; padding: 5px 10px; border-radius: 5px; }
+.badge-secondary { background-color: #6c757d; color: #fff; padding: 5px 10px; border-radius: 5px; }
+.badge-primary { background-color: #1E90FF; color: #fff; padding: 5px 10px; border-radius: 5px; }
+.badge-danger { background-color: #dc3545; color: #fff; padding: 5px 10px; border-radius: 5px; }
+
+/* دکمه مشاهده */
+.btn-view {
+    padding: 6px 12px;
+    background-color: #1E90FF;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-view:hover { background-color: #1c86ee; }
+
+.text-muted {
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+.ticket-wrapper { max-width: 900px; margin: 30px auto; }
+.page-title { color: #1E90FF; text-align: center; margin-bottom: 20px; }
+
+.ticket-card, .reply-card, .reply-form-card {
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.ticket-header {
+    background-color: #1E90FF;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+    padding: 10px 15px;
+}
+
+.attach-img img {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.attach-file {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #333;
+    margin: 3px;
+}
+
+.attach-file:hover {
+    background: #e0e0e0;
+}
+
+.reply-card { border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
+.reply-form-card .ticket-header { background-color: #1E90FF; }
+
+.badge-success { background-color: #28a745; color: #fff; padding: 4px 8px; border-radius: 5px; }
+.badge-warning { background-color: #f0ad4e; color: #212529; padding: 4px 8px; border-radius: 5px; }
+.badge-info { background-color: #5bc0de; color: #fff; padding: 4px 8px; border-radius: 5px; }
+.badge-primary { background-color: #1E90FF; color: #fff; padding: 4px 8px; border-radius: 5px; }
+.badge-danger { background-color: #dc3545; color: #fff; padding: 4px 8px; border-radius: 5px; }
+.badge-secondary { background-color: #6c757d; color: #fff; padding: 4px 8px; border-radius: 5px; }
+
+/* استایل مخصوص صفحه جزئیات تیکت */
+.ticket-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+/* کارت تیکت اصلی */
+.ticket-card {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* متن پیام اصلی */
+.ticket-card .card-body p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #333;
+}
+
+/* فایل‌های پیوست */
+.attachments a {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.2s ease-in-out;
+}
+.attachments a:hover {
+    background: #e9ecef;
+    text-decoration: none;
+}
+
+
+/* صفحه جزئیات تیکت */
+.ticket-detail .page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.ticket-card,
+.reply-card,
+.reply-form {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.ticket-message {
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.attachments {
+    margin-top: 10px;
+}
+
+.attachment-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 6px;
+    background: #f9f9f9;
+    transition: all 0.2s ease-in-out;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.attachment-item:hover {
+    background: #eef6ff;
+    border-color: #0d6efd;
+    color: #0d6efd;
+    text-decoration: none;
+}
+
+.attachment-item img {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.attachment-item.small img {
+    max-width: 90px;
+    max-height: 90px;
+}
+
+/* فرم پاسخ */
+.reply-form .form-control {
+    border-radius: 8px;
+    font-size: 0.95rem;
+    padding: 10px 12px;
+}
+
+.reply-form button {
+    min-width: 130px;
+    font-weight: 600;
+}
+
+/* ---------- تیکت‌ها ---------- */
+
+/* فاصله بین کارت تیکت اصلی و پاسخ‌ها */
+.ticket-card {
+    margin-bottom: 30px;  /* فاصله بیشتر از قبل */
+    padding: 20px;        /* فاصله داخلی کارت */
+    border-radius: 10px;
+}
+
+/* کارت‌های پاسخ */
+.reply-card {
+    margin-bottom: 25px;  /* فاصله بین هر پاسخ */
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* فرم ارسال پاسخ */
+.reply-form {
+    margin-top: 40px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* فاصله بین پیام و فایل‌های پیوست */
+.attachments {
+    margin-top: 15px;
+}
+
+/* فاصله بین فایل‌های پیوست */
+.attachment-item {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* فاصله بین عنوان‌ها و محتوا */
+.page-title {
+    margin-bottom: 25px;
+}
+
+/* بخش پاسخ‌ها */
+.replies h5 {
+    margin-bottom: 20px;
+}
+
+/* متن پیام داخل کارت */
+.ticket-message, .reply-card p {
+    line-height: 1.6;  /* فاصله بین خطوط بهتر */
+}
+
+/* کوچک کردن آیکون فایل */
+.attachment-item i {
+    margin-right: 5px;
+    font-size: 1rem;
+}
+
+/* واکنشگرایی تصاویر فایل‌های پیوست */
+.attachment-item img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.ticket-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* عنوان صفحه */
+.page-header {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+
+/* کارت تیکت اصلی */
+.ticket-card {
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* کارت پاسخ‌ها */
+.reply-card {
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+/* فاصله بین پیام‌ها */
+.ticket-message, .reply-card p {
+    line-height: 1.6;
+}
+
+/* فایل‌های پیوست */
+.attachment-item {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.attachment-item i {
+    margin-right: 5px;
+    font-size: 1rem;
+}
+
+.attachment-item img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+/* فرم پاسخ جدید */
+.reply-form {
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 40px;
+}
+
+.reply-form .btn {
+    min-width: 120px;
+}
+
+.table-wrapper {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+}
+
+.table-header .page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+    text-align: center;
+}
+
+.custom-table thead {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.btn-view {
+    background-color: #17a2b8;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.btn-view:hover {
+    background-color: #138496;
+}
+
+.badge.bg-success {
+    background-color: #28a745 !important;
+}
+
+.badge.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.card-wrapper {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.page-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.order-info p {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+    text-align: center;
+}
+
+.custom-table thead {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.btn-back {
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.card-wrapper {
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.page-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.btn-add {
+    padding: 8px 20px;
+    font-size: 0.95rem;
+    border-radius: 6px;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.custom-table th, .custom-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #dee2e6;
+    text-align: center;
+}
+
+.custom-table thead {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f1f3f5;
+}
+
+.badge {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.actions-cell {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-action {
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-edit {
+    background-color: #0d6efd; /* آبی */
+    color: #fff;
+}
+
+.btn-edit:hover {
+    background-color: #0b5ed7;
+}
+
+.btn-delete {
+    background-color: #dc3545; /* قرمز */
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background-color: #bb2d3b;
+}
+.form-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.page-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.custom-form .form-group {
+    margin-bottom: 15px;
+}
+
+.custom-form .form-control {
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    background-color: #198754;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+}
+
+.btn-submit:hover {
+    background-color: #157347;
+}
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-cancel:hover {
+    background-color: #5c636a;
+}
+
+.form-error {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+
+.sidebar-dropdown-menu {
+    display: none;
+    flex-direction: column;
+    padding-left: 20px; /* فاصله از لینک والد */
+    background-color: #f8f9fa; /* رنگ زمینه روشن */
+    border-left: 3px solid #1E90FF; /* نوار کوچک برای مشخص کردن زیرمنو */
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.sidebar-dropdown-menu a {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.95rem;
+    border-radius: 5px;
+}
+
+.sidebar-dropdown-menu a:hover {
+    background-color: #e0f0ff;
+}
+
+/* وقتی زیرمنو باز است */
+.sidebar-dropdown.active .sidebar-dropdown-menu {
+    display: flex;
+}

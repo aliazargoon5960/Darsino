@@ -1,39 +1,51 @@
 {% extends "admin_panel/admin_panel_base.html" %}
 {% load humanize %}
 
-
 {% block content %}
-<div class="container mt-4">
-    <h3>جزئیات سفارش</h3>
-    <p><b>کاربر:</b> {{ order.user }}</p>
-    <p><b>کد تخفیف:</b> {{ order.discount|default:"-" }}</p>
-    <p><b>مبلغ کل:</b> {{ order.total_price|intcomma }} تومان</p>
-    <p><b>وضعیت:</b>
-        {% if order.is_paid %}
-            <span class="badge bg-success">پرداخت شده</span>
-        {% else %}
-            <span class="badge bg-warning">در انتظار پرداخت</span>
-        {% endif %}
-    </p>
+<div class="card-wrapper mt-4">
+    <div class="card shadow-sm p-4">
+        <h2 class="page-title mb-3">جزئیات سفارش</h2>
 
-    <h5>دوره‌های این سفارش:</h5>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>عنوان دوره</th>
-                <th>قیمت</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for item in order.items.all %}
-            <tr>
-                <td>{{ item.course.title }}</td>
-                <td>{{ item.price|intcomma }} تومان</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+        <div class="order-info mb-4">
+            <p><strong>کاربر:</strong> {{ order.user.get_full_name|default:order.user.username }}</p>
+            <p><strong>کد تخفیف:</strong> {{ order.discount|default:"-" }}</p>
+            <p><strong>مبلغ کل:</strong> {{ order.total_price|intcomma }} تومان</p>
+            <p><strong>وضعیت:</strong>
+                {% if order.is_paid %}
+                    <span class="badge bg-success">پرداخت شده</span>
+                {% else %}
+                    <span class="badge bg-warning">در انتظار پرداخت</span>
+                {% endif %}
+            </p>
+        </div>
 
-    <a href="{% url 'admin_panel:order_list' %}" class="btn btn-secondary">بازگشت</a>
+        <h5 class="mb-3">دوره‌های این سفارش:</h5>
+        <div class="table-container">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>عنوان دوره</th>
+                        <th>قیمت</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.items.all %}
+                    <tr>
+                        <td>{{ item.course.title }}</td>
+                        <td>{{ item.price|intcomma }} تومان</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2" class="text-center text-muted">هیچ دوره‌ای ثبت نشده است.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-4">
+            <a href="{% url 'admin_panel:order_list' %}" class="btn btn-secondary btn-back">بازگشت</a>
+        </div>
+    </div>
 </div>
 {% endblock %}

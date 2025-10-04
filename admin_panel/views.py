@@ -284,6 +284,20 @@ def site_setting_list(request):
     settings = SiteSetting.objects.all()
     return render(request, 'admin_panel/site/site_setting_list.html', {'settings': settings})
 
+
+@staff_member_required
+def site_setting_create(request):
+    if request.method == 'POST':
+        form = SiteSettingForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "تنظیمات سایت با موفقیت اضافه شد.")
+            return redirect('admin_panel:site_setting_list')
+    else:
+        form = SiteSettingForm()
+    return render(request, 'admin_panel/site/site_setting_form.html', {'form': form, 'setting': None})
+
+
 @staff_member_required
 def site_setting_update(request, pk):
     setting = get_object_or_404(SiteSetting, pk=pk)

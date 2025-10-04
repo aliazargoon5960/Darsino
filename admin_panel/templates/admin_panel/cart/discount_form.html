@@ -1,14 +1,27 @@
 {% extends "admin_panel/admin_panel_base.html" %}
-{% load humanize %}
+{% load widget_tweaks %}
+
 
 {% block content %}
-<div class="container mt-4">
-    <h3>{% if code %}ویرایش{% else %}افزودن{% endif %} کد تخفیف</h3>
-    <form method="post">
+<div class="form-wrapper mt-4">
+    <h2 class="page-title">{% if code %}ویرایش{% else %}افزودن{% endif %} کد تخفیف</h2>
+
+    <form method="post" class="custom-form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">ذخیره</button>
-        <a href="{% url 'admin_panel:discount_list' %}" class="btn btn-secondary">بازگشت</a>
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field|add_class:"form-control" }}
+                {% if field.errors %}
+                    <div class="form-error">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <div class="form-buttons">
+            <button type="submit" class="btn-submit">{% if code %}بروزرسانی{% else %}ذخیره{% endif %}</button>
+            <a href="{% url 'admin_panel:discount_list' %}" class="btn-cancel">بازگشت</a>
+        </div>
     </form>
 </div>
 {% endblock %}

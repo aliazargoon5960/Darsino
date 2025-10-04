@@ -1,11 +1,24 @@
 {% extends "admin_panel/admin_panel_base.html" %}
 
 {% block content %}
-<h2>{% if banner %}ویرایش بنر{% else %}افزودن بنر{% endif %}</h2>
+<div class="form-wrapper">
+    <h2 class="page-title">
+        {% if banner %}ویرایش بنر{% else %}افزودن بنر{% endif %}
+    </h2>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">ذخیره</button>
-</form>
+    <form method="post" enctype="multipart/form-data" class="custom-form">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    <div class="form-error">{{ field.errors }}</div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" class="btn-submit">ذخیره</button>
+    </form>
+</div>
 {% endblock %}

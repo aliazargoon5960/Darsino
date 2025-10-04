@@ -1,34 +1,37 @@
 {% extends "admin_panel/admin_panel_base.html" %}
 
 {% block content %}
-<h2>بنرها</h2>
-<a href="{% url 'admin_panel:banner_create' %}" class="btn btn-success mb-3">افزودن بنر جدید</a>
+<h2 class="page-title">بنرها</h2>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>عنوان</th>
-            <th>تصویر</th>
-            <th>فعال</th>
-            <th>عملیات</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for banner in banners %}
-        <tr>
-            <td>{{ banner.title }}</td>
-            <td>
-                {% if banner.image %}
-                <img src="{{ banner.image.url }}" style="height:50px;">
-                {% endif %}
-            </td>
-            <td>{{ banner.is_active }}</td>
-            <td>
-                <a href="{% url 'admin_panel:banner_update' banner.id %}" class="btn btn-sm btn-primary">ویرایش</a>
-                <a href="{% url 'admin_panel:banner_delete' banner.id %}" class="btn btn-sm btn-danger">حذف</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<a href="{% url 'admin_panel:banner_create' %}" class="btn-add">افزودن بنر جدید</a>
+
+<div class="table-container">
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>عنوان</th>
+                <th>تصویر</th>
+                <th>فعال</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for banner in banners %}
+            <tr>
+                <td>{{ banner.title }}</td>
+                <td>
+                    {% if banner.image %}
+                    <img src="{{ banner.image.url }}" class="table-img">
+                    {% endif %}
+                </td>
+                <td> {% if banner.is_active == True %} بله {% else %} خیر {% endif %} </td>
+                <td>
+                    <a href="{% url 'admin_panel:banner_update' banner.id %}" class="btn-edit">ویرایش</a>
+                    <a href="{% url 'admin_panel:banner_delete' banner.id %}" class="btn-delete">حذف</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
