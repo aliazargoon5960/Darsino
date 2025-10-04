@@ -30,6 +30,7 @@ urlpatterns = [
     path('tickets/', views.ticket_list, name='ticket_list'),
     path('tickets/<int:pk>/', views.ticket_detail, name='ticket_detail'),
     path('site-settings/', views.site_setting_list, name='site_setting_list'),
+    path('site-settings/create/', views.site_setting_create, name='site_setting_create'),
     path('site-settings/update/<int:pk>/', views.site_setting_update, name='site_setting_update'),
     path('footer-boxes/', views.footer_box_list, name='footer_box_list'),
     path('footer-boxes/create/', views.footer_box_create, name='footer_box_create'),

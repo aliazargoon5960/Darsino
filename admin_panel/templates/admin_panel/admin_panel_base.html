@@ -1,70 +1,72 @@
-<!doctype html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>پنل مدیریت - درسینو</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'admin_panel:index' %}">درسینو پنل</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:index' %}">داشبورد</a></li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">تنظیمات سایت</a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="{% url 'admin_panel:site_setting_list' %}">تنظیمات اصلی سایت</a></li>
-                    <li><a class="dropdown-item" href="{% url 'admin_panel:banner_list' %}">بنرها</a></li>
-                    <li><a class="dropdown-item" href="{% url 'admin_panel:footer_box_list' %}">دسته‌بندی لینک فوتر</a></li>
-                    <li><a class="dropdown-item" href="{% url 'admin_panel:footer_link_list' %}">لینک‌های فوتر</a></li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"> دوره ها </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="{% url 'admin_panel:course_list' %}">دوره ها</a></li>
-                    <li><a class="dropdown-item" href="{% url 'admin_panel:category_list' %}">دسته بندی</a></li>
-                </ul>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:teacher_list' %}">مدرس‌ها</a></li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"> مقاله و نوسینده </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="{% url 'admin_panel:article_list' %}">مقاله ها</a></li>
-                    <li><a class="dropdown-item" href="{% url 'admin_panel:author_list' %}"> نویسنده ها </a></li>
-                </ul>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:contact_list' %}">پیام‌ها</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'admin_panel:ticket_list' %}">تیکت‌ها</a></li>
-            
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"> سبد خرید و کد تخفیف </a>
-                <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="{% url 'admin_panel:order_list' %}"> سبد خرید کاربران </a></li>
-                    <li><a class="dropdown-item" href="{% url 'admin_panel:discount_list' %}"> کد های تخفیف  </a></li>
-                </ul>
-            </li>
-            
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}پنل مدیریت - درسینو{% endblock %}</title>
+    <!-- فونت فارسی -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@latest/dist/font-face.css" rel="stylesheet">
+    <!-- CSS پنل ادمین -->
+    <link rel="stylesheet" href="{% static 'css/admin_panel.css' %}">
+</head>
+<body>
 
-            {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">خروج</a></li> {% endcomment %} 
-          </ul>
+<!-- سایدبار سمت راست -->
+<div class="sidebar">
+    <a href="{% url 'admin_panel:index' %}">داشبورد</a>
+
+    <div class="sidebar-dropdown">
+        <a href="javascript:void(0)">تنظیمات سایت ▾</a>
+        <div class="sidebar-dropdown-menu">
+            <a href="{% url 'admin_panel:site_setting_list' %}">تنظیمات اصلی سایت</a>
+            <a href="{% url 'admin_panel:banner_list' %}">بنرها</a>
+            <a href="{% url 'admin_panel:footer_box_list' %}">دسته‌بندی لینک فوتر</a>
+            <a href="{% url 'admin_panel:footer_link_list' %}">لینک‌های فوتر</a>
         </div>
-      </div>
-    </nav>
-
-    <div class="container mt-4">
-      {% block content %}
-      
-      
-      {% endblock content %}
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+    <div class="sidebar-dropdown">
+        <a href="javascript:void(0)">دوره‌ها ▾</a>
+        <div class="sidebar-dropdown-menu">
+            <a href="{% url 'admin_panel:course_list' %}">دوره‌ها</a>
+            <a href="{% url 'admin_panel:category_list' %}">دسته‌بندی</a>
+        </div>
+    </div>
+
+    <a href="{% url 'admin_panel:teacher_list' %}">مدرس‌ها</a>
+
+    <div class="sidebar-dropdown">
+        <a href="javascript:void(0)">مقاله و نویسنده ▾</a>
+        <div class="sidebar-dropdown-menu">
+            <a href="{% url 'admin_panel:article_list' %}">مقاله‌ها</a>
+            <a href="{% url 'admin_panel:author_list' %}">نویسنده‌ها</a>
+        </div>
+    </div>
+
+    <a href="{% url 'admin_panel:contact_list' %}">پیام‌ها</a>
+    <a href="{% url 'admin_panel:ticket_list' %}">تیکت‌ها</a>
+
+    <div class="sidebar-dropdown">
+        <a href="javascript:void(0)">سبد خرید و کد تخفیف ▾</a>
+        <div class="sidebar-dropdown-menu">
+            <a href="{% url 'admin_panel:order_list' %}">سبد خرید کاربران</a>
+            <a href="{% url 'admin_panel:discount_list' %}">کدهای تخفیف</a>
+        </div>
+    </div>
+</div>
+
+<!-- هدر بالا -->
+<header>
+    <h1>پنل مدیریت درسینو</h1>
+</header>
+
+<!-- محتوای اصلی -->
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- JS پنل ادمین -->
+<script src="{% static 'js/admin_panel.js' %}"></script>
+</body>
 </html>

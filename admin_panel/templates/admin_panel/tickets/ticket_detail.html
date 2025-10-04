@@ -1,55 +1,39 @@
 {% extends "admin_panel/admin_panel_base.html" %}
+{% load widget_tweaks ticket_filters %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2 class="mb-4">جزئیات تیکت: {{ ticket.subject }}</h2>
+<div class="ticket-wrapper">
+
+    <!-- عنوان صفحه -->
+    <div class="page-header d-flex justify-content-between align-items-center mb-4">
+        <h2 class="page-title">جزئیات تیکت: <span class="text-primary">{{ ticket.subject }}</span></h2>
+        <a href="{% url 'admin_panel:ticket_list' %}" class="btn btn-secondary btn-sm">بازگشت به لیست تیکت‌ها</a>
+    </div>
 
     <!-- کارت تیکت اصلی -->
-    <div class="card shadow-sm mb-4">
+    <div class="card ticket-card shadow-sm mb-5">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <div><strong>از:</strong> {{ ticket.user.get_full_name|default:ticket.user.username }}</div>
             <div>
-                <strong>از:</strong> {{ ticket.user.get_full_name|default:ticket.user.username }}
-            </div>
-            <div>
-                <span class="badge 
-                    {% if ticket.status == 'open' %}bg-warning text-dark
-                    {% elif ticket.status == 'pending' %}bg-info
-                    {% elif ticket.status == 'answered' %}bg-success
-                    {% else %}bg-secondary{% endif %} me-2">
-                    وضعیت: {{ ticket.get_status_display }}
-                </span>
-                <span class="badge 
-                    {% if ticket.priority == 'low' %}bg-success
-                    {% elif ticket.priority == 'normal' %}bg-primary
-                    {% elif ticket.priority == 'high' %}bg-warning text-dark
-                    {% else %}bg-danger{% endif %}">
-                    اولویت: {{ ticket.get_priority_display }}
-                </span>
+                <span class="badge {{ ticket.status|status_badge }} me-2">وضعیت: {{ ticket.get_status_display }}</span>
+                <span class="badge {{ ticket.priority|priority_badge }}">اولویت: {{ ticket.get_priority_display }}</span>
             </div>
         </div>
         <div class="card-body">
-            <p>{{ ticket.message }}</p>
+            <p class="ticket-message">{{ ticket.message }}</p>
 
             {% if ticket.attachments.exists %}
-            <div class="mt-3">
-                <h6>فایل‌های تیکت:</h6>
+            <div class="attachments mt-3">
+                <h6 class="fw-bold mb-2">فایل‌های پیوست:</h6>
                 <div class="d-flex flex-wrap gap-2">
                     {% for attach in ticket.attachments.all %}
-                        {% with attach.file.url as file_url %}
-                            {% if file_url %}
-                                {% with file_url|lower as file_url_lower %}
-                                    {% if file_url_lower|slice:"-4:" == ".png" or file_url_lower|slice:"-4:" == ".jpg" or file_url_lower|slice:"-5:" == ".jpeg" %}
-                                        <a href="{{ file_url }}" target="_blank" class="border rounded p-2 d-inline-block">
-                                            <img src="{{ file_url }}" alt="attachment" style="max-width:120px; max-height:120px; border-radius:6px;">
-                                        </a>
-                                    {% else %}
-                                        <a href="{{ file_url }}" download class="border rounded p-2 d-inline-block">
-                                            دانلود فایل: {{ attach.file.name|cut:"tickets/attachments/" }}
-                                        </a>
-                                    {% endif %}
-                                {% endwith %}
+                        <a href="{{ attach.file.url }}" target="_blank" class="attachment-item">
+                            {% if attach.file.url|lower|slice:"-4:" in ".png,.jpg" or attach.file.url|lower|slice:"-5:" == ".jpeg" %}
+                                <img src="{{ attach.file.url }}" alt="attachment">
+                            {% else %}
+                                <i class="bi bi-paperclip"></i> {{ attach.file.name|cut:"tickets/attachments/" }}
                             {% endif %}
-                        {% endwith %}
+                        </a>
                     {% endfor %}
                 </div>
             </div>
@@ -58,35 +42,29 @@
     </div>
 
     <!-- پاسخ‌ها -->
-    <div class="mb-4">
-        <h5>پاسخ‌ها <span class="badge bg-primary">{{ ticket.replies.count }}</span></h5>
-        {% for reply in ticket.replies.all %}
-        <div class="card mb-3">
-            <div class="card-body">
-                <p><strong>{{ reply.user.get_full_name|default:reply.user.username }}:</strong></p>
-                <p>{{ reply.message }}</p>
-                <small class="text-muted">{{ reply.created_at|date:"Y/m/d - H:i" }}</small>
+    <div class="replies mb-5">
+        <h5 class="mb-3">پاسخ‌ها <span class="badge bg-primary">{{ ticket.replies.count }}</span></h5>
 
+        {% for reply in ticket.replies.all %}
+        <div class="card reply-card mb-4 shadow-sm">
+            <div class="card-header bg-light d-flex justify-content-between">
+                <strong>{{ reply.user.get_full_name|default:reply.user.username }}</strong>
+                <small class="text-muted">{{ reply.created_at|date:"Y/m/d - H:i" }}</small>
+            </div>
+            <div class="card-body">
+                <p>{{ reply.message }}</p>
                 {% if reply.attachments.exists %}
-                <div class="mt-2">
-                    <h6>فایل‌های پاسخ:</h6>
+                <div class="attachments mt-2">
+                    <h6 class="fw-bold mb-2">فایل‌های پیوست:</h6>
                     <div class="d-flex flex-wrap gap-2">
                         {% for attach in reply.attachments.all %}
-                            {% with attach.file.url as file_url %}
-                                {% if file_url %}
-                                    {% with file_url|lower as file_url_lower %}
-                                        {% if file_url_lower|slice:"-4:" == ".png" or file_url_lower|slice:"-4:" == ".jpg" or file_url_lower|slice:"-5:" == ".jpeg" %}
-                                            <a href="{{ file_url }}" target="_blank" class="border rounded p-2 d-inline-block">
-                                                <img src="{{ file_url }}" alt="reply image" style="max-width:100px; max-height:100px; border-radius:6px;">
-                                            </a>
-                                        {% else %}
-                                            <a href="{{ file_url }}" download class="border rounded p-2 d-inline-block">
-                                                دانلود فایل: {{ attach.file.name|cut:"tickets/attachments/" }}
-                                            </a>
-                                        {% endif %}
-                                    {% endwith %}
+                            <a href="{{ attach.file.url }}" target="_blank" class="attachment-item small">
+                                {% if attach.file.url|lower|slice:"-4:" in ".png,.jpg" or attach.file.url|lower|slice:"-5:" == ".jpeg" %}
+                                    <img src="{{ attach.file.url }}" alt="reply image">
+                                {% else %}
+                                    <i class="bi bi-file-earmark"></i> {{ attach.file.name|cut:"tickets/attachments/" }}
                                 {% endif %}
-                            {% endwith %}
+                            </a>
                         {% endfor %}
                     </div>
                 </div>
@@ -99,31 +77,34 @@
     </div>
 
     <!-- فرم ارسال پاسخ جدید -->
-    <div class="card shadow-sm mb-4">
-        <div class="card-header bg-primary text-white">
-            ارسال پاسخ جدید
+<div class="form-wrapper mb-5">
+    <h3 class="page-title">ارسال پاسخ جدید</h3>
+    <form method="post" enctype="multipart/form-data" class="custom-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        
+        <div class="form-group">
+            {{ form.message.label_tag }}
+            {{ form.message|add_class:"form-control" }}
+            {% if form.message.errors %}
+                <div class="form-error">{{ form.message.errors }}</div>
+            {% endif %}
         </div>
-        <div class="card-body">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.non_field_errors }}
 
-                <div class="mb-3">
-                    {{ form.message.label_tag }}
-                    {{ form.message }}
-                    {{ form.message.errors }}
-                </div>
-
-                <div class="mb-3">
-                    {{ form.files.label_tag }}
-                    {{ form.files }}
-                    {{ form.files.errors }}
-                </div>
-
-                <button type="submit" class="btn btn-primary">ارسال پاسخ</button>
-                <a href="{% url 'admin_panel:ticket_list' %}" class="btn btn-secondary">بازگشت</a>
-            </form>
+        <div class="form-group">
+            {{ form.files.label_tag }}
+            {{ form.files|add_class:"form-control" }}
+            {% if form.files.errors %}
+                <div class="form-error">{{ form.files.errors }}</div>
+            {% endif %}
         </div>
-    </div>
+
+        <div class="form-buttons">
+            <button type="submit" class="btn-submit"><i class="bi bi-send"></i> ارسال پاسخ</button>
+            <a href="{% url 'admin_panel:ticket_list' %}" class="btn-cancel">بازگشت</a>
+        </div>
+    </form>
+</div>
+
 </div>
 {% endblock %}

@@ -1,30 +1,33 @@
 {% extends "admin_panel/admin_panel_base.html" %}
 
 {% block content %}
-<h2>لینک‌های فوتر</h2>
-<a href="{% url 'admin_panel:footer_link_create' %}" class="btn btn-success mb-3">افزودن لینک جدید</a>
+<h2 class="page-title">لینک‌های فوتر</h2>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>عنوان</th>
-            <th>لینک</th>
-            <th>دسته بندی</th>
-            <th>عملیات</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for link in links %}
-        <tr>
-            <td>{{ link.Ftitle }}</td>
-            <td>{{ link.url }}</td>
-            <td>{{ link.footer_link_box.title }}</td>
-            <td>
-                <a href="{% url 'admin_panel:footer_link_update' link.id %}" class="btn btn-sm btn-primary">ویرایش</a>
-                <a href="{% url 'admin_panel:footer_link_delete' link.id %}" class="btn btn-sm btn-danger">حذف</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<a href="{% url 'admin_panel:footer_link_create' %}" class="btn-add">افزودن لینک جدید</a>
+
+<div class="table-container">
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>عنوان</th>
+                <th>لینک</th>
+                <th>دسته‌بندی</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for link in links %}
+            <tr>
+                <td>{{ link.Ftitle }}</td>
+                <td>{{ link.url }}</td>
+                <td>{{ link.footer_link_box.title }}</td>
+                <td>
+                    <a href="{% url 'admin_panel:footer_link_update' link.id %}" class="btn-edit">ویرایش</a>
+                    <a href="{% url 'admin_panel:footer_link_delete' link.id %}" class="btn-delete">حذف</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

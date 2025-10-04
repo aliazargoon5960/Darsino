@@ -1,26 +1,29 @@
 {% extends "admin_panel/admin_panel_base.html" %}
 
 {% block content %}
-<h2>دسته بندی لینک‌های فوتر</h2>
-<a href="{% url 'admin_panel:footer_box_create' %}" class="btn btn-success mb-3">افزودن دسته جدید</a>
+<h2 class="page-title">دسته‌بندی لینک‌های فوتر</h2>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>عنوان</th>
-            <th>عملیات</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for box in boxes %}
-        <tr>
-            <td>{{ box.title }}</td>
-            <td>
-                <a href="{% url 'admin_panel:footer_box_update' box.id %}" class="btn btn-sm btn-primary">ویرایش</a>
-                <a href="{% url 'admin_panel:footer_box_delete' box.id %}" class="btn btn-sm btn-danger">حذف</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<a href="{% url 'admin_panel:footer_box_create' %}" class="btn-add">افزودن دسته جدید</a>
+
+<div class="table-container">
+    <table class="custom-table">
+        <thead>
+            <tr>
+                <th>عنوان</th>
+                <th>عملیات</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for box in boxes %}
+            <tr>
+                <td>{{ box.title }}</td>
+                <td>
+                    <a href="{% url 'admin_panel:footer_box_update' box.id %}" class="btn-edit">ویرایش</a>
+                    <a href="{% url 'admin_panel:footer_box_delete' box.id %}" class="btn-delete">حذف</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

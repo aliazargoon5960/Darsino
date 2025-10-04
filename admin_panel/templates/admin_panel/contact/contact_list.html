@@ -1,28 +1,38 @@
 {% extends "admin_panel/admin_panel_base.html" %}
 
 {% block content %}
-    <h2>پیام‌های تماس با ما</h2>
+<div class="table-wrapper">
+    <div class="table-header">
+        <h2 class="page-title">پیام‌های تماس با ما</h2>
+    </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-            <th>فرستنده</th>
-            <th>ایمیل</th>
-            <th>خوانده شده</th>
-            <th>عملیات</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for msg in messages %}
+    <div class="table-container">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>فرستنده</th>
+                    <th>ایمیل</th>
+                    <th>خوانده شده</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for msg in messages %}
                 <tr>
                     <td>{{ msg.name }}</td>
                     <td>{{ msg.email }}</td>
                     <td>{{ msg.is_read|yesno:"بله,خیر" }}</td>
                     <td>
-                        <a href="{% url 'admin_panel:contact_detail' msg.id %}" class="btn btn-sm btn-primary">مشاهده</a>
+                        <a href="{% url 'admin_panel:contact_detail' msg.id %}" class="btn-view">مشاهده</a>
                     </td>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">هیچ پیامی ثبت نشده است.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
