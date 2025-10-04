@@ -24,7 +24,7 @@
                     <img src="{{ banner.image.url }}" class="table-img">
                     {% endif %}
                 </td>
-                <td>{{ banner.is_active }}</td>
+                <td> {% if banner.is_active == True %} بله {% else %} خیر {% endif %} </td>
                 <td>
                     <a href="{% url 'admin_panel:banner_update' banner.id %}" class="btn-edit">ویرایش</a>
                     <a href="{% url 'admin_panel:banner_delete' banner.id %}" class="btn-delete">حذف</a>

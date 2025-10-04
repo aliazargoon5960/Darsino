@@ -1,17 +1,18 @@
-// باز و بسته کردن dropdown های سایدبار
 document.addEventListener('DOMContentLoaded', function () {
     const dropdowns = document.querySelectorAll('.sidebar-dropdown > a');
 
     dropdowns.forEach(drop => {
         drop.addEventListener('click', function () {
+            const parent = this.parentElement;
             const menu = this.nextElementSibling;
-            if (menu.style.display === "block") {
-                menu.style.display = "none";
-            } else {
-                // همه منوهای باز را ببند
-                document.querySelectorAll('.sidebar-dropdown-menu').forEach(m => m.style.display = "none");
-                menu.style.display = "block";
-            }
+
+            // بستن همه زیرمنوها به جز این
+            document.querySelectorAll('.sidebar-dropdown').forEach(d => {
+                if (d !== parent) d.classList.remove('active');
+            });
+
+            // باز/بسته کردن این زیرمنو
+            parent.classList.toggle('active');
         });
     });
 });

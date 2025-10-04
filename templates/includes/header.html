@@ -137,6 +137,26 @@
                             menu.style.display = 'none';
                         }
                     });
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const currentUrl = window.location.pathname;
+                        const menuLinks = document.querySelectorAll('.nav-menu__link, .nav-submenu__link');
+
+                        menuLinks.forEach(link => {
+                            const linkPath = link.getAttribute('href');
+
+                            if (linkPath === currentUrl) {
+                                // فعال کردن خود لینک
+                                link.classList.add('activePage');
+
+                                // فعال کردن والد منو اگر زیرمنو داره
+                                let parent = link.closest('.has-submenu');
+                                if (parent) {
+                                    parent.classList.add('activePage');
+                                }
+                            }
+                        });
+                    });
+
                 </script>
             </div>
             <!-- Header Right End  -->

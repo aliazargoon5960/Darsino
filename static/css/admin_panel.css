@@ -2480,3 +2480,31 @@ button:hover {
     font-size: 0.85rem;
     margin-top: 5px;
 }
+
+
+.sidebar-dropdown-menu {
+    display: none;
+    flex-direction: column;
+    padding-left: 20px; /* فاصله از لینک والد */
+    background-color: #f8f9fa; /* رنگ زمینه روشن */
+    border-left: 3px solid #1E90FF; /* نوار کوچک برای مشخص کردن زیرمنو */
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.sidebar-dropdown-menu a {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #333;
+    font-size: 0.95rem;
+    border-radius: 5px;
+}
+
+.sidebar-dropdown-menu a:hover {
+    background-color: #e0f0ff;
+}
+
+/* وقتی زیرمنو باز است */
+.sidebar-dropdown.active .sidebar-dropdown-menu {
+    display: flex;
+}
