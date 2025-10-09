@@ -246,8 +246,6 @@ def contact_list(request):
 @staff_member_required
 def contact_detail(request, pk):
     message = get_object_or_404(Message, pk=pk)
-
-    
     return render(request, 'admin_panel/contact/contact_detail.html', {'message': message})
 
 
