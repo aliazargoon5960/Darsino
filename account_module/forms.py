@@ -72,3 +72,10 @@ class LoginForm(forms.Form):
             cleaned_data['user'] = user
 
         return cleaned_data
+    
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', 'phone_number', 'image', 'is_staff', 'is_active', 'password']
+

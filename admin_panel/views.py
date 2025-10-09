@@ -1,481 +1,474 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+
 from course_module.models import Course, Teacher, Category
+from course_module.forms import CourseForm, TeacherForm, CategoryForm
 from blog_module.models import Article, Author
+from blog_module.forms import ArticleForm, AuthorForm
 from contact_module.models import Message
 from tickets_module.models import Ticket, TicketAttachment, TicketReply
-from django.contrib import messages
-from course_module.forms import CourseForm , TeacherForm, CategoryForm
-from blog_module.forms import ArticleForm, AuthorForm
-from django.contrib.auth.decorators import login_required
 from tickets_module.forms import TicketCreateForm, TicketReplyForm
 from site_module.models import SiteSetting, FooterLinkBox, FooterLink, Banner
 from site_module.forms import SiteSettingForm, FooterLinkBoxForm, FooterLinkForm, BannerForm
-from cart_module.models import Order,DiscountCode
+from cart_module.models import Order, DiscountCode
 from cart_module.forms import DiscountCodeForm
+from account_module.models import User
+from account_module.forms import UserForm
 
 
-@staff_member_required
-def index(request):
-    total_courses = Course.objects.count()
-    total_articles = Article.objects.count()
-    unread_messages = Message.objects.all().count()
-    open_tickets = Ticket.objects.filter(status='open').count()
-    
-    context = {
-        'total_courses': total_courses,
-        'total_articles': total_articles,
-        'unread_messages': unread_messages,
-        'open_tickets': open_tickets,
-    }
-    return render(request, 'admin_panel/index.html', context)
+class StaffRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_staff
+
+# ===== Dashboard =====
+class DashboardView(StaffRequiredMixin, TemplateView):
+    template_name = 'admin_panel/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_courses'] = Course.objects.count()
+        context['total_articles'] = Article.objects.count()
+        context['unread_messages'] = Message.objects.count()
+        context['open_tickets'] = Ticket.objects.filter(status='open').count()
+        return context
 
 
-#course
-@staff_member_required
-def course_list(request):
-    courses = Course.objects.all().order_by('-created')
-    return render(request, 'admin_panel/course/course_list.html', {'courses': courses})
+# ===== Users  =====
 
-@staff_member_required
-def course_create(request):
-    if request.method == 'POST':
-        form = CourseForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "دوره با موفقیت اضافه شد.")
-            return redirect('admin_panel:course_list')
-    else:
-        form = CourseForm()
-    return render(request, 'admin_panel/course/course_form.html', {'form': form})
-
-@staff_member_required
-def course_update(request, pk):
-    course = get_object_or_404(Course, pk=pk)
-    if request.method == 'POST':
-        form = CourseForm(request.POST, request.FILES, instance=course)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "دوره با موفقیت بروزرسانی شد.")
-            return redirect('admin_panel:course_list')
-    else:
-        form = CourseForm(instance=course)
-    return render(request, 'admin_panel/course/course_form.html', {'form': form, 'course': course})
-
-@staff_member_required
-def course_delete(request, pk):
-    course = get_object_or_404(Course, pk=pk)
-    if request.method == 'POST':
-        course.delete()
-        messages.success(request, "دوره با موفقیت حذف شد.")
-        return redirect('admin_panel:course_list')
-    return render(request, 'admin_panel/course/course_confirm_delete.html', {'course': course})
-
-# teacher
-@staff_member_required
-def teacher_list(request):
-    teachers = Teacher.objects.all()
-    return render(request, 'admin_panel/teacher/teacher_list.html', {'teachers': teachers})
-
-@staff_member_required
-def teacher_create(request):
-    if request.method == 'POST':
-        form = TeacherForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "مدرس جدید اضافه شد.")
-            return redirect('admin_panel:teacher_list')
-    else:
-        form = TeacherForm()
-    return render(request, 'admin_panel/teacher/teacher_form.html', {'form': form})
-
-@staff_member_required
-def teacher_update(request, pk):
-    teacher = get_object_or_404(Teacher, pk=pk)
-    if request.method == 'POST':
-        form = TeacherForm(request.POST, request.FILES, instance=teacher)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "اطلاعات مدرس بروزرسانی شد.")
-            return redirect('admin_panel:teacher_list')
-    else:
-        form = TeacherForm(instance=teacher)
-    return render(request, 'admin_panel/teacher/teacher_form.html', {'form': form, 'teacher': teacher})
-
-@staff_member_required
-def teacher_delete(request, pk):
-    teacher = get_object_or_404(Teacher, pk=pk)
-    if request.method == 'POST':
-        teacher.delete()
-        messages.success(request, "مدرس حذف شد.")
-        return redirect('admin_panel:teacher_list')
-    return render(request, 'admin_panel/teacher/teacher_confirm_delete.html', {'teacher': teacher})
-
-# Category
-@staff_member_required
-def category_list(request):
-    categories = Category.objects.all()
-    return render(request, 'admin_panel/course/category_list.html', {'categories': categories})
-
-@staff_member_required
-def category_create(request):
-    if request.method == 'POST':
-        form = CategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "دسته بندی جدید اضافه شد.")
-            return redirect('admin_panel:category_list')
-    else:
-        form = CategoryForm()
-    return render(request, 'admin_panel/course/category_form.html', {'form': form})
-
-@staff_member_required
-def category_update(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    if request.method == 'POST':
-        form = CategoryForm(request.POST, instance=category)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "دسته بندی بروزرسانی شد.")
-            return redirect('admin_panel:category_list')
-    else:
-        form = CategoryForm(instance=category)
-    return render(request, 'admin_panel/course/category_form.html', {'form': form, 'category': category})
-
-@staff_member_required
-def category_delete(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    if request.method == 'POST':
-        category.delete()
-        messages.success(request, "دسته بندی حذف شد.")
-        return redirect('admin_panel:category_list')
-    return render(request, 'admin_panel/course/category_confirm_delete.html', {'category': category})
+class UserListView(ListView):
+    model = User
+    template_name = 'admin_panel/user/user_list.html'
+    context_object_name = 'users'
+    ordering = ['id']
 
 
+class UserCreateView(CreateView):
+    model = User
+    form_class = UserForm
+    template_name = 'admin_panel/user/user_form.html'
+    success_url = reverse_lazy('admin_panel:user_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "کاربر با موفقیت اضافه شد.")
+        return super().form_valid(form)
 
 
-#article
-@staff_member_required
-def article_list(request):
-    articles = Article.objects.all().order_by('-created_at')
-    return render(request, 'admin_panel/article/article_list.html', {'articles': articles})
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'admin_panel/user/user_form.html'
+    success_url = reverse_lazy('admin_panel:user_list')
 
-@staff_member_required
-def article_create(request):
-    if request.method == 'POST':
-        form = ArticleForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "مقاله با موفقیت اضافه شد.")
-            return redirect('admin_panel:article_list')
-    else:
-        form = ArticleForm()
-    return render(request, 'admin_panel/article/article_form.html', {'form': form})
-
-@staff_member_required
-def article_update(request, pk):
-    article = get_object_or_404(Article, pk=pk)
-    if request.method == 'POST':
-        form = ArticleForm(request.POST, request.FILES, instance=article)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "مقاله با موفقیت بروزرسانی شد.")
-            return redirect('admin_panel:article_list')
-    else:
-        form = ArticleForm(instance=article)
-    return render(request, 'admin_panel/article/article_form.html', {'form': form, 'article': article})
-
-@staff_member_required
-def article_delete(request, pk):
-    article = get_object_or_404(Article, pk=pk)
-    if request.method == 'POST':
-        article.delete()
-        messages.success(request, "مقاله با موفقیت حذف شد.")
-        return redirect('admin_panel:article_list')
-    return render(request, 'admin_panel/article/article_confirm_delete.html', {'article': article})
-
-# author
-
-@staff_member_required
-def author_list(request):
-    authors = Author.objects.all()
-    return render(request, 'admin_panel/article/author_list.html', {'authors': authors})
+    def form_valid(self, form):
+        messages.success(self.request, "اطلاعات کاربر بروزرسانی شد.")
+        self.object = form.save(commit=False)
+        self.object.save()
+        form.save()
+        return super().form_valid(form)
 
 
-@staff_member_required
-def author_create(request):
-    if request.method == 'POST':
-        form = AuthorForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "نویسنده با موفقیت اضافه شد.")
-            return redirect('admin_panel:author_list')
-    else:
-        form = AuthorForm()
-    return render(request, 'admin_panel/article/author_form.html', {'form': form})
+class UserDeleteView(DeleteView):
+    model = User
+    template_name = 'admin_panel/user/user_confirm_delete.html'
+    success_url = reverse_lazy('admin_panel:user_list')
 
-@staff_member_required
-def author_update(request, pk):
-    author = get_object_or_404(Author, pk=pk)
-    if request.method == 'POST':
-        form = AuthorForm(request.POST, request.FILES, instance=author)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "نویسنده بروزرسانی شد.")
-            return redirect('admin_panel:author_list')
-    else:
-        form = AuthorForm(instance=author)
-    return render(request, 'admin_panel/article/author_form.html', {'form': form, 'author': author})
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "کاربر حذف شد.")
+        return super().delete(request, *args, **kwargs)
 
-@staff_member_required
-def author_delete(request, pk):
-    author = get_object_or_404(Author, pk=pk)
-    if request.method == 'POST':
-        author.delete()
-        messages.success(request, "نویسنده حذف شد.")
-        return redirect('admin_panel:author_list')
-    return render(request, 'admin_panel/article/author_confirm_delete.html', {'author': author})
+# ===== Course =====
+class CourseListView(StaffRequiredMixin, ListView):
+    model = Course
+    template_name = 'admin_panel/course/course_list.html'
+    context_object_name = 'courses'
+    ordering = ['-created']
 
+class CourseCreateView(StaffRequiredMixin, CreateView):
+    model = Course
+    form_class = CourseForm
+    template_name = 'admin_panel/course/course_form.html'
+    success_url = reverse_lazy('admin_panel:course_list')
 
-#message
-@staff_member_required
-def contact_list(request):
-    messages_list = Message.objects.all().order_by('-created_at')  
-    return render(request, 'admin_panel/contact/contact_list.html', {'messages': messages_list})
+    def form_valid(self, form):
+        messages.success(self.request, "دوره با موفقیت اضافه شد.")
+        return super().form_valid(form)
 
-@staff_member_required
-def contact_detail(request, pk):
-    message = get_object_or_404(Message, pk=pk)
-    return render(request, 'admin_panel/contact/contact_detail.html', {'message': message})
+class CourseUpdateView(StaffRequiredMixin, UpdateView):
+    model = Course
+    form_class = CourseForm
+    template_name = 'admin_panel/course/course_form.html'
+    success_url = reverse_lazy('admin_panel:course_list')
 
+    def form_valid(self, form):
+        messages.success(self.request, "دوره با موفقیت بروزرسانی شد.")
+        return super().form_valid(form)
 
-#ticket
-@staff_member_required
-def ticket_list(request):
-    tickets = Ticket.objects.all().order_by('-created_at')
-    return render(request, 'admin_panel/tickets/ticket_list.html', {'tickets': tickets})
+class CourseDeleteView(StaffRequiredMixin, DeleteView):
+    model = Course
+    template_name = 'admin_panel/course/course_confirm_delete.html'
+    success_url = reverse_lazy('admin_panel:course_list')
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "دوره با موفقیت حذف شد.")
+        return super().delete(request, *args, **kwargs)
 
-@staff_member_required
-def ticket_detail(request, pk):
-    ticket = get_object_or_404(Ticket, pk=pk)
+# ===== Teacher =====
+class TeacherListView(StaffRequiredMixin, ListView):
+    model = Teacher
+    template_name = 'admin_panel/teacher/teacher_list.html'
+    context_object_name = 'teachers'
 
-    if request.method == "POST":
+class TeacherCreateView(StaffRequiredMixin, CreateView):
+    model = Teacher
+    form_class = TeacherForm
+    template_name = 'admin_panel/teacher/teacher_form.html'
+    success_url = reverse_lazy('admin_panel:teacher_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "مدرس جدید اضافه شد.")
+        return super().form_valid(form)
+
+class TeacherUpdateView(StaffRequiredMixin, UpdateView):
+    model = Teacher
+    form_class = TeacherForm
+    template_name = 'admin_panel/teacher/teacher_form.html'
+    success_url = reverse_lazy('admin_panel:teacher_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "اطلاعات مدرس بروزرسانی شد.")
+        return super().form_valid(form)
+
+class TeacherDeleteView(StaffRequiredMixin, DeleteView):
+    model = Teacher
+    template_name = 'admin_panel/teacher/teacher_confirm_delete.html'
+    success_url = reverse_lazy('admin_panel:teacher_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "مدرس حذف شد.")
+        return super().delete(request, *args, **kwargs)
+
+# ===== Category =====
+class CategoryListView(StaffRequiredMixin, ListView):
+    model = Category
+    template_name = 'admin_panel/course/category_list.html'
+    context_object_name = 'categories'
+
+class CategoryCreateView(StaffRequiredMixin, CreateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'admin_panel/course/category_form.html'
+    success_url = reverse_lazy('admin_panel:category_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "دسته بندی جدید اضافه شد.")
+        return super().form_valid(form)
+
+class CategoryUpdateView(StaffRequiredMixin, UpdateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'admin_panel/course/category_form.html'
+    success_url = reverse_lazy('admin_panel:category_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "دسته بندی بروزرسانی شد.")
+        return super().form_valid(form)
+
+class CategoryDeleteView(StaffRequiredMixin, DeleteView):
+    model = Category
+    template_name = 'admin_panel/course/category_confirm_delete.html'
+    success_url = reverse_lazy('admin_panel:category_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "دسته بندی حذف شد.")
+        return super().delete(request, *args, **kwargs)
+
+# ===== Article =====
+class ArticleListView(StaffRequiredMixin, ListView):
+    model = Article
+    template_name = 'admin_panel/article/article_list.html'
+    context_object_name = 'articles'
+    ordering = ['-created_at']
+
+class ArticleCreateView(StaffRequiredMixin, CreateView):
+    model = Article
+    form_class = ArticleForm
+    template_name = 'admin_panel/article/article_form.html'
+    success_url = reverse_lazy('admin_panel:article_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "مقاله با موفقیت اضافه شد.")
+        return super().form_valid(form)
+
+class ArticleUpdateView(StaffRequiredMixin, UpdateView):
+    model = Article
+    form_class = ArticleForm
+    template_name = 'admin_panel/article/article_form.html'
+    success_url = reverse_lazy('admin_panel:article_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "مقاله با موفقیت بروزرسانی شد.")
+        return super().form_valid(form)
+
+class ArticleDeleteView(StaffRequiredMixin, DeleteView):
+    model = Article
+    template_name = 'admin_panel/article/article_confirm_delete.html'
+    success_url = reverse_lazy('admin_panel:article_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "مقاله با موفقیت حذف شد.")
+        return super().delete(request, *args, **kwargs)
+
+# ===== Author =====
+class AuthorListView(StaffRequiredMixin, ListView):
+    model = Author
+    template_name = 'admin_panel/article/author_list.html'
+    context_object_name = 'authors'
+
+class AuthorCreateView(StaffRequiredMixin, CreateView):
+    model = Author
+    form_class = AuthorForm
+    template_name = 'admin_panel/article/author_form.html'
+    success_url = reverse_lazy('admin_panel:author_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "نویسنده با موفقیت اضافه شد.")
+        return super().form_valid(form)
+
+class AuthorUpdateView(StaffRequiredMixin, UpdateView):
+    model = Author
+    form_class = AuthorForm
+    template_name = 'admin_panel/article/author_form.html'
+    success_url = reverse_lazy('admin_panel:author_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "نویسنده بروزرسانی شد.")
+        return super().form_valid(form)
+
+class AuthorDeleteView(StaffRequiredMixin, DeleteView):
+    model = Author
+    template_name = 'admin_panel/article/author_confirm_delete.html'
+    success_url = reverse_lazy('admin_panel:author_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "نویسنده حذف شد.")
+        return super().delete(request, *args, **kwargs)
+
+# ===== Message =====
+class ContactListView(StaffRequiredMixin, ListView):
+    model = Message
+    template_name = 'admin_panel/contact/contact_list.html'
+    context_object_name = 'messages'
+    ordering = ['-created_at']
+
+class ContactDetailView(StaffRequiredMixin, DetailView):
+    model = Message
+    template_name = 'admin_panel/contact/contact_detail.html'
+    context_object_name = 'message'
+
+# ===== Ticket =====
+class TicketListView(StaffRequiredMixin, ListView):
+    model = Ticket
+    template_name = 'admin_panel/tickets/ticket_list.html'
+    context_object_name = 'tickets'
+    ordering = ['-created_at']
+
+class TicketDetailView(StaffRequiredMixin, DetailView):
+    model = Ticket
+    template_name = 'admin_panel/tickets/ticket_detail.html'
+    context_object_name = 'ticket'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = TicketReplyForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        ticket = self.get_object()
         form = TicketReplyForm(request.POST)
         files = request.FILES.getlist('files')
         if form.is_valid():
             form.save(reply_user=request.user, ticket=ticket, files=files)
             messages.success(request, "پاسخ با موفقیت ارسال شد.")
             return redirect('admin_panel:ticket_detail', pk=ticket.pk)
-    else:
-        form = TicketReplyForm()
+        return self.get(request, *args, **kwargs)
 
-    return render(request, 'admin_panel/tickets/ticket_detail.html', {
-        'ticket': ticket,
-        'form': form,
-    })
+# ===== Site Setting =====
+class SiteSettingListView(StaffRequiredMixin, ListView):
+    model = SiteSetting
+    template_name = 'admin_panel/site/site_setting_list.html'
+    context_object_name = 'settings'
 
-# site setting
-@staff_member_required
-def site_setting_list(request):
-    settings = SiteSetting.objects.all()
-    return render(request, 'admin_panel/site/site_setting_list.html', {'settings': settings})
+class SiteSettingCreateView(StaffRequiredMixin, CreateView):
+    model = SiteSetting
+    form_class = SiteSettingForm
+    template_name = 'admin_panel/site/site_setting_form.html'
+    success_url = reverse_lazy('admin_panel:site_setting_list')
 
+    def form_valid(self, form):
+        messages.success(self.request, "تنظیمات سایت با موفقیت اضافه شد.")
+        return super().form_valid(form)
 
-@staff_member_required
-def site_setting_create(request):
-    if request.method == 'POST':
-        form = SiteSettingForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "تنظیمات سایت با موفقیت اضافه شد.")
-            return redirect('admin_panel:site_setting_list')
-    else:
-        form = SiteSettingForm()
-    return render(request, 'admin_panel/site/site_setting_form.html', {'form': form, 'setting': None})
+class SiteSettingUpdateView(StaffRequiredMixin, UpdateView):
+    model = SiteSetting
+    form_class = SiteSettingForm
+    template_name = 'admin_panel/site/site_setting_form.html'
+    success_url = reverse_lazy('admin_panel:site_setting_list')
 
+    def form_valid(self, form):
+        messages.success(self.request, "تنظیمات سایت با موفقیت بروزرسانی شد.")
+        return super().form_valid(form)
 
-@staff_member_required
-def site_setting_update(request, pk):
-    setting = get_object_or_404(SiteSetting, pk=pk)
-    if request.method == 'POST':
-        form = SiteSettingForm(request.POST, request.FILES, instance=setting)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "تنظیمات سایت با موفقیت بروزرسانی شد.")
-            return redirect('admin_panel:site_setting_list')
-    else:
-        form = SiteSettingForm(instance=setting)
-    return render(request, 'admin_panel/site/site_setting_form.html', {'form': form, 'setting': setting})
+# ===== FooterLinkBox =====
+class FooterBoxListView(StaffRequiredMixin, ListView):
+    model = FooterLinkBox
+    template_name = 'admin_panel/site/footer_box_list.html'
+    context_object_name = 'boxes'
 
-# ====== FooterLinkBox ======
-@staff_member_required
-def footer_box_list(request):
-    boxes = FooterLinkBox.objects.all()
-    return render(request, 'admin_panel/site/footer_box_list.html', {'boxes': boxes})
+class FooterBoxCreateView(StaffRequiredMixin, CreateView):
+    model = FooterLinkBox
+    form_class = FooterLinkBoxForm
+    template_name = 'admin_panel/site/footer_box_form.html'
+    success_url = reverse_lazy('admin_panel:footer_box_list')
 
-@staff_member_required
-def footer_box_create(request):
-    if request.method == 'POST':
-        form = FooterLinkBoxForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "دسته بندی لینک فوتر اضافه شد.")
-            return redirect('admin_panel:footer_box_list')
-    else:
-        form = FooterLinkBoxForm()
-    return render(request, 'admin_panel/site/footer_box_form.html', {'form': form})
+    def form_valid(self, form):
+        messages.success(self.request, "دسته بندی لینک فوتر اضافه شد.")
+        return super().form_valid(form)
 
-@staff_member_required
-def footer_box_update(request, pk):
-    box = get_object_or_404(FooterLinkBox, pk=pk)
-    if request.method == 'POST':
-        form = FooterLinkBoxForm(request.POST, instance=box)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "دسته بندی لینک فوتر بروزرسانی شد.")
-            return redirect('admin_panel:footer_box_list')
-    else:
-        form = FooterLinkBoxForm(instance=box)
-    return render(request, 'admin_panel/site/footer_box_form.html', {'form': form, 'box': box})
+class FooterBoxUpdateView(StaffRequiredMixin, UpdateView):
+    model = FooterLinkBox
+    form_class = FooterLinkBoxForm
+    template_name = 'admin_panel/site/footer_box_form.html'
+    success_url = reverse_lazy('admin_panel:footer_box_list')
 
-@staff_member_required
-def footer_box_delete(request, pk):
-    box = get_object_or_404(FooterLinkBox, pk=pk)
-    if request.method == 'POST':
-        box.delete()
-        messages.success(request, "دسته بندی لینک فوتر حذف شد.")
-        return redirect('admin_panel:footer_box_list')
-    return render(request, 'admin_panel/site/footer_box_confirm_delete.html', {'box': box})
+    def form_valid(self, form):
+        messages.success(self.request, "دسته بندی لینک فوتر بروزرسانی شد.")
+        return super().form_valid(form)
 
-# ====== FooterLink ======
-@staff_member_required
-def footer_link_list(request):
-    links = FooterLink.objects.all()
-    return render(request, 'admin_panel/site/footer_link_list.html', {'links': links})
+class FooterBoxDeleteView(StaffRequiredMixin, DeleteView):
+    model = FooterLinkBox
+    template_name = 'admin_panel/site/footer_box_confirm_delete.html'
+    success_url = reverse_lazy('admin_panel:footer_box_list')
 
-@staff_member_required
-def footer_link_create(request):
-    if request.method == 'POST':
-        form = FooterLinkForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "لینک فوتر اضافه شد.")
-            return redirect('admin_panel:footer_link_list')
-    else:
-        form = FooterLinkForm()
-    return render(request, 'admin_panel/site/footer_link_form.html', {'form': form})
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "دسته بندی لینک فوتر حذف شد.")
+        return super().delete(request, *args, **kwargs)
 
-@staff_member_required
-def footer_link_update(request, pk):
-    link = get_object_or_404(FooterLink, pk=pk)
-    if request.method == 'POST':
-        form = FooterLinkForm(request.POST, instance=link)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "لینک فوتر بروزرسانی شد.")
-            return redirect('admin_panel:footer_link_list')
-    else:
-        form = FooterLinkForm(instance=link)
-    return render(request, 'admin_panel/site/footer_link_form.html', {'form': form, 'link': link})
+# ===== FooterLink =====
+class FooterLinkListView(StaffRequiredMixin, ListView):
+    model = FooterLink
+    template_name = 'admin_panel/site/footer_link_list.html'
+    context_object_name = 'links'
 
-@staff_member_required
-def footer_link_delete(request, pk):
-    link = get_object_or_404(FooterLink, pk=pk)
-    if request.method == 'POST':
-        link.delete()
-        messages.success(request, "لینک فوتر حذف شد.")
-        return redirect('admin_panel:footer_link_list')
-    return render(request, 'admin_panel/site/footer_link_confirm_delete.html', {'link': link})
+class FooterLinkCreateView(StaffRequiredMixin, CreateView):
+    model = FooterLink
+    form_class = FooterLinkForm
+    template_name = 'admin_panel/site/footer_link_form.html'
+    success_url = reverse_lazy('admin_panel:footer_link_list')
 
-# ====== Banner ======
-@staff_member_required
-def banner_list(request):
-    banners = Banner.objects.all()
-    return render(request, 'admin_panel/site/banner_list.html', {'banners': banners})
+    def form_valid(self, form):
+        messages.success(self.request, "لینک فوتر اضافه شد.")
+        return super().form_valid(form)
 
-@staff_member_required
-def banner_create(request):
-    if request.method == 'POST':
-        form = BannerForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "بنر اضافه شد.")
-            return redirect('admin_panel:banner_list')
-    else:
-        form = BannerForm()
-    return render(request, 'admin_panel/site/banner_form.html', {'form': form})
+class FooterLinkUpdateView(StaffRequiredMixin, UpdateView):
+    model = FooterLink
+    form_class = FooterLinkForm
+    template_name = 'admin_panel/site/footer_link_form.html'
+    success_url = reverse_lazy('admin_panel:footer_link_list')
 
-@staff_member_required
-def banner_update(request, pk):
-    banner = get_object_or_404(Banner, pk=pk)
-    if request.method == 'POST':
-        form = BannerForm(request.POST, request.FILES, instance=banner)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "بنر بروزرسانی شد.")
-            return redirect('admin_panel:banner_list')
-    else:
-        form = BannerForm(instance=banner)
-    return render(request, 'admin_panel/site/banner_form.html', {'form': form, 'banner': banner})
+    def form_valid(self, form):
+        messages.success(self.request, "لینک فوتر بروزرسانی شد.")
+        return super().form_valid(form)
 
-@staff_member_required
-def banner_delete(request, pk):
-    banner = get_object_or_404(Banner, pk=pk)
-    if request.method == 'POST':
-        banner.delete()
-        messages.success(request, "بنر حذف شد.")
-        return redirect('admin_panel:banner_list')
-    return render(request, 'admin_panel/site/banner_confirm_delete.html', {'banner': banner})
+class FooterLinkDeleteView(StaffRequiredMixin, DeleteView):
+    model = FooterLink
+    template_name = 'admin_panel/site/footer_link_confirm_delete.html'
+    success_url = reverse_lazy('admin_panel:footer_link_list')
 
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "لینک فوتر حذف شد.")
+        return super().delete(request, *args, **kwargs)
 
-# ====== DiscountCode ======
-@staff_member_required
-def discount_list(request):
-    codes = DiscountCode.objects.all()
-    return render(request, 'admin_panel/cart/discount_list.html', {'codes': codes})
+# ===== Banner =====
+class BannerListView(StaffRequiredMixin, ListView):
+    model = Banner
+    template_name = 'admin_panel/site/banner_list.html'
+    context_object_name = 'banners'
 
-@staff_member_required
-def discount_create(request):
-    if request.method == 'POST':
-        form = DiscountCodeForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "کد تخفیف اضافه شد.")
-            return redirect('admin_panel:discount_list')
-    else:
-        form = DiscountCodeForm()
-    return render(request, 'admin_panel/cart/discount_form.html', {'form': form})
+class BannerCreateView(StaffRequiredMixin, CreateView):
+    model = Banner
+    form_class = BannerForm
+    template_name = 'admin_panel/site/banner_form.html'
+    success_url = reverse_lazy('admin_panel:banner_list')
 
-@staff_member_required
-def discount_update(request, pk):
-    code = get_object_or_404(DiscountCode, pk=pk)
-    if request.method == 'POST':
-        form = DiscountCodeForm(request.POST, instance=code)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "کد تخفیف بروزرسانی شد.")
-            return redirect('admin_panel:discount_list')
-    else:
-        form = DiscountCodeForm(instance=code)
-    return render(request, 'admin_panel/cart/discount_form.html', {'form': form, 'code': code})
+    def form_valid(self, form):
+        messages.success(self.request, "بنر اضافه شد.")
+        return super().form_valid(form)
 
-@staff_member_required
-def discount_delete(request, pk):
-    code = get_object_or_404(DiscountCode, pk=pk)
-    if request.method == 'POST':
-        code.delete()
-        messages.success(request, "کد تخفیف حذف شد.")
-        return redirect('admin_panel:discount_list')
-    return render(request, 'admin_panel/cart/discount_confirm_delete.html', {'code': code})
+class BannerUpdateView(StaffRequiredMixin, UpdateView):
+    model = Banner
+    form_class = BannerForm
+    template_name = 'admin_panel/site/banner_form.html'
+    success_url = reverse_lazy('admin_panel:banner_list')
 
-# ====== Orders ======
-@staff_member_required
-def order_list(request):
-    orders = Order.objects.all().order_by('-id')
-    return render(request, 'admin_panel/cart/order_list.html', {'orders': orders})
+    def form_valid(self, form):
+        messages.success(self.request, "بنر بروزرسانی شد.")
+        return super().form_valid(form)
 
-@staff_member_required
-def order_detail(request, pk):
-    order = get_object_or_404(Order, pk=pk)
-    return render(request, 'admin_panel/cart/order_detail.html', {'order': order})
+class BannerDeleteView(StaffRequiredMixin, DeleteView):
+    model = Banner
+    template_name = 'admin_panel/site/banner_confirm_delete.html'
+    success_url = reverse_lazy('admin_panel:banner_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "بنر حذف شد.")
+        return super().delete(request, *args, **kwargs)
+
+# ===== DiscountCode =====
+class DiscountListView(StaffRequiredMixin, ListView):
+    model = DiscountCode
+    template_name = 'admin_panel/cart/discount_list.html'
+    context_object_name = 'codes'
+
+class DiscountCreateView(StaffRequiredMixin, CreateView):
+    model = DiscountCode
+    form_class = DiscountCodeForm
+    template_name = 'admin_panel/cart/discount_form.html'
+    success_url = reverse_lazy('admin_panel:discount_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "کد تخفیف اضافه شد.")
+        return super().form_valid(form)
+
+class DiscountUpdateView(StaffRequiredMixin, UpdateView):
+    model = DiscountCode
+    form_class = DiscountCodeForm
+    template_name = 'admin_panel/cart/discount_form.html'
+    success_url = reverse_lazy('admin_panel:discount_list')
+
+    def form_valid(self, form):
+        messages.success(self.request, "کد تخفیف بروزرسانی شد.")
+        return super().form_valid(form)
+
+class DiscountDeleteView(StaffRequiredMixin, DeleteView):
+    model = DiscountCode
+    template_name = 'admin_panel/cart/discount_confirm_delete.html'
+    success_url = reverse_lazy('admin_panel:discount_list')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, "کد تخفیف حذف شد.")
+        return super().delete(request, *args, **kwargs)
+
+# ===== Order =====
+class OrderListView(StaffRequiredMixin, ListView):
+    model = Order
+    template_name = 'admin_panel/cart/order_list.html'
+    context_object_name = 'orders'
+    ordering = ['-id']
+
+class OrderDetailView(StaffRequiredMixin, DetailView):
+    model = Order
+    template_name = 'admin_panel/cart/order_detail.html'
+    context_object_name = 'order'

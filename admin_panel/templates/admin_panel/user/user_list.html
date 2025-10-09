@@ -1,0 +1,50 @@
+{% extends "admin_panel/admin_panel_base.html" %}
+
+{% block page_title %}
+لیست کاربران
+{% endblock page_title %}
+
+{% block content %}
+<div class="table-wrapper">
+    <div class="table-header">
+        <h2 class="page-title"> لیست کاربران </h2>
+        <a href="{% url 'admin_panel:user_create' %}" class="btn-add">+ افزودن کاربر جدید</a>
+    </div>
+
+    <div class="table-container">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام کامل</th>
+                    <th>ایمیل</th>
+                    <th>تاریخ ایجاد</th>
+                    <th>فعال</th>
+                    <th>عملیات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ user.get_full_name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.date_joined|date:"Y-m-d H:i" }}</td>
+                    <td>{{ user.is_active|yesno:"بلی,خیر" }}</td>
+                    <td>
+                        <a href="{% url 'admin_panel:user_update' user.id %}" class="btn-edit">ویرایش</a>
+                        <a href="{% url 'admin_panel:user_delete' user.id %}"class="btn-delete">حذف</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center">کاربری وجود ندارد</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content %}
+
+
