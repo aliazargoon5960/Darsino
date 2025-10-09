@@ -49,6 +49,28 @@ def course_create(request):
         form = CourseForm()
     return render(request, 'admin_panel/course/course_form.html', {'form': form})
 
+@staff_member_required
+def course_update(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    if request.method == 'POST':
+        form = CourseForm(request.POST, request.FILES, instance=course)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "دوره با موفقیت بروزرسانی شد.")
+            return redirect('admin_panel:course_list')
+    else:
+        form = CourseForm(instance=course)
+    return render(request, 'admin_panel/course/course_form.html', {'form': form, 'course': course})
+
+@staff_member_required
+def course_delete(request, pk):
+    course = get_object_or_404(Course, pk=pk)
+    if request.method == 'POST':
+        course.delete()
+        messages.success(request, "دوره با موفقیت حذف شد.")
+        return redirect('admin_panel:course_list')
+    return render(request, 'admin_panel/course/course_confirm_delete.html', {'course': course})
+
 # teacher
 @staff_member_required
 def teacher_list(request):
@@ -129,29 +151,6 @@ def category_delete(request, pk):
         return redirect('admin_panel:category_list')
     return render(request, 'admin_panel/course/category_confirm_delete.html', {'category': category})
 
-
-
-@staff_member_required
-def course_update(request, pk):
-    course = get_object_or_404(Course, pk=pk)
-    if request.method == 'POST':
-        form = CourseForm(request.POST, request.FILES, instance=course)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "دوره با موفقیت بروزرسانی شد.")
-            return redirect('admin_panel:course_list')
-    else:
-        form = CourseForm(instance=course)
-    return render(request, 'admin_panel/course/course_form.html', {'form': form, 'course': course})
-
-@staff_member_required
-def course_delete(request, pk):
-    course = get_object_or_404(Course, pk=pk)
-    if request.method == 'POST':
-        course.delete()
-        messages.success(request, "دوره با موفقیت حذف شد.")
-        return redirect('admin_panel:course_list')
-    return render(request, 'admin_panel/course/course_confirm_delete.html', {'course': course})
 
 
 
