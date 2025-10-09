@@ -1,53 +1,85 @@
 from django.urls import path
 from . import views
 
-
 app_name = 'admin_panel'
+
 urlpatterns = [
-    path('' , views.index, name='index'),
-    path('courses/', views.course_list, name='course_list'),
-    path('courses/create/', views.course_create, name='course_create'),
-    path('courses/<int:pk>/update/', views.course_update, name='course_update'),
-    path('courses/<int:pk>/delete/', views.course_delete, name='course_delete'),
-    path('teachers/', views.teacher_list, name='teacher_list'),
-    path('teachers/create/', views.teacher_create, name='teacher_create'),
-    path('teachers/<int:pk>/update/', views.teacher_update, name='teacher_update'),
-    path('teachers/<int:pk>/delete/', views.teacher_delete, name='teacher_delete'),
-    path('categories/', views.category_list, name='category_list'),
-    path('categories/create/', views.category_create, name='category_create'),
-    path('categories/<int:pk>/update/', views.category_update, name='category_update'),
-    path('categories/<int:pk>/delete/', views.category_delete, name='category_delete'),
-    path('articles/', views.article_list, name='article_list'),
-    path('articles/create/', views.article_create, name='article_create'),
-    path('articles/<int:pk>/update/', views.article_update, name='article_update'),
-    path('articles/<int:pk>/delete/', views.article_delete, name='article_delete'),
-    path('authors/', views.author_list, name='author_list'),
-    path('authors/create/', views.author_create, name='author_create'),
-    path('authors/<int:pk>/update/', views.author_update, name='author_update'),
-    path('authors/<int:pk>/delete/', views.author_delete, name='author_delete'),
-    path('contacts/', views.contact_list, name='contact_list'),
-    path('contacts/<int:pk>/', views.contact_detail, name='contact_detail'),
-    path('tickets/', views.ticket_list, name='ticket_list'),
-    path('tickets/<int:pk>/', views.ticket_detail, name='ticket_detail'),
-    path('site-settings/', views.site_setting_list, name='site_setting_list'),
-    path('site-settings/create/', views.site_setting_create, name='site_setting_create'),
-    path('site-settings/update/<int:pk>/', views.site_setting_update, name='site_setting_update'),
-    path('footer-boxes/', views.footer_box_list, name='footer_box_list'),
-    path('footer-boxes/create/', views.footer_box_create, name='footer_box_create'),
-    path('footer-boxes/update/<int:pk>/', views.footer_box_update, name='footer_box_update'),
-    path('footer-boxes/delete/<int:pk>/', views.footer_box_delete, name='footer_box_delete'),
-    path('footer-links/', views.footer_link_list, name='footer_link_list'),
-    path('footer-links/create/', views.footer_link_create, name='footer_link_create'),
-    path('footer-links/update/<int:pk>/', views.footer_link_update, name='footer_link_update'),
-    path('footer-links/delete/<int:pk>/', views.footer_link_delete, name='footer_link_delete'),
-    path('banners/', views.banner_list, name='banner_list'),
-    path('banners/create/', views.banner_create, name='banner_create'),
-    path('banners/update/<int:pk>/', views.banner_update, name='banner_update'),
-    path('banners/delete/<int:pk>/', views.banner_delete, name='banner_delete'),
-    path('discount/', views.discount_list, name='discount_list'),
-    path('discount/add/', views.discount_create, name='discount_create'),
-    path('discount/<int:pk>/edit/', views.discount_update, name='discount_update'),
-    path('discount/<int:pk>/delete/', views.discount_delete, name='discount_delete'),
-    path('orders/', views.order_list, name='order_list'),
-    path('orders/<int:pk>/', views.order_detail, name='order_detail'),
+    path('', views.DashboardView.as_view(), name='index'),
+
+    # Users
+    path('users/', views.UserListView.as_view(), name='user_list'),
+    path('users/create/', views.UserCreateView.as_view(), name='user_create'),
+    path('users/<int:pk>/update/', views.UserUpdateView.as_view(), name='user_update'),
+    path('users/<int:pk>/delete/', views.UserDeleteView.as_view(), name='user_delete'),
+
+    # Courses
+    path('courses/', views.CourseListView.as_view(), name='course_list'),
+    path('courses/create/', views.CourseCreateView.as_view(), name='course_create'),
+    path('courses/<int:pk>/update/', views.CourseUpdateView.as_view(), name='course_update'),
+    path('courses/<int:pk>/delete/', views.CourseDeleteView.as_view(), name='course_delete'),
+
+    # Teachers
+    path('teachers/', views.TeacherListView.as_view(), name='teacher_list'),
+    path('teachers/create/', views.TeacherCreateView.as_view(), name='teacher_create'),
+    path('teachers/<int:pk>/update/', views.TeacherUpdateView.as_view(), name='teacher_update'),
+    path('teachers/<int:pk>/delete/', views.TeacherDeleteView.as_view(), name='teacher_delete'),
+
+    # Categories
+    path('categories/', views.CategoryListView.as_view(), name='category_list'),
+    path('categories/create/', views.CategoryCreateView.as_view(), name='category_create'),
+    path('categories/<int:pk>/update/', views.CategoryUpdateView.as_view(), name='category_update'),
+    path('categories/<int:pk>/delete/', views.CategoryDeleteView.as_view(), name='category_delete'),
+
+    # Articles
+    path('articles/', views.ArticleListView.as_view(), name='article_list'),
+    path('articles/create/', views.ArticleCreateView.as_view(), name='article_create'),
+    path('articles/<int:pk>/update/', views.ArticleUpdateView.as_view(), name='article_update'),
+    path('articles/<int:pk>/delete/', views.ArticleDeleteView.as_view(), name='article_delete'),
+
+    # Authors
+    path('authors/', views.AuthorListView.as_view(), name='author_list'),
+    path('authors/create/', views.AuthorCreateView.as_view(), name='author_create'),
+    path('authors/<int:pk>/update/', views.AuthorUpdateView.as_view(), name='author_update'),
+    path('authors/<int:pk>/delete/', views.AuthorDeleteView.as_view(), name='author_delete'),
+
+    # Messages
+    path('contacts/', views.ContactListView.as_view(), name='contact_list'),
+    path('contacts/<int:pk>/', views.ContactDetailView.as_view(), name='contact_detail'),
+
+    # Tickets
+    path('tickets/', views.TicketListView.as_view(), name='ticket_list'),
+    path('tickets/<int:pk>/', views.TicketDetailView.as_view(), name='ticket_detail'),
+
+    # Site Settings
+    path('site-settings/', views.SiteSettingListView.as_view(), name='site_setting_list'),
+    path('site-settings/create/', views.SiteSettingCreateView.as_view(), name='site_setting_create'),
+    path('site-settings/update/<int:pk>/', views.SiteSettingUpdateView.as_view(), name='site_setting_update'),
+
+    # Footer Boxes
+    path('footer-boxes/', views.FooterBoxListView.as_view(), name='footer_box_list'),
+    path('footer-boxes/create/', views.FooterBoxCreateView.as_view(), name='footer_box_create'),
+    path('footer-boxes/update/<int:pk>/', views.FooterBoxUpdateView.as_view(), name='footer_box_update'),
+    path('footer-boxes/delete/<int:pk>/', views.FooterBoxDeleteView.as_view(), name='footer_box_delete'),
+
+    # Footer Links
+    path('footer-links/', views.FooterLinkListView.as_view(), name='footer_link_list'),
+    path('footer-links/create/', views.FooterLinkCreateView.as_view(), name='footer_link_create'),
+    path('footer-links/update/<int:pk>/', views.FooterLinkUpdateView.as_view(), name='footer_link_update'),
+    path('footer-links/delete/<int:pk>/', views.FooterLinkDeleteView.as_view(), name='footer_link_delete'),
+
+    # Banners
+    path('banners/', views.BannerListView.as_view(), name='banner_list'),
+    path('banners/create/', views.BannerCreateView.as_view(), name='banner_create'),
+    path('banners/update/<int:pk>/', views.BannerUpdateView.as_view(), name='banner_update'),
+    path('banners/delete/<int:pk>/', views.BannerDeleteView.as_view(), name='banner_delete'),
+
+    # Discount Codes
+    path('discount/', views.DiscountListView.as_view(), name='discount_list'),
+    path('discount/add/', views.DiscountCreateView.as_view(), name='discount_create'),
+    path('discount/<int:pk>/edit/', views.DiscountUpdateView.as_view(), name='discount_update'),
+    path('discount/<int:pk>/delete/', views.DiscountDeleteView.as_view(), name='discount_delete'),
+
+    # Orders
+    path('orders/', views.OrderListView.as_view(), name='order_list'),
+    path('orders/<int:pk>/', views.OrderDetailView.as_view(), name='order_detail'),
 ]
