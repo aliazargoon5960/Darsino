@@ -38,14 +38,14 @@ class DashboardView(StaffRequiredMixin, TemplateView):
 
 # ===== Users  =====
 
-class UserListView(ListView):
+class UserListView(StaffRequiredMixin,ListView):
     model = User
     template_name = 'admin_panel/user/user_list.html'
     context_object_name = 'users'
     ordering = ['id']
 
 
-class UserCreateView(CreateView):
+class UserCreateView(StaffRequiredMixin,CreateView):
     model = User
     form_class = UserForm
     template_name = 'admin_panel/user/user_form.html'
@@ -56,7 +56,7 @@ class UserCreateView(CreateView):
         return super().form_valid(form)
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(StaffRequiredMixin,UpdateView):
     model = User
     form_class = UserForm
     template_name = 'admin_panel/user/user_form.html'
@@ -70,7 +70,7 @@ class UserUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class UserDeleteView(DeleteView):
+class UserDeleteView(StaffRequiredMixin,DeleteView):
     model = User
     template_name = 'admin_panel/user/user_confirm_delete.html'
     success_url = reverse_lazy('admin_panel:user_list')
