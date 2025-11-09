@@ -1,24 +1,19 @@
 from pathlib import Path
 import os
+import dj_database_url  # برای سازگاری دیتابیس با Render
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# -------------------
+# SECURITY SETTINGS
+# -------------------
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-7o=v4oj&p%w(2d&ha+-s4z1(^)mgovl1ex9m!b8b4s_&2xxt3z")
+DEBUG = os.environ.get("DEBUG", "True") == "True"
+ALLOWED_HOSTS = ["*"]
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-7o=v4oj&p%w(2d&ha+-s4z1(^)mgovl1ex9m!b8b4s_&2xxt3z'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-
-
-# Application definition
-
+# -------------------
+# INSTALLED APPS
+# -------------------
 INSTALLED_APPS = [
     'admin_persian',
     'django.contrib.admin',
@@ -28,7 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    #my app
+    # my apps
     'account_module',
     'home_module',
     'contact_module',
@@ -40,13 +35,17 @@ INSTALLED_APPS = [
     'tickets_module',
     'admin_panel',
 
+    # 3rd party
     'widget_tweaks',
     'django_cleanup.apps.CleanupConfig',
     'django.contrib.humanize',
     'cloudinary',
-    'cloudinary_storage'
+    'cloudinary_storage',
 ]
 
+# -------------------
+# MIDDLEWARE
+# -------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -57,20 +56,24 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 ROOT_URLCONF = 'Darsino.urls'
 
+# -------------------
+# TEMPLATES
+# -------------------
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'context_processors.context_processors.site_footer'
+                'context_processors.context_processors.site_footer',
             ],
         },
     },
@@ -78,83 +81,58 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Darsino.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
+# -------------------
+# DATABASE
+# -------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'Darsino.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'Darsino.sqlite3'}",
+        conn_max_age=600
+    )
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
+# -------------------
+# PASSWORD VALIDATION
+# -------------------
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
+# -------------------
+# INTERNATIONALIZATION
+# -------------------
 LANGUAGE_CODE = 'fa-ir'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
+# -------------------
+# STATIC & MEDIA FILES
+# -------------------
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# 🔹 از Cloudinary برای مدیا استفاده می‌کنیم، پس نیازی به MEDIA_ROOT نیست
 MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # 👈 این خط جدید اضافه شد
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-LOGIN_URL = '/account/login'
-
-
-APPEND_SLASH = True
-
-AUTH_USER_MODEL = 'account_module.User'
-
-
-
+# -------------------
+# CLOUDINARY CONFIG
+# -------------------
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': "devswomrd",
     'API_KEY': "799598748177243",
-    'API_SECRET': "6g4cn9wCbsb4qaswk5OzW_lHKxg"
+    'API_SECRET': "6g4cn9wCbsb4qaswk5OzW_lHKxg",
 }
-
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# -------------------
+# OTHER SETTINGS
+# -------------------
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = '/account/login'
+APPEND_SLASH = True
+AUTH_USER_MODEL = 'account_module.User'
