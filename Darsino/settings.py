@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_cleanup.apps.CleanupConfig',
     'django.contrib.humanize',
-    'cloudinary',
-    'cloudinary_storage'
 ]
 
 MIDDLEWARE = [
@@ -124,17 +122,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
-
+STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # 👈 این خط جدید اضافه شد
-
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-
+MEDIA_ROOT = os.path.join(BASE_DIR , "media")
 
 
 # Default primary key field type
@@ -151,10 +144,10 @@ AUTH_USER_MODEL = 'account_module.User'
 
 
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': "devswomrd",
-    'API_KEY': "799598748177243",
-    'API_SECRET': "6g4cn9wCbsb4qaswk5OzW_lHKxg"
-}
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': "devswomrd",
+#     'API_KEY': "799598748177243",
+#     'API_SECRET': "6g4cn9wCbsb4qaswk5OzW_lHKxg"
+# }
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
