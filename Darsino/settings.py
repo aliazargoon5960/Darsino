@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-7o=v4oj&p%w(2d&ha+-s4z1(^)mgovl1ex9m!b8b4s_&2xxt3z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -47,7 +47,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,8 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-ROOT_URLCONF = 'Darsino.urls'
+
 
 TEMPLATES = [
     {
@@ -124,9 +122,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR , "static")]
 MEDIA_ROOT = os.path.join(BASE_DIR , "media")
 
 
@@ -144,10 +140,3 @@ AUTH_USER_MODEL = 'account_module.User'
 
 
 
-# CLOUDINARY_STORAGE = {
-#     'CLOUD_NAME': "devswomrd",
-#     'API_KEY': "799598748177243",
-#     'API_SECRET': "6g4cn9wCbsb4qaswk5OzW_lHKxg"
-# }
-
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
