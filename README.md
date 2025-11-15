@@ -36,20 +36,6 @@
 
   <hr style="border:none; border-top:1px solid #e1e4e8; margin:20px 0;">
 
-  <h2 style="font-size:20px;">📂 ساختار پیشنهادی پوشه‌ها</h2>
-  <pre style="background:#f6f8fa; padding:12px; border-radius:6px; overflow:auto;">
-Darsino/
-│
-├── Darsino/            # تنظیمات پروژه (settings.py, urls.py, wsgi/asgi)
-├── accounts/           # اپ مربوط به کاربران (auth)
-├── courses/            # اپ مربوط به دوره‌ها/پکیج‌ها
-├── static/             # فایل‌های استاتیک (css/js/images)
-├── templates/          # قالب‌های HTML
-└── assets/             # تصاویر و اسکرین‌شات‌ها
-  </pre>
-
-  <hr style="border:none; border-top:1px solid #e1e4e8; margin:20px 0;">
-
   <h2 style="font-size:20px;">⚙️ نصب و اجرا (Local)</h2>
 
   <h3 style="margin-bottom:6px;">1. کلون کردن مخزن</h3>
@@ -76,23 +62,6 @@ python manage.py runserver</pre>
 
   <hr style="border:none; border-top:1px solid #e1e4e8; margin:20px 0;">
 
-  <h2 style="font-size:20px;">🔧 نکات توسعه</h2>
-  <ul>
-    <li>تنظیمات حساس مانند <code>SECRET_KEY</code> و تنظیمات دیتابیس را در فایل .env نگه دارید.</li>
-    <li>در محیط تولید از سرورهای WSGI/ASGI (مثل Gunicorn + Nginx) استفاده کنید.</li>
-    <li>استفاده از <code>collectstatic</code> برای مدیریت فایل‌های استاتیک در تولید.</li>
-  </ul>
-
-  <hr style="border:none; border-top:1px solid #e1e4e8; margin:20px 0;">
-
   <h2 style="font-size:20px;">🧑‍💻 توسعه‌دهنده</h2>
-  <p><strong>علی زارعگون</strong> · <a href="https://github.com/aliazargoon5960" target="_blank">GitHub</a></p>
-
-  <hr style="border:none; border-top:1px solid #e1e4e8; margin:20px 0;">
-
-  <h2 style="font-size:20px;">📄 لایسنس</h2>
-  <p>این پروژه تحت مجوز <strong>MIT</strong> منتشر شده است. برای اطلاعات بیشتر به فایل <code>LICENSE</code> مراجعه کنید.</p>
-
-  <p style="color:#888; font-size:12px; margin-top:18px;">(برای شخصی‌سازی: متن‌های داخل <code>code</code> و مسیر تصویر را مطابق پروژه خود تغییر دهید.)</p>
-
+  <p><strong>  علی اصغر آذرگون </strong> · <a href="https://github.com/aliazargoon5960" target="_blank">GitHub</a></p>
 </div>
