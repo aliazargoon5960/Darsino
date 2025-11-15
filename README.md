@@ -13,7 +13,6 @@
   <h2 style="font-size:20px; margin-bottom:6px;">📸 دموی پروژه</h2>
   <div style="text-align:center; margin:12px 0;">
     <img src="Darsino.png" alt="دموی درسینو" style="max-width:100%; border:1px solid #e6e6e6; border-radius:6px; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
-    <p style="color:#666; font-size:13px; margin-top:8px;">(تصویر را در مسیر پروژه قرار دهید — مثلا <code>assets/home.png</code>)</p>
   </div>
 
   <hr style="border:none; border-top:1px solid #e1e4e8; margin:20px 0;">
