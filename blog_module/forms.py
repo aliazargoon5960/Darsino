@@ -1,5 +1,6 @@
 from django import forms
 from .models import Article
+from .models import Author
 
 class ArticleForm(forms.ModelForm):
     class Meta:
@@ -12,8 +13,6 @@ class ArticleForm(forms.ModelForm):
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
-from django import forms
-from .models import Author
 
 class AuthorForm(forms.ModelForm):
     class Meta:

@@ -46,7 +46,7 @@ class OrderCreationView(LoginRequiredMixin, View):
         cart = Cart(request)
 
         if not cart.cart and not cart.total_price():
-            return redirect('cart_module:cart_detail')
+            return redirect('cart_module:cart_detial')
 
         order, created = Order.objects.get_or_create(
             user=request.user,
